@@ -60,8 +60,8 @@ public class UsersController {
 			if(user.getName() == null) {
 				user.setName(loginUser.getName());
 			}
-			if(user.getMobile() == null) {
-				user.setMobile(loginUser.getMobile());
+			if(user.getUrl() == null) {
+				user.setUrl(loginUser.getUrl());
 			}
 			
 			user.setEmail(email);

@@ -7,7 +7,7 @@
 <mapper namespace="net.my.mybatis.UserMapper">
    
     <insert id="insert" parameterType="User">
-        INSERT INTO member VALUES (#{email}, #{passwd}, #{name}, #{mobile})
+        INSERT INTO member VALUES (#{email}, #{passwd}, #{name}, #{url})
     </insert>
     
     <select id="login" resultType="User">
@@ -16,7 +16,7 @@
     </select>
     
     <update id="modify" parameterType="User">
-    	UPDATE member SET name = #{name}, mobile = #{mobile}
+    	UPDATE member SET name = #{name}, mobile = #{url}
     	WHERE email = #{email} AND passwd = #{passwd}
     </update>
     
@@ -29,3 +29,4 @@
     </delete>
  
 </mapper>
+

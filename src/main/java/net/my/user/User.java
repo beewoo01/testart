@@ -4,15 +4,15 @@ public class User {
 	 private String email;
 	 private String passwd;
 	 private String name;
-	 private String mobile;
+	 private String url;
+	
+	public User() {}
 	 
-	 public User() {}
-	 
-	 public User(String email, String passwd, String name, String mobile) {
+	 public User(String email, String passwd, String name, String url) {
 	        this.email = email;
 	        this.passwd = passwd;
 	        this.name = name;
-	        this.mobile = mobile;
+	        this.url = url;
 	    }
 	 
 	    public String getEmail() {
@@ -38,12 +38,14 @@ public class User {
 	    public void setName(String name) {
 	        this.name = name;
 	    }
+	    
+	    public String getUrl() {
+			return url;
+		}
+
+		public void setUrl(String url) {
+			this.url = url;
+		}
 	   
-	    public String getMobile() {
-	        return mobile;
-	    }
 	   
-	    public void setMobile(String mobile) {
-	        this.mobile = mobile;
-	    }
 }

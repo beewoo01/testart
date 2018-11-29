@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link href="https://fonts.googleapis.com/css?family=Nanum+Gothic" rel="stylesheet">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="Keywords" content="로그인" />
 <meta name="Description" content="로그인" />
@@ -48,6 +49,7 @@ function login() {
 	<div style="text-align: center;padding-bottom: 15px;">
 	    <input type="submit" value="확인" />
 	    <input type="button" value="회원가입" onclick="location.href='signUp'" />
+	    <a href="signUp.jsp"><p class="join" style="font-size: 12px">회원가입</p></a>
 	</div>
 	</form>
 <!--  본문 끝 -->

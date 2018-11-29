@@ -1,0 +1,152 @@
+@charset "utf-8";
+@font-face {
+    font-family: NanumSquareWeb;
+    src: local(NanumSquareR),/* 첫번째 */
+         local(NanumSquare),/* 두번째 */
+         url(NanumSquareR.eot?#iefix) format('embedded-opentype'),/* 세번째 */
+         url(NanumSquareR.woff) format('woff'),/* 네번째 */
+         url(NanumSquareR.ttf) format('truetype');/* 다섯번째 */
+    font-style: normal;
+    font-weight: normal;
+    unicode-range: U+0-10FFFF;
+  }
+/* CSS Document */
+
+
+.auth {
+	background:url("../images/gd.jpg");
+	background-attachment: fixed;
+	background-size: cover;
+	font-family: 'NanumSquareWeb';
+}
+#auth-wrapper {
+	margin: 100px auto;
+	background-color: #fff;
+	text-align: center;
+	width: 430px;
+	min-width: 430px;
+	border-radius: 10px;
+}
+#auth-header {
+	margin: 20px 0 10px;
+	text-align: center;
+}
+.logo {
+	display: inline-block;
+	background: url("../images/logo.png");
+	width: 116px;
+	height: 35px;
+	margin-top: 30px;
+	
+}
+#auth-body {
+	background-color: transparent;
+	padding: 30px 30px 30px;
+	margin-top: 30px;
+	border-radius: 5px;
+	width: 350px;
+	margin: 0 auto;
+}
+
+.biggroup {
+	background-color: transparent; 
+	padding: 0px;
+	width: 100%;
+	color: 777;
+}
+.form-group {
+	box-sizing: border-box;
+	display: block;
+	font-size: 14px;
+	margin: 0 auto;
+	margin-bottom: 15px;
+	align-content: center;
+	height: 3em;
+	line-height: 3em;
+	width: 350px;
+	min-width: 350px;
+	background: #fff;
+	border: 1px solid #555;
+}
+/*
+#form-email {
+	align-content: center;
+	height: 3em;
+	line-height: 3em;
+	width: 350px;
+	min-width: 350px;
+	background: #fff;
+	border: 1px solid #555;
+}
+#form-password {
+	align-content: center;
+	height: 3em;
+	line-height: 3em;
+	width: 350px;
+	min-width: 350px;
+	background: #fff;
+	border: 1px solid #555;
+}
+#form-confirm-password {
+	align-content: center;
+	height: 3em;
+	line-height: 3em;
+	width: 350px;
+	min-width: 350px;
+	background: #fff;
+	border: 1px solid #555;
+
+}
+#form-name {
+	align-content: center;
+	height: 3em;
+	line-height: 3em;
+	width: 350px;
+	min-width: 350px;
+	background: #fff;
+	border: 1px solid #555;
+}
+#form-url {
+	align-content: center;
+	height: 3em;
+	line-height: 3em;
+	width: 350px;
+	min-width: 350px;
+	background: #fff;
+	border: 1px solid #555;
+} */
+.url {
+	margin-right: 70%;
+	color: #999;
+	font-size: 16px;
+}
+.labeltext2 {
+	width: 350px;
+	min-width: 350px;
+	font-size: 14px;
+	margin-bottom: 15px;
+	
+}
+.btn {
+	display: inline-block;
+	font-size: 14px;
+	line-height: 1.5;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: middle;
+	cursor: pointer;
+	border-radius: 20px;
+	border: 1px solid #ffb72c;
+	background: #ffb72c;
+	color: #fff;
+	text-shadow: none;
+	width: 350px;
+	min-width: 350px;
+	height: 40px;
+	font-weight: 700;
+}
+.btn:hover {
+	background: #555;
+	border: 1px solid #555;
+}
+
