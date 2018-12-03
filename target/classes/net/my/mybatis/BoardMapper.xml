@@ -6,8 +6,8 @@
  
 <mapper namespace="net.my.mybatis.BoardMapper">
 
-	<select id="getArticleList" resultType="net.my.board.Notice">
-    	SELECT notice_no, title, follow_dt, hits from notice
+	<select id="getNoticeList" resultType="net.my.board.Notice">
+    	SELECT * from notice
     </select>
     <insert id="insert" parameterType="Notice">
         INSERT INTO notice (title, content)

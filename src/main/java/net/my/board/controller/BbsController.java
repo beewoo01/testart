@@ -21,9 +21,10 @@ public class BbsController {
 	@RequestMapping(value= "/list", method= {RequestMethod.GET, RequestMethod.POST})
 	public String list(String boar, Model model) throws Exception{
 		
-		ArrayList<Notice> list = boardService.getNoticeList();
-		System.out.println("코딩을 끝내러 왔다 2 : "+ list);
-		model.addAttribute("list", list);
+		//System.out.println("코딩을 끝내러 왔다 2 : "+ list);
+		
+		model.addAttribute("list", boardService.getNoticeList());
+		
 		
 		return "bbs/list";
 		

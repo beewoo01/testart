@@ -7,7 +7,7 @@ import net.my.board.Notice;
 
 public interface BoardMapper {
 	
-	public ArrayList<Notice> getArticleList();
+	public ArrayList<Notice> getNoticeList();
 	public int insert(Notice notice);
 	public void update (Notice notice);
 	public void delete(int noticeNo);

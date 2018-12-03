@@ -36,14 +36,15 @@
 		        <th style="width: 60px;">HIT</th>
 		    </tr>
 		    <!--  반복 구간 시작 -->
-		    <c:forEach var="notice" items="${list}" varStatus="status">  
+		    <c:forEach var="row" items="${list}" varStatus="status">  
 		    <tr>
-		        <td style="text-align: center;">${Notice.noticeNo }</td>
+		       
+		        <td style="text-align: center;">${row.notice_no}</td>
 		        <td>
-		            <a href="javascript:goView('${Notice.noticeNo }')">${Notice.ntitle }</a>
+		            <a href="javascript:goView('${row.notice_no}')">${row.title}</a>
 		        </td>
-		        <td style="text-align: center;">${Notice.date }</td>
-		        <td style="text-align: center;">${Notice.hits }</td>
+		        <td style="text-align: center;">${row.follow_dt}</td>
+		        <td style="text-align: center;">${row.hits}</td>
 		    </tr>
 		    </c:forEach>
 	    <!--  반복 구간 끝 -->

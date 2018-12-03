@@ -1,6 +1,7 @@
 package net.my.board;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,8 +31,8 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public ArrayList<Notice> getNoticeList() {
-		System.out.println("코딩을 끝내러 왔다 :" + Notice.ntitle);
-		return boardMapper.getArticleList();
+		
+		return boardMapper.getNoticeList();
 	}
 	
 	
