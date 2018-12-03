@@ -41,6 +41,7 @@ public class UsersController {
 			User loginUser = userService.login(email, passwd);
 			if(loginUser != null) {
 				session.setAttribute("check", loginUser);
+				System.out.println("ㅎ하하하하ㅏ하하하3123213213");
 				return "users/changePasswd";
 			}else {
 				return "users/login";

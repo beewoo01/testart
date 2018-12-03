@@ -11,12 +11,12 @@
     </insert>
     
     <select id="login" resultType="User">
-    	SELECT email, passwd, name, mobile FROM member
+    	SELECT email, passwd, name, url FROM member
     	WHERE email = #{email} AND passwd = #{passwd}
     </select>
     
     <update id="modify" parameterType="User">
-    	UPDATE member SET name = #{name}, mobile = #{url}
+    	UPDATE member SET name = #{name}, url = #{url}
     	WHERE email = #{email} AND passwd = #{passwd}
     </update>
     

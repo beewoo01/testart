@@ -7,7 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="Keywords" content="로그인" />
 <meta name="Description" content="로그인" />
-<link rel="stylesheet" href="../resources/css/screen.css" type="text/css" media="screen" />
+<link href="../resources/css/login.css" rel="stylesheet" type="text/css">
 <title>로그인</title>
 <script type="text/javascript">
 //<![CDATA[
@@ -19,16 +19,41 @@ function login() {
 //]]>
 </script>
 </head>
-<body>
-<div id="wrap">
- 
-    <div id="header">
+<body class= "auth">
+	<div id="auth-wrapper">
+ 		<header id="auth-header"><i class="logo"></i>
+ 		</header>
+ 		<section id="auth-body">
+	 		<form action="login" method="post" accept-charset="UTF-8" role="form" id="login-form" onsubmit="return login()">
+			<div class="biggroup">
+				<div id="form-email" class="form-group"> <!-- 이메일칸 -->
+					<input type="text" name="email" value id="email" class="form-control" maxlength="80" size="50" placeholder="이메일" style="border:none">
+						<div class="form-error"></div>
+				</div>
+				
+				<div id="form-password" class="form-group"> <!-- 비밀번호 -->
+					<input type="password" name="passwd" value id="password" class="form-control" maxlength="20" size="50" placeholder="비밀번호" style="border:none">
+						<div class="form-error"></div>
+				</div>
+				<input type="checkbox" name="remember" value="1" id="remember" style="margin: 0; padding: 0;">
+				<label for="remember">로그인상태 유지</label>
+			</div>
+				<button type="submit" name="login" class="btn">로그인</button>
+				<div class="form-group auth-sub">
+					<a href=""><p class="password" style="font-size: 12px">비밀번호를 잊으셨나요?</p></a>
+					<a href="signUp"><p class="join" style="font-size: 12px">회원가입</p></a>
+				</div>
+			</form>
+		</section>
+	</div>
+    <%-- <div id="header">
         <%@ include file="../inc/header.jsp" %>
     </div>
  
     <div id="main-menu">
         <%@ include file="../inc/main-menu.jsp" %>
     </div>
+    
  
     <div id="container">
         <div id="content" style="min-height: 800px;">
@@ -68,7 +93,7 @@ function login() {
         <%@ include file="../inc/footer.jsp" %>
     </div>
  
-</div>
+</div> --%>
 
 
 </body>

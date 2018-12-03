@@ -7,10 +7,12 @@
        
     <typeAliases>
         <typeAlias type="net.my.user.User" alias="User" />
+        <typeAlias type="net.my.board.Notice" alias="Notice"></typeAlias>
     </typeAliases>
  
     <mappers>
         <mapper resource="net/my/mybatis/UserMapper.xml" />
+        <mapper resource="net/my/mybatis/BoardMapper.xml" />
     </mappers>
  
 </configuration>

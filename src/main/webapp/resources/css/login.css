@@ -1,0 +1,102 @@
+@charset "utf-8";
+/* CSS Document */
+.auth {
+	background:url("../images/gd.jpg");
+	background-attachment: fixed;
+	background-size: cover;
+}
+#auth-wrapper {
+	margin: 100px auto;
+	width: 430px;
+	min-width: 430px;
+	background-color: #fff;
+	text-align: center;
+	height: 360px;
+	border-radius: 10px;
+}
+#auth-header {
+	margin: 20px 0 10px;
+	text-align: center;
+}
+.logo {
+	display: inline-block;
+	background: url("../images/logo.png");
+	width: 116px;
+	height: 35px;
+	margin-top: 30px;
+}
+.form-group {
+	box-sizing: border-box;
+	display: block;
+	font-size: 14px;
+	width: 60%;
+	margin: 0 auto;
+	margin-bottom: 15px;
+}
+#auth-body {
+	background-color: transparent;
+	padding: 30px 30px 30px;
+	margin-top: 30px;
+	border-radius: 5px;
+	width: 350px;
+	margin: 0 auto;
+}
+#form-email {
+	align-content: center;
+	height: 3em;
+	line-height: 3em;
+	width: 350px;
+	min-width: 350px;
+	background: #fff;
+	border: 1px solid #555;
+}
+#form-password {
+	align-content: center;
+	height: 3em;
+	line-height: 3em;
+	width: 350px;
+	min-width: 350px;
+	background: #fff;
+	border: 1px solid #555;
+}
+#remember {
+	display: inline-block;
+}
+label {
+	display: inline-block;
+	margin-bottom: 5px;
+	font-weight: bold;
+	margin-left: 0px;
+}
+.btn {
+	display: inline-block;
+	font-size: 14px;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: middle;
+	cursor: pointer;
+	border-radius: 20px;
+	border: 1px solid #ffb72c;
+	background: #ffb72c;
+	color: #fff;
+	text-shadow: none;
+	width: 350px;
+	min-width: 350px;
+	height: 40px;
+}
+.auth-sub {
+	padding-top: 15px;
+	width: 100%;
+	line-height: 1.5;
+}
+.password {
+	color: #555;
+	width: 130px;
+	display: inline-block
+}
+.join {
+	color: #555;
+	width: 50px;
+	margin-left: 160px;
+	display: inline-block;
+}

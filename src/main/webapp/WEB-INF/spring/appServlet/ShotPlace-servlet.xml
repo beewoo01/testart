@@ -31,6 +31,6 @@
 	</beans:bean>
 	
 	<context:component-scan base-package="net.my.user.controller" />
-	<context:component-scan base-package="net.my.user, net.my.user.controller"/>
+	<context:component-scan base-package="net.my.user, net.my.user.controller, net.my.board, net.my.board.controller"/>
 	
 </beans:beans>
