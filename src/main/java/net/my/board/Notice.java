@@ -10,6 +10,13 @@ public class Notice {
 	private String follow_dt;
 	private int hits;
 	
+	public static final String ENTER = System.getProperty("line.separator");
+	public String getHtmlContent() {
+		if(content!= null) {
+			return content.replaceAll(ENTER, "<br/>");
+		}
+		return null;
+	}
 	public int getNotice_no() {
 		System.out.println("코딩을 끝내러 왔다441 :" + notice_no);
 		return notice_no;

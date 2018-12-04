@@ -11,4 +11,6 @@ public interface BoardMapper {
 	public int insert(Notice notice);
 	public void update (Notice notice);
 	public void delete(int noticeNo);
+	public void increaseHit(int notice_no);
+	public Notice getNotice(int notice_no);
 }

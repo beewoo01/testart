@@ -34,6 +34,18 @@ public class BoardServiceImpl implements BoardService {
 		
 		return boardMapper.getNoticeList();
 	}
+
+	@Override
+	public void increaseHit(int notice_no) {
+		boardMapper.increaseHit(notice_no);
+	}
+
+	@Override
+	public Notice getNotice(int notice_no) {
+		return boardMapper.getNotice(notice_no);
+	}
+
+	
 	
 	
 }

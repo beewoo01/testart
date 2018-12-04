@@ -41,4 +41,15 @@ public class BbsController {
 		return "redirect:/bbs/list";
 	}
 	
+	@RequestMapping(value="view", method=RequestMethod.GET)
+	public String view(int notice_no, Model model) {
+		boardService.increaseHit(notice_no);
+		
+		Notice thisNotice = boardService.getNotice(notice_no);
+		
+		
+		model.addAttribute("thisNotice", thisNotice);
+		return "bbs/view";
+	}
+	
 }

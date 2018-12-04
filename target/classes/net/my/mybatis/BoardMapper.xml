@@ -13,6 +13,23 @@
         INSERT INTO notice (title, content)
         VALUES (#{title}, #{content})
     </insert>
+    
+    <update id="increaseHit" parameterType="int">
+    	UPDATE notice SET hits = hits + 1 WHERE notice_no = #{notice_no}
+    </update>
+    
+    <resultMap type="notice" id="NoticeClob">
+    	<result property="content" column="content" jdbcType="CLOB" javaType="java.lang.String"/>
+    </resultMap>
+    
+    <select id="getNotice" parameterType="int" resultMap="NoticeClob">
+    	SELECT notice_no, title, content, follow_dt, hits
+    	From notice
+    	WHERE notice_no = #{notice_no}
+    </select>
+    
+    
+    
  
     <update id="update" parameterType="Notice">
         UPDATE notice
