@@ -9,6 +9,28 @@
 <link rel="stylesheet" href="../resources/css/screen.css" type="text/css" media="screen" />
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
+<script type="text/javascript">
+//<![CDATA[
+	function goList(page) {
+		var form = document.getElementById("listForm");
+		form.curPage.value = page;
+		form.submit();
+	}
+	
+	function goWrite() {
+		var form = document.getElementById("writeForm");
+		form.submit();
+	}
+	
+	function goView(articleNo) {
+		var form = document.getElementById("viewForm");
+		form.articleNo.value = articleNo;
+		form.submit();
+		
+	}
+//]]>
+</script>  
 </head>
 <body>
 	<div id="wrap">
@@ -70,6 +92,25 @@
 	        <%@ include file="../inc/footer.jsp" %>
 	    </div>
 	 
+	</div>
+	<div id="form-group" style="display: none;">
+		<form id="viewForm" action="./view" method="get">
+			<p>
+				<input type="hidden" name="articleNo" />
+				<input type="hidden" name="boardCd" value="${boardCd }" />
+				<input type="hidden" name="curPage" value="${curPage }" />
+				<input type="hidden" name="searchWord" value="${param.searchWord }" />
+			</p>
+		</form>
+		
+		<div id="form-group" style="display: none;">
+ 
+		    <form id="writeForm" action="./write" method="get">
+		    </form>
+		</div>
+		
+		
+		
 	</div>
 </body>
 </html>

@@ -30,4 +30,15 @@ public class BbsController {
 		
 	}
 	
+	@RequestMapping(value="/write", method=RequestMethod.GET)
+	public String write() throws Exception{
+		return "bbs/writeform";
+	}
+	
+	@RequestMapping(value="/write", method=RequestMethod.POST)
+	public String write(Notice notice) {
+		boardService.insert(notice);
+		return "redirect:/bbs/list";
+	}
+	
 }
