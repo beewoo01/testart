@@ -43,6 +43,9 @@ public class Notice {
 	}
 	public String getFollow_dt() {
 		System.out.println("코딩을 끝내러 왔다441 :" + follow_dt);
+		String str = follow_dt;
+		int Redate = str.indexOf(" ");
+		follow_dt = str.substring(0, Redate);
 		return follow_dt;
 	}
 	public void setFollow_dt(String follow_dt) {

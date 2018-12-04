@@ -1,0 +1,98 @@
+@charset "utf-8";
+/* CSS Document */
+body {
+	background: #eee;
+}
+header {
+	background: #fff;
+}
+
+.container {
+	width: 100%;
+	margin-left: auto;
+	margin-right: auto;
+	padding-top: 100px;
+	padding-bottom: 20px;
+	text-align: center;
+	margin-bottom: 10%;
+}
+.picon {
+	display: inline-block;
+	background:url("../../../artpie/img/pie_icon.png");
+	width: 80px;
+	height: 64px;
+	margin: 15px;
+}
+.topic {
+	width: 40%;
+	background: #fff;
+	margin: auto;
+	height: 50px;
+}
+.notice_txt {
+	width: 40%;
+	height: 450px;
+	background: #fff;
+	margin: auto;
+	margin-top: 20px;
+}
+
+/**************************************************************Pagination***********************************************************/
+
+
+.btn {
+    display: inline-block;
+    padding: 10px;
+    border-radius: 5px;
+    color: #eee;
+    font-size: .875em;
+}
+
+.button {
+	float: right;
+	margin-right: 30%;
+}
+#modify {
+	display: inline-block;
+	font-size: 18px;
+	cursor: pointer;
+	border-radius: 10px;
+	border: none;
+	background: #ffb72c;
+	width: 80px;
+	height: 40px;
+	font-weight: 600;
+	margin-top: 20px;
+	vertical-align: middle;
+	margin-right: 20px;
+}
+#delete {
+	display: inline-block;
+	font-size: 18px;
+	cursor: pointer;
+	border-radius: 10px;
+	border: none;
+	background: #ffb72c;
+	text-shadow: none;
+	width: 80px;
+	height: 40px;
+	font-weight: 600;
+	vertical-align: middle;
+	margin-top: 20px;
+}
+#list {
+	display: inline-block;
+	font-size: 18px;
+	cursor: pointer;
+	border-radius: 10px;
+	border: none;
+	background: #ffb72c;
+	text-shadow: none;
+	width: 80px;
+	height: 40px;
+	font-weight: 600;
+	float: left;
+	margin-left: 30%;
+	vertical-align: middle;
+	margin-top: 20px;
+}

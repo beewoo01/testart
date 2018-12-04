@@ -6,8 +6,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="Keywords" content="게시판 상세보기" />
 <meta name="Description" content="게시판 상세보기" />
-<link rel="stylesheet" href="../resources/css/screen.css" type="text/css" media="screen" />
-<title>Insert title here</title>
+<!-- <link rel="stylesheet" href="../resources/css/screen.css" type="text/css" media="screen" /> -->
+<link href="../resources/css/notice_txt.css" type="text/css" rel="stylesheet">
+<title>아트파이 공지사항</title>
 <script type="text/javascript">
 //<![CDATA[
  
@@ -20,28 +21,38 @@
         var form = document.getElementById("viewForm");
         form.notice_no.value = notice_no;
         form.submit();
-       
     }
 //]]>
 </script>
 </head>
 <body>
 
-<div id="wrap">
+<!-- <div id="wrap"> -->
  
     <div id="header">
         <%@ include file="../inc/header.jsp" %>
     </div>
  
-    <div id="main-menu">
+    <%-- <div id="main-menu">
         <%@ include file="../inc/main-menu.jsp" %>
-    </div>
+    </div> --%>
  
-    <div id="container">
-        <div id="content" style="min-height: 800px;">
-            <div id="url-navi">BBS</div>
-            
-			<!-- 본문 시작 -->         
+<div id="auth-body">
+	<div class="container">
+        <!-- <div id="content" style="min-height: 800px;">
+            <div id="url-navi">BBS</div> -->
+ 		<i class="picon"></i>
+ 		<h1>NOTICE</h1>
+ 		<div class="topic"><p style="font-size:18px; float: left;">${thisNotice.title }</p></div>
+        <div class="notice_txt"><p style="text-align: left;">${thisNotice.htmlContent }</p></div>
+        <button type="submit" id="list" class="btn btn-orange" onclick="goList()">목록</button>
+        <div class="button">
+			<button type="submit" id="modify" class="btn btn-orange" onclick="goModify();">수정</button> 
+			<button type="submit" id="delete" class="btn btn-orange" onclick="goDelete()">삭제</button> 
+		</div>
+     </div>
+</div>
+			<%-- <!-- 본문 시작 -->         
 			<h1>${boardNm }</h1>
 			<div id="bbs">
 			    <table>
@@ -69,8 +80,11 @@
 			            <input type="button" value="새글쓰기" onclick="goWrite()" />
 			        </div>     
 			    </div>
+			</div> --%>
+	
+<!-- </div> -->
 			     
-			    <table>
+			    <%-- <table>
 			    <tr>
 			        <th style="width: 60px;">NO</th>
 			        <th>TITLE</th>
@@ -79,14 +93,14 @@
 			    </tr>
 			    <!--  반복 구간 시작 -->
 			    <c:forEach var="article" items="${list }" varStatus="status">  
-			    <tr>
-			        <td style="text-align: center;">${Notice.notice_no }</td>
-			        <td>
-			            <a href="javascript:goView('${Notice.notice_no }')">${Notice.title }</a>
-			        </td>
-			        <td style="text-align: center;">${Notice.follow_dt }</td>
-			        <td style="text-align: center;">${Notice.hits }</td>
-			    </tr>
+				    <tr>
+				        <td style="text-align: center;">${Notice.notice_no }</td>
+				        <td>
+				            <a href="javascript:goView('${Notice.notice_no }')">${Notice.title }</a>
+				        </td>
+				        <td style="text-align: center;">${Notice.follow_dt }</td>
+				        <td style="text-align: center;">${Notice.hits }</td>
+				    </tr>
 			    </c:forEach>
 			    <!--  반복 구간 끝 -->
 			    </table>
@@ -97,9 +111,9 @@
 			<!--  본문 끝 -->
 		 
 		</div><!-- content 끝 -->
-	</div><!--  container 끝 -->
+	</div><!--  container 끝 --> --%>
 		    
-		    <div id="sidebar">
+		    <%-- <div id="sidebar">
 		        <%@ include file="bbs-menu.jsp" %>
 		    </div>
 		   
@@ -111,7 +125,7 @@
 		        <%@ include file="../inc/footer.jsp" %>
 		    </div>
 		 
-		</div>
+		</div> --%>
 		 
 		<div id="form-group" style="display: none;">
 		 

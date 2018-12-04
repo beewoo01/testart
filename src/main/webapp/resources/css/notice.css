@@ -214,6 +214,10 @@ table thead th {
     background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#565b5f), to(#3e4347));
     background: -moz-linear-gradient(0% 0% 270deg,#565b5f, #3e4347);
 }
+
+.pnt{
+	cursor:pointer;
+}
 #btnSubmit {
 	display: inline-block;
 	font-size: 18px;
