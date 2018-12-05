@@ -6,19 +6,20 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="Keywords" content="메인페이지" />
 <meta name="Description" content="메인페이지" />
-<link rel="stylesheet" href="resources/css/screen.css" type="text/css" media="screen" />
+<!-- <link rel="stylesheet" href="resources/css/screen.css" type="text/css" media="screen" /> -->
 <title>Insert title here</title>
 </head>
 <body>
 <div id="wrap">
  
-    <div id="header">
+    <div id="header" >
         <%@ include file="./inc/header.jsp" %>
     </div>
+    
    
-    <div id="main-menu">
+    <%-- <div id="main-menu">
         <%@ include file="./inc/main-menu.jsp" %>
-    </div>
+    </div> --%>
  
     <div id="container">
  
@@ -33,7 +34,7 @@
  
     </div><!--  container 끝 -->
    
-    <div id="sidebar">
+    <%-- <div id="sidebar">
         <h1>Main</h1>
     </div>
    
@@ -43,7 +44,7 @@
  
     <div id="footer">
         <%@ include file="./inc/footer.jsp" %>
-    </div>
+    </div> --%>
  
 </div>
 </body>

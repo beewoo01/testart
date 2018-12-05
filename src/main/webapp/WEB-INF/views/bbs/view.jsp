@@ -22,6 +22,11 @@
         form.notice_no.value = notice_no;
         form.submit();
     }
+    
+    function goList(){
+    	var form = document.getElementById("listForm");
+    	form.submit();
+    }
 //]]>
 </script>
 </head>
@@ -129,11 +134,14 @@
 		 
 		<div id="form-group" style="display: none;">
 		 
+		 	<form id="listForm" action="./list" method="get">
+	    	</form>
 		    <form id="viewForm" action="./view" method="get">
 		    <p>
 		        <input type="hidden" name="notice_no" />
 		    </p>
 		    </form>
+		    
 		</div>
 
 </body>

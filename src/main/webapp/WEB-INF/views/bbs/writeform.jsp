@@ -66,9 +66,9 @@ function goList(){
 		</div>
 	</div>
 	
-	<div id="sidebar">
+	<%-- <div id="sidebar">
         <%@ include file="bbs-menu.jsp" %>
-    </div>
+    </div> --%>
    
     <div id="extra">
         <%@ include file="../inc/extra.jsp" %>
