@@ -3,6 +3,7 @@ package net.my.mybatis;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import net.my.board.Contact;
 import net.my.board.Notice;
 
 public interface BoardMapper {
@@ -13,4 +14,5 @@ public interface BoardMapper {
 	public void delete(int noticeNo);
 	public void increaseHit(int notice_no);
 	public Notice getNotice(int notice_no);
+	public int Cinsert(Contact contact);
 }

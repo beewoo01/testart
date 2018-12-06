@@ -1,0 +1,99 @@
+
+#header {border-bottom:1px solid #efefef; background-color: #fff;}
+#section { position: relative; clear:both; top:68px; height:auto;}
+
+/*******************************************************************************************************************************************************************/
+
+/*검색어*/
+.search_voca {width: 100%; height:100px; margin:0; padding:0; margin:auto; text-align: center;}
+
+.search_voca > h5 {display:inline-block; font-size: 24px; height:1em; line-height: 1em; color:#ed772d;}
+.search_voca > h5 > p {margin:0; padding:0; display:inline-block;}
+
+
+
+
+
+#css_tabs {text-align: center; }
+
+/* 탭 선택 시 표시할 요소(div) 정의(1번 탭 선택 시 첫 번째 div 요소 표시) */
+#css_tabs input:nth-of-type(1), #css_tabs input:nth-of-type(1) ~ div:nth-of-type(1),
+#css_tabs input:nth-of-type(2), #css_tabs input:nth-of-type(2) ~ div:nth-of-type(2),
+#css_tabs input:nth-of-type(3), #css_tabs input:nth-of-type(3) ~ div:nth-of-type(3) {
+    display:none
+}
+#css_tabs input:nth-of-type(1):checked ~ div:nth-of-type(1),
+#css_tabs input:nth-of-type(2):checked ~ div:nth-of-type(2),
+#css_tabs input:nth-of-type(3):checked ~ div:nth-of-type(3) {
+    display:block
+}
+
+/* 라벨 기본 스타일 지정 */
+#css_tabs > label {
+    display: inline-block; width: 200px; height: 2em; line-height: 2em; text-align: center;
+    font-size: 18px;  background-color: #d7d5d6; border-radius: 10px; cursor: pointer; margin-bottom:50px; 
+}
+#css_tabs > label:hover {
+    cursor:pointer
+}
+#css_tabs label[for=tab1] {
+    margin-right: 1em;
+}
+
+/* 선택된 라벨, 커서를 올린 라벨 스타일 지정 */
+#css_tabs input:nth-of-type(1):checked ~ label:nth-of-type(1), #css_tabs > label[for=tab1]:hover {
+    background-color: #ffb82c; color: #fff;
+}
+#css_tabs input:nth-of-type(2):checked ~ label:nth-of-type(2), #css_tabs > label[for=tab2]:hover {
+    background-color: #ffb82c; color: #fff;
+}
+
+/* 실제 내용이 담긴 div 요소 스타일 지정 */
+#css_tabs .tab1_content, #css_tabs .tab2_content, #css_tabs .tab3_content {
+    width:100%; height: auto;
+}
+
+
+
+
+
+/*사람검색*/
+
+.content0_searchuser_box { margin:0; padding:0; margin-bottom:10%; }
+.content0_searchuser_box .searchuser { width: 49%; height:auto; margin-right:2%; margin-bottom:2%; border:1px solid #efefef; box-sizing: border-box; }
+    .content0_searchuser_box > li {float:left;}
+    .content0_searchuser_box > li:nth-child(2n+0) { margin-right:0; float:right;}
+    .content0_searchuser_box li a {color:#000; text-decoration: none;}
+    .content0_searchuser_box li a:hover {color:rgba(0,0,0,0.75);}
+    .content0_searchuser_box li a:active {color:rgba(0,0,0,0.75);}
+
+
+.searchuser .searchuser_profile {display: inline-block; width: 100%; height:136px; border:none; box-sizing: border-box; clear:both; }
+    .searchuser_profile_photo {float:left; width:95px; height: 95px; padding:1.5em; background-color: none; border-radius: 50px; overflow: hidden;
+                                background-image: url(../../img/user_profile.png); background-repeat: no-repeat; background-position: 50% 50%; background-size: 95px; }
+    .searchuser_profile_photo > img {width: 100%; height:100%; border-radius: 50px; display:block;}
+
+
+    .searchuser_profile_username {float:left; width:calc(15% - 1.5em); padding-top:1.5em; padding-bottom:1.5em; border:none; box-sizing: border-box;}
+        .searchuser_profile_username > span {font-size:18px; font-weight: bold;}
+        .searchuser_profile_username > ul {margin:0; padding:0; }
+        .searchuser_profile_username > ul > li {}
+        .searchuser_profile_username > ul > li > span img {width:20px; position: relative; top:5px; padding-right:10px; }
+
+
+    .searchuser_profile_info {float:right; width:calc(85% - 100px - 1.5em); height:136px; margin-top:3.3em; padding-right:1.5em;
+                                border:none; box-sizing: border-box;
+                                /*white-space: nowrap;*/ overflow: hidden; text-align: left; text-overflow: ellipsis;  
+                                display: -webkit-box;
+                                -webkit-line-clamp: 3; /* 라인수 */
+                                -webkit-box-orient: vertical;
+                                word-wrap:break-word; 
+                                line-height: 1.75em; height:5.25em;
+                                }
+
+
+
+.searchuser .searchuser_thumnail { width: 100%; height:60%; clear:both; }
+    .searchuser .searchuser_thumnail > ul {margin:0; padding:0; }
+    .searchuser .searchuser_thumnail > ul > li {width: 33.33%; height:0; padding-bottom:25%; float:left; overflow-y:hidden;}
+    .searchuser .searchuser_thumnail > ul > li > img {width:100%; display: block;}

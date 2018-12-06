@@ -45,6 +45,11 @@ public class BoardServiceImpl implements BoardService {
 		return boardMapper.getNotice(notice_no);
 	}
 
+	@Override
+	public int Cinsert(Contact contact) {
+		return boardMapper.Cinsert(contact);
+	}
+
 	
 	
 	

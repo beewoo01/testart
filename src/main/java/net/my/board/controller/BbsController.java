@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import net.my.board.BoardService;
+import net.my.board.Contact;
 import net.my.board.Notice;
 
 @Controller
@@ -50,6 +51,17 @@ public class BbsController {
 		
 		model.addAttribute("thisNotice", thisNotice);
 		return "bbs/view";
+	}
+	
+	@RequestMapping(value="/contact", method=RequestMethod.GET)
+	public String contact() throws Exception {
+		return "bbs/contact";
+	}
+	
+	@RequestMapping(value="/contact", method=RequestMethod.POST)
+	public String contact(Contact contact) throws Exception {
+		boardService.Cinsert(contact);
+		return "bbs/contact";
 	}
 	
 }

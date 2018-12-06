@@ -1,0 +1,68 @@
+#header {background-color: #fff;}
+.sub_navi_list {width:100%; background-color: #ffb72c; position: fixed; z-index:99999; margin-top:68px; box-sizing:border-box; }
+.sub_navi_list .list_select {right:35px;}
+
+/*추천서포트 슬라이드*/
+#section05 {clear: both; padding-top:97px; }
+#section05 h2 {position:relative; top:38px; padding-left:150px; font-size: 24px;text-align: left; }
+#s_banner_wrap {width:calc(100% - 400px);}
+#s_banner_wrap .bxslider {margin:0; padding:0; margin:auto; }
+#s_banner_wrap .bxslider > div {height:340px; width:100%; }
+#s_banner_wrap .bxslider > div > ul {width: 100%; text-align: center;  width:49%;margin-bottom:100px; display:inline-block;}
+#s_banner_wrap .bxslider > div > ul > li:first-child {height:0; padding-bottom:250px; background-color: #efefef;overflow: hidden;}
+#s_banner_wrap .bxslider > div > ul > li:first-child > img {width: 100%;display: block;}
+#s_banner_wrap .bxslider > div > ul > li:last-child > h5 {font-size: 20px; margin-top:1em; margin-bottom: 0;}
+#s_banner_wrap .bxslider > div > ul > li:last-child > p {font-size: 14px; margin-bottom: 1em; }
+
+#s_banner_wrap .bxslider > div > .bxslider_left {}
+#s_banner_wrap .bxslider > div > .bxslider_right {float:right;}
+
+/* DIRECTION CONTROLS (NEXT / PREV) 방향버튼*/
+.bx-wrapper .bx-prev {left: -70px; background: url(../../../img/btn_left_bl.png) no-repeat 0 0;}
+.bx-wrapper .bx-next {right: -70px;	background: url(../../../img/btn_right_bl.png) no-repeat 0 0;}
+.bx-wrapper .bx-pager {display: none;}
+
+/****************************************************************************************************************************************************************/
+
+#section06 {}
+#section06 h2 {font-size:24px; position:relative; top:132px; padding-left:150px;}
+#section06 .square0 .content0 .content0_gallery_box {width:calc(100% - 227px); clear: both; margin:auto; margin-top:55px;margin-bottom:5%;}
+#section06 .square0 .content0 .content0_gallery_box .supportthum {border:1px solid #efefef; box-sizing:border-box;}
+
+/*서포트목록 썸네일*/
+.content0_gallery_box .supportthum { width: 23.3%; margin-right:2%; margin-bottom:2%; cursor: pointer;}
+    .content0_gallery_box > li:nth-child(4n+0) { margin-right:0;}
+    .content0_gallery_box li a {color:#000; text-decoration: none;}
+    .content0_gallery_box li a:hover {color:rgba(0,0,0,0.75);}
+    .content0_gallery_box li a:active {color:rgba(0,0,0,0.75);}
+
+    /*썸네일*/
+    .content0_gallery_box .supportthum .supportthum_thumnail {display: inline-block; width: 100%; height:0; padding-bottom:100%; background-color: #f1f1f1; overflow: hidden;}
+        .content0_gallery_box .supportthum .supportthum_thumnail > img {width: 100%; display: block;}
+
+    /*이름 분야 프로필사진*/
+    .content0_gallery_box .supportthum .supportthum_profile  {display: inline-block; width: 100%; padding-left:1em;box-sizing:border-box;}
+
+        .content0_gallery_box .supportthum .supportthum_profile_username {display: inline-block; width:calc(100% - 50px - 4em); 
+            white-space: nowrap; text-overflow: ellipsis; overflow: hidden;}
+            .content0_gallery_box .supportthum .supportthum_profile_username h5 {font-size:16px; font-weight:bolder; height:1em; line-height:1em; margin-bottom:0; }
+            .content0_gallery_box .supportthum .supportthum_profile_username p {font-size:14px; height:1em; line-height:1em; }
+
+        .content0_gallery_box .supportthum .supportthum_profile_photo  {float:right; margin-top:1.5em; margin-right:1em; width:50px; height:50px; 
+                                                                        border-radius:50px; background-color: #f1f1f1; background-image: url(../../../img/user_profile.png); 
+                                                                        background-repeat: no-repeat; background-size:100%; overflow: hidden;}
+            .content0_gallery_box .supportthum .supportthum_profile_photo > img {width: 100%; height:100%; border-radius: 50px;  display: block; }
+
+
+    /*서포트소개*/
+    .content0_gallery_box .supportthum .supportthum_user_info {box-sizing:border-box; padding:1em 1em 0 1em; margin-bottom: 1em;
+                                                                /*white-space: nowrap;*/ overflow: hidden; text-align: left; text-overflow: ellipsis;  
+                                                                display: -webkit-box;
+                                                                -webkit-line-clamp: 2; /* 라인수 */
+                                                                -webkit-box-orient: vertical;
+                                                                word-wrap:break-word; 
+                                                                line-height: 1.5em; height:4em;
+                                                                }
+
+    /*하단*/
+    .content0_gallery_box .supportthum .supportthum_footer p {width: 100%; box-sizing:border-box; border:none; text-align: center; color:#999999; font-size: 14px;}

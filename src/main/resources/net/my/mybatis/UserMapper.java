@@ -8,7 +8,7 @@ public interface UserMapper {
 	
 	public int insert(User user);
 	
-	public User login(@Param("email") String email, @Param("passwd") String passwd);
+	public User login(@Param("email") String email, @Param("password") String password);
 	
 	public int modify(User user);
 	

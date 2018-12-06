@@ -28,6 +28,11 @@
     	WHERE notice_no = #{notice_no}
     </select>
     
+    <insert id="Cinsert" parameterType="Contact">
+    	INSERT INTO contact (type, name, email, phone, content)
+    	VALUES (#{type}, #{name}, #{email}, #{phone}, #{content})
+    </insert>
+    
     
     
  

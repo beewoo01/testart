@@ -15,4 +15,6 @@ public interface BoardService {
 	public void increaseHit(int notice_no);
 	
 	public Notice getNotice(int notice_no);
+	
+	public int Cinsert(Contact contact);
 }

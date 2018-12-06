@@ -19,7 +19,7 @@ header {
 }
 .picon {
 	display: inline-block;
-	background:url("../../../artpie/img/pie_icon.png");
+	background:url("../images/pie_icon.png");
 	width: 80px;
 	height: 64px;
 	margin: 15px;
@@ -28,7 +28,7 @@ select {
 	width: 40%;
 	padding: .8em .5em;
 	font-family: inherit;
-	background: url("../../img/btn_down.png") no-repeat 99% 50%;
+	background: url("../images/btn_down.png") no-repeat 99% 50%;
 	background-color: #fff;
 	border: none; 
 	border-radius: 0px;

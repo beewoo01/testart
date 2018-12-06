@@ -73,8 +73,8 @@
         
                             <ul class="main_navi_list">메인네비
                                 <li><a href="/ShotPlace/bbs/list">GALLERY</a></li>
-                                <li><a href="/ShotPlace/bbs/list">FEED</a></li>
-                                <li><a href="/ShotPlace/bbs/list">SUPPORT</a></li>
+                                <li><a href="/ShotPlace/bbs/contact">FEED</a></li>
+                                <li><a href="/ShotPlace/sub/upload">SUPPORT</a></li>
                                 <li><a href="#">MARCKET</a></li>
                                 <li><a href="#">MAGAZINE</a></li>
                             </ul>
@@ -82,8 +82,8 @@
                             <ul class="main_navi_right">로그인 회원가입
                                 <li>
                                     <ul class="logout" style="display:block;"><!-- ★★★★★로그아웃했을때// 숨길시 display:none; 보이게 할 때 display:block; -->
-                                        <li><a href="#">LOGIN</a></li>
-                                        <li><a href="#">JOIN US</a></li>
+                                        <li><a href="/ShotPlace/users/login">LOGIN</a></li>
+                                        <li><a href="/ShotPlace/users/signUp">JOIN US</a></li>
                                     </ul>
         
                                     <!-- <ul class="login">

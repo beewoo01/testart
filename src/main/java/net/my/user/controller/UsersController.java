@@ -37,8 +37,8 @@ public class UsersController {
 		}
 		
 		@RequestMapping(value="/login", method=RequestMethod.POST)
-		public String login(String email, String passwd, HttpSession session) throws Exception {
-			User loginUser = userService.login(email, passwd);
+		public String login(String email, String password, HttpSession session) throws Exception {
+			User loginUser = userService.login(email, password);
 			if(loginUser != null) {
 				session.setAttribute("check", loginUser);
 				System.out.println("ㅎ하하하하ㅏ하하하3123213213");
@@ -61,8 +61,8 @@ public class UsersController {
 			if(user.getName() == null) {
 				user.setName(loginUser.getName());
 			}
-			if(user.getUrl() == null) {
-				user.setUrl(loginUser.getUrl());
+			if(user.getMember_url() == null) {
+				user.setMember_url(loginUser.getMember_url());
 			}
 			
 			user.setEmail(email);
@@ -80,12 +80,12 @@ public class UsersController {
 		}
 		
 		@RequestMapping(value="/changePasswd", method=RequestMethod.POST)
-		public String changePasswd(String passwd, HttpSession session) throws Exception{
+		public String changePasswd(String password, HttpSession session) throws Exception{
 			String email = ((User)session.getAttribute("check")).getEmail();
 			
 			User user = new User();
 			user.setEmail(email);
-			user.setPasswd(passwd);
+			user.setPassword(password);
 			
 			userService.changePasswd(user);
 			return "users/confirm";

@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<mapper namespace="net.my.mybatis.ContactMapper">
-	<insert id="insert" parameterType="Contact">
-        INSERT INTO notice (type, name, email, phone, content)
-        VALUES (#{type}, #{name}, #{email}, #{phone}, #{content})
-    </insert>
-</mapper>

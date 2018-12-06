@@ -2,50 +2,56 @@ package net.my.user;
 
 public class User {
 	 private String email;
-	 private String passwd;
+	 private String password;
 	 private String name;
-	 private String url;
+	 private String member_url;
 	
 	public User() {}
 	 
-	 public User(String email, String passwd, String name, String url) {
+	 public User(String email, String password, String name, String member_url) {
 	        this.email = email;
-	        this.passwd = passwd;
+	        this.password = password;
 	        this.name = name;
-	        this.url = url;
+	        this.member_url = member_url;
 	    }
-	 
-	    public String getEmail() {
-	        return email;
-	    }
-	   
-	    public void setEmail(String email) {
-	        this.email = email;
-	    }
-	 
-	    public String getPasswd() {
-	        return passwd;
-	    }
-	   
-	    public void setPasswd(String passwd) {
-	        this.passwd = passwd;
-	    }
-	   
-	    public String getName() {
-	        return name;
-	    }
-	   
-	    public void setName(String name) {
-	        this.name = name;
-	    }
-	    
-	    public String getUrl() {
-			return url;
-		}
 
-		public void setUrl(String url) {
-			this.url = url;
-		}
+	public String getEmail() {
+		System.out.println("이거슨 이것이다 : "+  email);
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getPassword() {
+		System.out.println("이거슨 이것이다 : "+  password);
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getName() {
+		System.out.println("이거슨 이것이다 : "+  name);
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getMember_url() {
+		System.out.println("이거슨 이것이다 : "+  member_url);
+		return member_url;
+	}
+
+	public void setMember_url(String member_url) {
+		this.member_url = member_url;
+	}
+	 
+	    
 	   
 	   
 }

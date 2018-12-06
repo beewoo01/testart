@@ -7,7 +7,8 @@
        
     <typeAliases>
         <typeAlias type="net.my.user.User" alias="User" />
-        <typeAlias type="net.my.board.Notice" alias="Notice"></typeAlias>
+        <typeAlias type="net.my.board.Notice" alias="Notice"/>
+        <typeAlias type="net.my.board.Notice" alias="Contact"/>
     </typeAliases>
  
     <mappers>

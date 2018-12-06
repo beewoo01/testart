@@ -1,0 +1,132 @@
+body {background-color:#efefef; width:100%;}
+#header {background-color: #fff;}
+
+.sub_navi_list {display:none; }
+#section .inwrap {margin:auto; width:calc(100% - 200px); position:relative;  top:100px; }
+
+/***********************************************************************************왼쪽***********************************************************************************/
+.upload_left {width:20%; float:left; position:fixed;margin:0; padding:0;min-width: 230px; }
+.upload_left > li {width:100%; height:50px; margin-bottom: 10px; background-color: #fff; float:left; }
+
+/*카테고리*/
+.upload_left > li:first-child {} 
+.upload_left > li:first-child > #upload_select_box {width:100%;}
+
+
+/*CCL*/
+.upload_left > li:nth-child(2) {} 
+.upload_ccl_select {width: 100%; padding-left:1em; height: 100%; font-weight: bold; padding-right:1em; 
+    background-color: transparent;
+    outline: none; font-family: inherit; /* 폰트 상속 */ 
+    -webkit-appearance: none; -moz-appearance: none; appearance: none; /* 기존 화살표 숨기기 */
+    background: url('../../../artpie/img/btn_down.png') ;
+    background-repeat: no-repeat; 
+    background-position: calc(100% - 1em) 50%; /* 화살표 아이콘 추가 */     
+    background-size: 12px; 
+    border:none;
+}
+
+
+
+
+
+.upload_left > li:nth-child(3) {width:100%; height: auto; margin:0; padding:0;  text-align: left; margin-bottom: 10px;text-align:center; }
+/*태그:입력후*/
+.upload_left > li:nth-child(3) ul {display:block; /*보이는거 display:block; 안보이는거 display:none;*/
+                                    width:calc(100% - 1em); text-align:left; margin:0; padding:0; border:none; border:none;  
+                                    background-color: none; padding:0.5em 1em; }
+.upload_left > li:nth-child(3) li {height:1em; line-height:1em; background-color: #ffb82c; color:#fff; 
+                                    border-radius: 10px; display: inline-block; padding:0.5em; margin-right:0.25em; margin-bottom:0.25em;}
+.upload_left > li:nth-child(3) li span {margin-left:0.5em;cursor: pointer;}
+
+/*태그:입력전*/
+.upload_left > li:nth-child(3) input {width:100%; border:none; height: 50px; line-height: 50px; margin: 0; background-color: none; padding:0 1em; color:#999999;
+                                    font-family: inherit; /* 폰트 상속 */
+                                    -webkit-appearance: none; /* 브라우저별 기본 스타일링 제거 */ }
+.upload_left > li:nth-child(3) input:focus{outline: 0 none;color:#000;}
+
+
+
+
+/*커버업로드*/
+.upload_left > li:nth-child(4) {width: 100%; height:0; padding-bottom:100%; }
+/*커버업로드:비포*/
+.upload_left > li:nth-child(4) .cover_before {display:block;} /*보이는거 display:block; 안보이는거 display:none;*/
+    .upload_left > li:nth-child(4) .cover_before p { margin-top:calc(50% - 0.5em); padding-left:calc(50% - 4.25em);}
+    .upload_left > li:nth-child(4) .cover_before span {font-weight: bold; padding:0.75em 2em; 
+                                border:2px solid #ffb82c; border-radius: 10px; background-color: #fff;}
+            .upload_left > li:nth-child(4) .cover_before a {color:#000; text-decoration: none;}
+            .upload_left > li:nth-child(4) .cover_before span:hover {color:#fff; background-color: #ffb82c;}
+/*커버업로드:애프터*/
+.upload_left > li:nth-child(4) .cover_after {width: 80%; height: 0; padding-bottom:90%; margin:auto; overflow: hidden;cursor: pointer; }
+.upload_left > li:nth-child(4) .cover_after > img {margin-top:10%; width:100%; display:block;}
+
+    
+/*공개여부*/    
+.upload_left > li:last-child > div {width: 100%; height: 3em; height: 3.5em; line-height: 3.5em; margin-bottom:4em; }
+.upload_left > li:last-child > div .upload_private_title { width:30%; padding-left:1em; font-weight: bold; float:left; text-align: left; 
+    border:1px solid none;box-sizing:border-box; } 
+.upload_left > li:last-child > div .upload_private_select { width:60%; float:right;  text-align: right; margin:0; padding:0; padding-right:1em; }
+.upload_left > li:last-child > div .upload_private_select > li { width:50%; float:left;}
+.upload_left > li:last-child > div .upload_private_select > li:first-child {text-align: center;}
+.upload_left > li:last-child > div .upload_private_select > li > input > span {padding-left:5%; }
+
+
+
+
+
+
+
+/**********************************************************************************오른쪽**********************************************************************************/
+/*제목*/
+.upload_right {width:75%; float:right;}
+
+.upload_right_title {width:100%; background-color: #fff; height: 50px; margin-bottom: 10px; text-align: center; clear:both;}
+    .upload_right_title > input {border:none; text-align: center;height: 50px; line-height: 50px; width:80%;color:#999999;}
+    .upload_right_title > input:focus {outline: 0 none;color:#000;}
+
+
+/*내용*/
+.upload_right_cont {width:calc(100% - 6em) ; padding: 3em; text-align: center; background-color: #fff; height:auto; margin-bottom: 30px;  clear:both;}
+
+    /*이미지업로드 및 텍스트입력 후*/
+    .upload_right_cont_enter {}
+    .upload_img_upload { width:100%; margin-bottom:2em; border:1px dotted #999999; position: relative; }
+    .upload_img_upload:hover {border:1px solid #ffb82c;}
+    .upload_img_upload img {width:auto; max-width: 100%; height: auto;  }
+
+    /*업로드한 이미지 삭제버튼*/
+    #upload_img_clear {cursor: pointer; position: absolute; top:2%; right:2%;}
+    #upload_img_clear i {width:2em; height: 2em; background-color: #ffb82c; border-radius: 50px; text-align: center; line-height: 2em; color:#fff; }
+
+
+
+    .upload_txt_upload {width:100%; border:1px dotted #999999; margin-bottom:2em; position: relative;}
+    .upload_txt_upload:hover {border:1px solid #ffb82c;}
+    .upload_txt_upload ul {width:90%; text-align: center; }
+    .upload_txt_upload ul li {display:inline-block; text-align: center; margin-right:0.5em;cursor: pointer; }
+    .upload_txt_upload ul li:last-child {margin-right:0;}
+    .upload_txt_upload ul li img {display: block;}
+    .upload_txt_upload textarea { text-align: center; width:100%; margin-bottom:1em; border:none; color:#999999; overflow:auto; }
+        .upload_txt_upload textarea:focus {outline: 0 none;color:#000; }
+
+
+    /*업로드한 텍스트 삭제버튼*/
+    #upload_txt_clear {cursor: pointer; position: absolute; top:10%; right:2%;}
+    #upload_txt_clear i {width:2em; height: 2em; background-color: #ffb82c; border-radius: 50px; text-align: center; line-height: 2em; color:#fff; }
+
+
+    /*이미지업로드 및 텍스트입력 전*/
+    .upload_right_cont_btn {}
+        .upload_right_cont p { display:inline-block;cursor: pointer;}
+        .upload_right_cont p i {width: 50px; height: 50px; line-height:50px; background-color: none; border:1px solid #999999;
+                                text-align: center; color:#999999; }
+            .upload_right_cont div p i:hover {border:1px solid #ffb82c; background-color: #ffb82c; color:#fff;}
+
+
+
+
+/*업로드버튼*/
+.upload_right_btn {width:300px;margin:auto; clear:both; margin-bottom:10%; cursor: pointer;
+                    height: 50px; line-height:50px; border-radius: 50px; background-color: #ffb82c; letter-spacing: 0;
+                    text-align: center; display:block; color:#fff; text-decoration:none; font-size:1.25em; text-align: center; font-weight: bold;}

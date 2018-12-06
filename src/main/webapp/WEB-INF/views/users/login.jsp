@@ -21,7 +21,7 @@ function login() {
 </head>
 <body class= "auth">
 	<div id="auth-wrapper">
- 		<header id="auth-header"><i class="logo"></i>
+ 		<header id="auth-header"><i class="logo" onclick="parent.location.href='/ShotPlace'"></i>
  		</header>
  		<section id="auth-body">
 	 		<form action="login" method="post" accept-charset="UTF-8" role="form" id="login-form" onsubmit="return login()">
@@ -32,7 +32,7 @@ function login() {
 				</div>
 				
 				<div id="form-password" class="form-group"> <!-- 비밀번호 -->
-					<input type="password" name="passwd" value id="password" class="form-control" maxlength="20" size="50" placeholder="비밀번호" style="border:none">
+					<input type="password" name="password" value id="password" class="form-control" maxlength="20" size="50" placeholder="비밀번호" style="border:none">
 						<div class="form-error"></div>
 				</div>
 				<input type="checkbox" name="remember" value="1" id="remember" style="margin: 0; padding: 0;">

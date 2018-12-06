@@ -1,0 +1,223 @@
+.support_hd {width:100%; height: 50px; background-color: #ffb82c; text-align: center;}
+.support_hd > div {display: inline-block; }
+.support_hd > .support_back_btn { float:left; width:auto; padding:10px 0; margin-left:10px; margin-right:10px; color:#000;}
+.support_hd > div > p {float:right; margin:0; padding:0;width:auto; font-weight: bold; font-size: 20px; height: 50px; line-height:50px; }
+
+body {background-color: #efefef; }
+.support_lr {margin:0; padding:0; margin:auto; width:calc(100% - 300px); }
+
+
+
+/****************************************************************************작가의 서포트페이지****************************************************************************/
+
+/**********************************왼쪽**********************************/
+.support_left {width:calc(50% - 35px); margin:0; padding:0; margin-top:20px; float: left; height: calc(100% - 130px);}
+
+
+.support_left_profile { width:100%; }
+/*슬라이드배너*/
+#s_banner_wrap {width:100%; margin: 0 ; padding: 0; height:auto; margin:auto;}
+    #s_banner_wrap .bxslider > li {width: 100%; overflow: hidden; }
+    #s_banner_wrap .bxslider > li > img {width: 100%; display: block; }
+/** RESET AND LAYOUT  ===================================*/
+.bx-wrapper {position: relative; top:0; margin: 0 ; padding: 0;	*zoom: 1;  }
+/* DIRECTION CONTROLS (NEXT / PREV) 방향버튼*/
+.bx-wrapper .bx-prev {display:none;}
+.bx-wrapper .bx-next {display:none;}
+
+.support_left_profile {height: 0; padding-bottom: 20%; }
+/*프로필이미지 닉네임 서포트하기 공유하기*/
+.support_left_profile_list {background-color: #fff; }
+.support_left_profile_list > ul {margin:0; padding:0; width: calc(100% - 40px); margin:auto; }
+.support_left_profile_list > ul > li {display:inline-block; margin-right:1em; margin-top:1em; margin-bottom:1em;}
+    /*프로필이미지*/
+    .support_left_profile_list > ul > li:first-child {float:left; width:70px; height:70px; border-radius: 50px; box-sizing:border-box; 
+                                                    background-image: url(../../../img/user_profile.png); 
+                                                    background-repeat: no-repeat; background-size: 100%; overflow:hidden;margin-top:1em; margin-bottom:1em;}
+    .support_left_profile_list > ul > li:first-child > img {width:100%; display: block;}
+    /*닉네임*/
+    .support_left_profile_list > ul > li:nth-child(2) {height: 70px; line-height: 70px; font-size: 14px; font-weight: bold;}
+    /*공유하기*/
+    .support_left_profile_list > ul > li:nth-child(3) {float:right; padding:0.5em 1em; color:#ffb82c; border:2px solid #ffb82c; box-sizing: border-box;
+                                                    border-radius: 10px; margin-right:0;
+                                                    display: block; cursor: pointer; margin-top:1.75em; margin-bottom:1em;}
+    /*서포트하기*/
+    .support_left_profile_list > ul > li:last-child {float:right; width:auto; height: 1em; line-height: 1em; 
+                                                    background-color: #ffb82c; border-radius: 10px; border:2px solid #ffb82c; 
+                                                    padding:1em 1.5em; color:#fff; font-weight: bold;
+                                                    display: block; cursor: pointer; margin-top:1.75em; margin-bottom:1em;}
+
+/*소개*/
+.support_left_info {float:left; width:100%; background-color: #fff; clear: both; margin-top:10px; overflow-y: scroll;
+                    height: calc(100% - 350px - 70px - 2.75em);}
+.support_left_info p {padding:1em 2em; line-height:1.5em;}
+
+/**********************************오른쪽**********************************/
+.support_right {width:calc(50% - 35px); margin:0; padding:0; margin-top:20px; float: right; height: calc(100% - 130px); }
+::-webkit-scrollbar {
+        display:block;
+        } 
+
+.support_right > h5 {color:#999999; font-size:14px; font-weight: bold;}
+.support_right > ul {margin:0; padding:0; width:100%;  overflow-y: scroll; -ms-overflow-style: none;height: calc(100% - 64px);}
+.support_right > ul > li {background-color: #fff; margin-bottom:30px;}
+.support_right > ul > li:last-child {margin-bottom:0;}
+.support_list_img {width: 100%; height:240px; background-color: #f1f1f1; overflow: hidden;}
+.support_list_img > img {width: 100%; display: block;}
+
+.support_list_info {padding:1em 2em;}
+.support_list_info > div { display: inline-block; width:70%;}
+.support_list_info > div > h6 {font-size: 14px; font-weight: bold; margin:0; padding:0;margin-bottom:1em;}
+.support_list_info > div > p {font-size: 14px; font-weight: normal; margin:0; padding:0; width:100%;
+                                white-space: nowrap; text-overflow: ellipsis;  
+                                overflow: hidden;text-align: left;  }
+.support_list_info .support_list_btn {float:right; border:1px solid #999999; box-sizing:border-box; width:auto; text-align: center; 
+                                        padding:1em 1.5em; border-radius: 10px; display: block; cursor: pointer; color:#999999; font-weight: bold;} 
+
+
+
+
+
+
+/****************************************************************************결제 및 입력하기****************************************************************************/
+/**********************************왼쪽**********************************/
+.support_from_left {width:calc(50% - 35px); margin:0; padding:0; margin-top:20px; float: left; height: calc(100% - 130px); background-color: none;}
+
+
+/* Slideshow container */
+.slideshow-container {
+    position: relative;
+    margin: auto;
+  }
+
+.mySlides {width:100%; height:100%; overflow:hidden; }
+.mySlides > img {width:100%; height:100%; display:block; }
+
+  /* Next & previous buttons */
+  .prev, .next {
+    cursor: pointer;
+    position: absolute;
+    top: calc(50% - 20px);
+    color: white;
+    font-weight: bold;
+    font-size: 14px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+  }
+  
+  /* Position the "next button" to the right */
+  .next {
+    right: 20px;
+  }
+
+  .prev {
+    left: 20px;
+  }
+  
+  /* Caption text */
+  .text {
+    color: #f2f2f2;
+    font-size: 14px;
+    padding: 8px 12px;
+    position: absolute;
+    bottom: 8px;
+    width: 100%;
+    text-align: center;
+  }
+  
+  /* Number text (1/3 etc) */
+  .numbertext {
+    color: #f2f2f2;
+    font-size: 12px;
+    padding: 8px 12px;
+    position: absolute;
+    top: 0;
+  }
+  
+
+
+
+/**********************************오른쪽**********************************/
+.support_form_right {width:calc(50% - 35px); margin:0; padding:0; margin-top:20px; float: right; height: calc(100% - 130px); }
+
+
+.support_form_right h5 {font-size: 14px; font-weight: bold;display:inline-block;margin-top:0; margin-bottom:1em; }
+.support_form_right h6 {float: right; font-size: 14px; font-weight: bold;margin:0;  color:#cf3d40; margin-right:1em;}
+.support_form_right h6 > span {margin-right:5px;}
+
+.support_form_right > div {background-color: #fff; height: 3em; line-height:3em; padding-left:1em; margin-bottom:1em;}
+.support_form_right > div > div {float: right;}
+.support_form_right > div > div > input {margin-top:1em; margin-right:1em; text-align: right; outline: none; border:none; font-weight: bold;}
+
+.support_form_right > div > div > span {float: right; margin-right:1em;  }
+.support_form_right > div > span {float: right; margin-top:1em; margin-right:1em;  cursor: pointer;}
+
+
+.support_blind1 {width:calc(100% - 2em); border-top:1px solid #efefef;background-color: #fff; clear:both; padding:1em; margin-top:-1em; font-size: 14px; line-height:1.5em;}
+.support_blind2 {width:calc(100% - 2em); border-top:1px solid #efefef;background-color: #fff; clear:both; padding:1em; margin-top:-2em; font-size: 14px; line-height:1.5em;}
+
+
+
+/*동의 체크박스*/
+.check{
+    position:relative;
+  }
+  
+  .check input[type="checkbox"]{
+    width:1px; 
+    height:1px; 
+    padding:0; 
+    border:0 none; 
+    margin:0; 
+    position:absolute; 
+    left:0; 
+    top:0; 
+    overflow:hidden;
+    clip:rect(0 0 0 0);
+  }
+  
+  .check label{
+    height:20px; 
+    line-height:20px; 
+    padding-left:2em; 
+    display:inline-block; 
+    background:url(../../../img/check.png) no-repeat 0 0; 
+    font-size:14px; 
+    vertical-align:middle; 
+    cursor:pointer;  margin-bottom:2em;
+  }
+  
+  .check input[type="checkbox"]:checked + label{
+    background-position: 0 -21px;font-weight: bold;color:#cf3d40;
+  }
+
+
+
+
+/*배송지정보*/
+.support_add {margin:0; padding:0; }
+.support_add > li {margin-bottom:1em; width:100%; height:3em; }
+.support_add > li:nth-child(2) {margin-bottom:1em;}
+.support_add > li:nth-child(2) > div {display: inline-block; width:calc(60% + 6em); height:3em; margin-left:0.5em; }
+.support_add > li:nth-child(2) > div > input {background-color: #fff; display: inline-block; border:none; outline:none; 
+                                              height:3em; line-height: 3em; margin-bottom:1em; padding:0 1em; width:24%;}
+.support_add > li > div > span {margin:0 1em;}
+.support_add > li:nth-child(3) {height: 11em;}
+
+.support_add > li > p {margin-left:1em; margin-right:1em; width:3em; display: inline-block;}
+.support_add > li > input {background-color: #fff; display: inline-block; border:none; outline:none; 
+                          height:3em; line-height: 3em; width:calc(100% - 6em); margin-bottom:1em; 
+                          padding:0 1em;}
+  .support_add > li > input::placeholder {color:#999999;}
+  .support_add > li:last-child {}
+  .support_add .add_number {background-color: #fff; display: inline-block; border:none; outline:none; 
+                            height:3em; line-height: 3em; width:calc(100% - 11em); margin-bottom:1em; padding:0 1em; margin-top:-3em; margin-left:6em;}
+    .support_add .support_add_btn {width:5em; border:none; background-color: #aaaaaa; color:#fff; float: right; position: relative; top:0; right:0;
+                                height: 3em; font-weight: bold; outline:none; cursor: pointer; margin-top:-3em; }
+    .support_add .support_add_btn:hover {background-color:#ffb82c; }
+
+
+  /*결제하기 버튼*/
+  .support_form_btn { border:none; background-color: #ffb82c; font-size: 16px; font-family: 'NanumSquareWeb'; outline: none;
+                    width:100%; height:3em; padding:1em 1.5em ; cursor: pointer; border-radius: 50px; margin-top:2em; margin-bottom:10%;}
+
