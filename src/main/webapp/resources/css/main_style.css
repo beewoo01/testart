@@ -93,7 +93,7 @@ nav {width: 100%; height:auto; background-color: #fff; z-index: 9999999; }
                 position:relative; top:-14px; left:5px; }
 
             .login .main_profile .main_profile_photo {width:30px; height:30px; background-color: #999999; border-radius:50px; position:relative; top:11px;
-                background-image: url(../img/user_profile.png); background-repeat: no-repeat; background-size:100%; overflow: hidden;}
+                background-image: url(../images/user_profile.png); background-repeat: no-repeat; background-size:100%; overflow: hidden;}
             .login .main_profile .main_profile_photo > img {width: 100%; height:100%; border-radius: 50px;  display: block; }
 
             .login .header_upload {width:6.5em; color:#fff; height: 30px; background-color:#f5b233; border-radius: 50px; 
@@ -300,7 +300,7 @@ nav {width: 100%; height:auto; background-color: #fff; z-index: 9999999; }
 .list_select {float:right; width:5em; height:50px; line-height: 50px; background-color: transparent;
              outline: none; position: relative; right:70px; font-family: inherit; /* 폰트 상속 */ font-weight: bold; 
              -webkit-appearance: none; -moz-appearance: none; appearance: none; /* 기존 화살표 숨기기 */
-             background: url('../img/btn_down.png') ;
+             background: url('../images/btn_down.png') ;
              background-repeat: no-repeat; 
              background-position: 100% 50%; /* 화살표 아이콘 추가 */     
              background-size: 12px; 
@@ -364,8 +364,8 @@ nav {width: 100%; height:auto; background-color: #fff; z-index: 9999999; }
 .bx-wrapper .bx-pager.bx-default-pager a.active {background: #f5b233; width: 20px;height: 5px;-moz-border-radius: 50px;-webkit-border-radius: 50px;	border-radius: 50px;}
 
 /* DIRECTION CONTROLS (NEXT / PREV) 방향버튼*/
-.bx-wrapper .bx-prev {left: 35px;	background: url(../img/btn_left.png) no-repeat 0 0;}
-.bx-wrapper .bx-next {right: 35px;	background: url(../img/btn_right.png) no-repeat 0 0;}
+.bx-wrapper .bx-prev {left: 35px;	background: url(../images/btn_left.png) no-repeat 0 0;}
+.bx-wrapper .bx-next {right: 35px;	background: url(../images/btn_right.png) no-repeat 0 0;}
 .bx-wrapper .bx-prev:hover {background-position: 0 0;}
 .bx-wrapper .bx-next:hover {background-position: 0 0;}
 .bx-wrapper .bx-controls-direction a {position: absolute;top: 50%;	margin-top: -16px;outline: 0;width: 22px;height: 40px;text-indent: -9999px;z-index: 9999;}
@@ -413,7 +413,7 @@ nav {width: 100%; height:auto; background-color: #fff; z-index: 9999999; }
 
 .content3_box1_1 ul li:first-child {float:left; width:20%; height: 100%; }
     .content3_box1_1 ul li .profile_img {width:100%; height:100%; background-color: #f1f1f1;  border:none; border-radius: 50px; box-sizing:border-box;
-        background-image: url(../img/user_profile.png); background-repeat: no-repeat; background-size:100%; overflow: hidden;}
+        background-image: url(../images/user_profile.png); background-repeat: no-repeat; background-size:100%; overflow: hidden;}
     .content3_box1_1 ul li .profile_img > img {width: 100%; height:100%; border-radius: 50px;  display: block; }
 
 .content3_box1_1 ul li:nth-child(2) {float:left; width:60%; height: 100%; line-height: 1em; margin-left:3%;}
@@ -433,7 +433,7 @@ nav {width: 100%; height:auto; background-color: #fff; z-index: 9999999; }
 
 .content3_box1_2 ul li:first-child {float:left; width:20%; height: 100%; }
     .content3_box1_2 ul li .profile_img {width:100%; height:100%; background-color: #f1f1f1;  border:1px solid #f1f1f1; border-radius: 50px; box-sizing:border-box;
-        background-image: url(../img/user_profile.png); background-repeat: no-repeat; background-size:100%; overflow: hidden;}
+        background-image: url(../images/user_profile.png); background-repeat: no-repeat; background-size:100%; overflow: hidden;}
     .content3_box1_2 ul li .profile_img > img {width: 100%; height:100%; border-radius: 50px;  display: block; }
 
 .content3_box1_2 ul li:nth-child(2) {float:left; width:60%; height: 100%; line-height: 1em; margin-left:3%;}
@@ -477,7 +477,7 @@ nav {width: 100%; height:auto; background-color: #fff; z-index: 9999999; }
     .content0_gallery_box .gallery .gallery_profile  {display: inline-block; width: 100%; padding-left:1em;}
 
         .content0_gallery_box .gallery .gallery_profile_photo  {display: inline-block; width:40px; height:40px; border-radius:50px; background-color: #f1f1f1;
-            background-image: url(../img/user_profile.png); background-repeat: no-repeat; background-size:100%; overflow: hidden;}
+            background-image: url(../images/user_profile.png); background-repeat: no-repeat; background-size:100%; overflow: hidden;}
             .content0_gallery_box .gallery .gallery_profile_photo > img {width: 100%; height:100%; border-radius: 50px;  display: block; }
 
         .content0_gallery_box .gallery .gallery_profile_username {display: inline-block; width:60%; padding-left:1em ;  

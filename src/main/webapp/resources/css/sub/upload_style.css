@@ -19,7 +19,7 @@ body {background-color:#efefef; width:100%;}
     background-color: transparent;
     outline: none; font-family: inherit; /* 폰트 상속 */ 
     -webkit-appearance: none; -moz-appearance: none; appearance: none; /* 기존 화살표 숨기기 */
-    background: url('../../../artpie/img/btn_down.png') ;
+    background: url('../../artpie/images/btn_down.png') ;
     background-repeat: no-repeat; 
     background-position: calc(100% - 1em) 50%; /* 화살표 아이콘 추가 */     
     background-size: 12px; 

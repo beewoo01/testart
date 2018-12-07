@@ -260,13 +260,12 @@
                             
 
                             <div class="upload_right_cont_enter"><!-- 입력후 -->
-                            <form method="post" action="upload" enctype="multipart/form-data">
+                            
                                 <div class="upload_img_upload" type="file" id="uploadFile" name="uploadFile" style="display: none;">
                                     <img src="../resources/images/img_sample.jpg" alt="이미지샘플">
                                 
                                     <div id="upload_img_clear"><i class="xi-close"></i></div>
                                 </div>
-                            </form>
 
     
     
@@ -300,13 +299,37 @@
                             </div><!-- .upload_right_cont_enter -->
 
 
-                            <div class="upload_right_cont_btn"><!-- 입력전 -->
-                                <p class="upload_img_btn"><i class="xi-library-image-o xi-2x"></i></p>
-                                <p class="upload_txt_btn"><i class="xi-pen-o xi-2x"></i></p>
-                            </div><!-- .upload_right_cont_btn -->                
-
-                            <script>
-                                    $(function (){
+							<form action="fileUpload" method="post" enctype="multipart/form-data" id="fileForm" >
+	                            <div class="upload_right_cont_btn"><!-- 입력전 -->
+	                                <!-- <p class="upload_img_btn" ><i multiple="multiple" type="file" name="file" onclick="fileSubmit()" class="xi-library-image-o xi-2x"></i></p> -->
+	                                <!-- <input type="file" id="fileUp" name="fileUp"/><br/><br/> -->
+	                                <div class="upload_img_btn" ><input type="file" name="file" class="xi-library-image-o xi-2x"/></div>
+	                                <!-- <p class="upload_txt_btn"><i class="xi-pen-o xi-2x"></i></p> -->
+	                            </div><!-- .upload_right_cont_btn -->
+	                            <i class="upload_right_btn" onClick="fileSubmit();"><!-- 업로드 버튼 -->업로드111</i>                
+                            </form>
+                             <script>
+                            		function fileSubmit(){
+                            			console.log("gkgkgk");
+                            			var formData = new FormData($("fileForm")[0])
+                            			$.ajax({
+                            				type : 'post',
+                            				url : 'fileUpload',
+                            				data : formData,
+                            				processData : false,
+                            				contentType : false,
+                            				success : function(html){
+                            					alert("파일 업로드 하였습니다.");
+                            				},
+                            				error : function(error){
+                            					alert("파일 업로드에 실패하였습니다.");
+                            					console.log(error);
+                            					console.log(error.status);
+                            					console.log(error.status + "12321");
+                            				}
+                            			})
+                            		}
+                                    <!-- $(function (){
 
 
                                     $(".upload_img_btn").click(function (){
@@ -326,15 +349,15 @@
                                     });
 
 
-                                    });
-                            </script>
+                                    }); -->
+                             </script>
                     </div><!-- .upload_right_cont -->
+                    
 
-
-                    <div class="upload_right_btn"><!-- 업로드 버튼 -->
-                                업로드
-                    </div><!-- .upload_right_btn -->
-
+	                    <!-- <div class="upload_right_btn">업로드 버튼
+	                                업로드
+	                    </div> --><!-- .upload_right_btn -->
+                    
 
                 </div><!--.upload_right-->
 
