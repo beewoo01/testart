@@ -25,12 +25,16 @@
 	$(document).ready(function() {
 		
 		$("#input_imgs").on("change", handleImgsFilesSelect);
-		alert("하하하.");
 	});
 	
 	function handleImgsFilesSelect(e){
+		sel_files = [];
+		$(".imgs_wrap").empty();
+		
 		var files = e.target.files;
 		var filesArr = Array.prototype.slice.call(files);
+		
+		var index = 0;
 	
 		filesArr.forEach(function(f){
 			if(!f.type.match("image.*")){
@@ -42,65 +46,48 @@
 			
 			var reader = new FileReader();
 			reader.onload = function(e){
-				var img_html = "<img src=\"" + e.target.result + "\" />";
-				$(".imgs_wrap").append(img_html);
+				var html = "<a href=\"javascript:void(0);\" onclick=\"deleteImageAction("+index+")\" id=\"img_id_"+index+"\"><img src=\"" + e.target.result + "\" data-file='"+f.name+"' class='selProductFile' title='Click to remove'></a>";
+                $(".imgs_wrap").append(html);
+				/* var img_html = "<img src=\"" + e.target.result + "\" />";
+				$(".imgs_wrap").append(html); */
+				index++;
 			}
 			reader.readAsDataURL(f);
 		});
-		
-		var file = files[0]
-		console.log(file)
+	}
+	
+	function deleteImageAction(index) {
+        console.log("index : "+index);
+        console.log("sel length : "+sel_files.length);
+
+        sel_files.splice(index, 1);
+
+        var img_id = "#img_id_"+index;
+        $(img_id).remove(); 
+    }
+	
+	function fileSubmit(){
 		var formData = new FormData($("#fileForm")[0]);
 		
-		formData.append("file", file);
-		
+
 		$.ajax({
-			url: '/uploadAjax',
-			data: formData,
-			dataType:'text',
-			processData: false,
-			contentType: false,
-			type: 'POST',
-			success: function(data){
-
-				alert("파일 업로드하였습니다.")
-
-			  },
-			  error : function(error){
-				  alert("파일 업로드에 실패하였습니다.");
-	                console.log(error);
-	                console.log(error.status);
-			  }
-			})
-			function checkImageType(fileName){
- 				var pattern = /jpg$|gif$|png$|jpeg$/i;
- 					return fileName.match(pattern);
- 			}
+            type : 'post',
+            url : 'fileUpload',
+            data : formData,
+            processData : false,
+            contentType : false,
+            success : function(html) {
+                alert("파일 업로드하였습니다.");
+            },
+            error : function(error) {
+                alert("파일 업로드에 실패하였습니다.");
+                console.log(error);
+                console.log(error.status);
+            }
+        });
 
 
- 			function getOriginalName(fileName){
- 				if(checkImageType(fileName)){
- 					return;
- 				}
-
- 				var idx = fileName.indexOf("_") + 1 ;
- 				return fileName.substr(idx);
-
- 		}
- 			function getImageLink(fileName){
-
- 	 			if(!checkImageType(fileName)){
- 	 				return;
- 	 			}
- 	 			var front = fileName.substr(0,12);
- 	 			var end = fileName.substr(14);
-
- 	 			return front + end;
-
- 	 		}
-
-		
-	}	
+	}
 	
 </script>
 </head>
@@ -109,10 +96,10 @@
 	<div>
 		<h2><b>이미지 미리보기</b></h2>
 		<p class="title">다중 이미지 업로드</p>
-		<form action="uploadForm" method="post" enctype="multipart/form-data">
-		<input type="file" id="input_imgs" multiple />
-		
-		<input type="submit" value="업로드">
+		<form id="fileForm" action="fileUpload" method="post" enctype="multipart/form-data">
+			<input type="file" id="input_imgs" name="input_imgs" multiple />
+			
+			<input type="button" value="전송하기" onClick="fileSubmit();" />
 		</form>
 	</div>
 	<div>
