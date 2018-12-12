@@ -21,16 +21,19 @@
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js" charset="utf-8"></script>
 <script type="text/javascript">
 	var sel_files = [];
+	var test;
+	
 	
 	$(document).ready(function() {
-		
+		alert("아 나가자 동해바다로");
 		$("#input_imgs").on("change", handleImgsFilesSelect);
 	});
 	
 	function handleImgsFilesSelect(e){
-		sel_files = [];
-		$(".imgs_wrap").empty();
+		//sel_files = [];
+		//test = new Array;
 		
+		$(".imgs_wrap").empty();
 		var files = e.target.files;
 		var filesArr = Array.prototype.slice.call(files);
 		
@@ -41,19 +44,23 @@
 				alert("확장자는 이미지 확장자만 가능합니다.");
 				return;
 			}
-			
+			//test.push(f);
 			sel_files.push(f);
-			
+			 
+			alert("111" + sel_files+ ",");
 			var reader = new FileReader();
 			reader.onload = function(e){
-				var html = "<a href=\"javascript:void(0);\" onclick=\"deleteImageAction("+index+")\" id=\"img_id_"+index+"\"><img src=\"" + e.target.result + "\" data-file='"+f.name+"' class='selProductFile' title='Click to remove'></a>";
+				 var html = "<a href=\"javascript:void(0);\" onclick=\"deleteImageAction("+index+")\" id=\"img_id_"+index+"\"><img src=\"" + e.target.result + "\" data-file='"+f.name+"' class='selProductFile' title='Click to remove'></a>";
                 $(".imgs_wrap").append(html);
+                alert("첫눈처럼");
+                /* change.innerHTML = "<input type=\"file\" id=\"input_imgs\" name=\"input_imgs\" value=\"" + sel_files + "\" multiple />"; */
 				/* var img_html = "<img src=\"" + e.target.result + "\" />";
 				$(".imgs_wrap").append(html); */
 				index++;
 			}
 			reader.readAsDataURL(f);
 		});
+		 /* $('input_imgs').val(sel_files); */
 	}
 	
 	function deleteImageAction(index) {
@@ -63,12 +70,20 @@
         sel_files.splice(index, 1);
 
         var img_id = "#img_id_"+index;
-        $(img_id).remove(); 
+        $(img_id).remove();
     }
 	
 	function fileSubmit(){
 		var formData = new FormData($("#fileForm")[0]);
-		
+		var data = new FormData();
+		for(var i=0, len=sel_files.length; i < len; i++){
+			var name = "image_"+i;
+			data.append(name, sel_files[i]);
+			alert("호호 : " + name, sel_files[i]);
+			alert("data : " + data);
+		}
+		data.append("image_count", sel_files.length);
+		alert("data22 : " + sel_files.length);
 
 		$.ajax({
             type : 'post',
@@ -85,8 +100,6 @@
                 console.log(error.status);
             }
         });
-
-
 	}
 	
 </script>

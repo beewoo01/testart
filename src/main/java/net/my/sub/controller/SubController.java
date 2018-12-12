@@ -39,10 +39,11 @@ public class SubController {
 	public String fileUp(MultipartHttpServletRequest multi) {
 		
 		MultipartFile file = multi.getFile("input_imgs");
+		System.out.println(file);
 		
 		// 추가한거임
 		List<MultipartFile> files1 = multi.getFiles("input_imgs");
-		
+		System.out.println(files1);
 		//저장 경로 설정
 		String root = multi.getSession().getServletContext().getRealPath("/");
 		String path = root + "resources/upload/";
@@ -62,6 +63,7 @@ public class SubController {
 				e.printStackTrace();
 			}
 		}
+		System.out.println("파일 사이즈란다" + files1.size() );
 		for(int i = 0; i< files1.size(); i++) {
 			
 			System.out.println("파라미터fff명" + i);
