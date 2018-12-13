@@ -11,6 +11,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -19,6 +21,12 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 @RequestMapping("sub")
 public class SubController {
 	private static final Logger logger = LoggerFactory.getLogger(SubController.class);
+	
+	//
+	private static final int RESULT_EXCEED_SIZE = -2;
+    private static final int RESULT_UNACCEPTED_EXTENSION = -1;
+    private static final int RESULT_SUCCESS = 1;
+    private static final long LIMIT_SIZE = 10 * 1024 * 1024;
 	
 	// 업로드된 파일이 저장될 위치 입니다. 
 	private final String PATH = "D:\\SpringUploadRepo\\upload";
@@ -35,14 +43,28 @@ public class SubController {
 		
 	}
 	
+	@ResponseBody
 	@RequestMapping(value="/fileUpload")
-	public String fileUp(MultipartHttpServletRequest multi) {
-		
+	public int fileUp(@RequestParam("files")List<MultipartFile> images ,MultipartHttpServletRequest multi) {
+		long sizeSum = 0;
+		System.out.println("00000000000000");
+		for(MultipartFile image : images) {
+			String originalName = image.getOriginalFilename();
+			
+			if(!isValidExtension(originalName)) {
+				System.out.println("00000000000000 두번째!!");
+				return RESULT_UNACCEPTED_EXTENSION;
+			}
+			sizeSum += image.getSize();
+			if(sizeSum >= LIMIT_SIZE) {
+				return RESULT_EXCEED_SIZE;
+			}
+		}
 		MultipartFile file = multi.getFile("input_imgs");
 		System.out.println(file);
 		
 		// 추가한거임
-		List<MultipartFile> files1 = multi.getFiles("input_imgs");
+		List<MultipartFile> files1 = multi.getFiles("files");
 		System.out.println(files1);
 		//저장 경로 설정
 		String root = multi.getSession().getServletContext().getRealPath("/");
@@ -112,7 +134,36 @@ public class SubController {
 				e.printStackTrace();
 			}
 		}*/
-		return "sub/upload";
+		//return "sub/upload";
+		return RESULT_SUCCESS;
+	}
+	
+	private boolean isValidExtension(String originalName) {
+		String originalNameExtension = originalName.substring(originalName.lastIndexOf(".") + 1);
+		switch(originalNameExtension) {
+		
+		case "jpg":
+			System.out.println("jpg1임");
+			return true;
+		case "png":
+			System.out.println("png1임");
+			return true;
+		case "gif":
+			System.out.println("gif1임");
+			return true;
+		case "JPG" :
+			System.out.println("jpg2임");
+			return true;
+		case "PNG" :
+			System.out.println("png2임");
+			return true;
+		case "GIF" :
+			System.out.println("gif2임");
+			return true;
+		
+		}
+		System.out.println("case 아에 안된다!!");
+		return false;
 	}
 	
 	/*@RequestMapping(value="/upload", method = RequestMethod.POST)
