@@ -123,6 +123,13 @@
             }
         });
 	}
+	function goImage(){
+		$("#input_imgs").trigger("click");
+	}
+	function gotext(){
+		var textHi = "<input type='text'/>"+ "<br>" + "<br>";
+		$(".imgs_wrap").append(textHi);
+	}
 	
 </script>
 </head>
@@ -131,14 +138,18 @@
 	<div>
 		<h2><b>이미지 미리보기</b></h2>
 		<p class="title">다중 이미지 업로드</p>
-			<input type="file" id="input_imgs" name="input_imgs" multiple />
+			<input type="file" id="input_imgs" name="input_imgs" style="display: none;" multiple />
+			<input type="button" onclick="goImage();"/>
+			<input type="button" onclick="gotext();"/>
 			<input type="button" value="전송하기" onClick="fileSubmit();" />
 		<form id="uploadForm" style="display: none;"></form>
 	</div>
 	<div>
 		<div class="imgs_wrap">
+		<div class="text_wrap">
 		</div>
-		<div class="text_wrap"></div>
+		</div>
+		
 	</div>
 </body>
 </html>
