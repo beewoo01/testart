@@ -1,11 +1,14 @@
 package net.my.user;
 
 public class User {
-	 private String member_no;
-	 private String email;
-	 private String password;
-	 private String name;
-	 private String member_url;
+	private String member_no;
+	private String email;
+	private String password;
+	private String name;
+	private String member_url;
+	private String join_dt;
+	private String profile_img;
+	private String introduce;
 	
 	public User() {}
 	 
@@ -61,6 +64,30 @@ public class User {
 
 	public void setMember_url(String member_url) {
 		this.member_url = member_url;
+	}
+
+	public String getJoin_dt() {
+		return join_dt;
+	}
+
+	public void setJoin_dt(String join_dt) {
+		this.join_dt = join_dt;
+	}
+
+	public String getProfile_img() {
+		return profile_img;
+	}
+
+	public void setProfile_img(String profile_img) {
+		this.profile_img = profile_img;
+	}
+
+	public String getIntroduce() {
+		return introduce;
+	}
+
+	public void setIntroduce(String introduce) {
+		this.introduce = introduce;
 	}
 	 
 	    

@@ -84,13 +84,14 @@ public class SubController {
 		// 추가한거임
 		List<MultipartFile> files1 = multi.getFiles("files");
 		System.out.println(files1);
-		//저장 경로 설정
-		String root = multi.getSession().getServletContext().getRealPath("/");
 		
 		User user = (User) session.getAttribute("check");
+		String userNum = user.getMember_no();
+		//저장 경로 설정
+		String root = multi.getSession().getServletContext().getRealPath("/");		
 		
+		String path = root + "resources/upload/" + userNum + "/";
 		
-		String path = root + "resources/upload/";
 		System.out.println("1111111111111111");
 		System.out.println("하이하이 : " + root);
 		String newFileName = ""; //업로드 되는 파일명
@@ -100,6 +101,11 @@ public class SubController {
 		if(!dir.isDirectory()) {
 			System.out.println("33333333333!");
 			dir.mkdir();
+			try {
+				System.out.println("파일 경로 : " + dir.getCanonicalPath().toString());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}else {
 			try {
 				System.out.println("파일 경로 : " + dir.getCanonicalPath().toString());
@@ -122,13 +128,14 @@ public class SubController {
 	         System.out.println("오리지날 파일 이름" + file.getOriginalFilename());
 		}
 		System.out.println("44444444444444444444");
-		Iterator<String> files = multi.getFileNames();
+		/*Iterator<String> files = multi.getFileNames();
 		System.out.println("하하하하하 : " + multi.getFileNames());
-		System.out.println("하하하하하123 : " + files.hasNext());
+		System.out.println("하하하하하123 : " + files.hasNext());*/
 		for(int i = 0; i < files1.size(); i++) {
-			
+			System.out.println("FOR 에서 PATH 는 어째되나? : " + path);
 			System.out.println(files1.get(i).getOriginalFilename() + "업로드");
 			dir = new File(path+files1.get(i).getOriginalFilename());
+			System.out.println("dir 은 무었이냐!!" + dir);
 			String fileName = files1.get(i).getOriginalFilename();
 			newFileName = System.currentTimeMillis() + "." + fileName.substring(fileName.lastIndexOf(".")+1);
 			try {

@@ -19,7 +19,7 @@
 	<!-- 첫 화면 설정 -->
 	
 	
-	<view-controller path="/" view-name="index"/>
+	<view-controller path="/" view-name="main"/>
 
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
 	<resources mapping="/resources/**" location="/resources/" />
