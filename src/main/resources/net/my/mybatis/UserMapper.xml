@@ -11,7 +11,7 @@
     </insert>
     
     <select id="login" resultType="User">
-    	SELECT email, password, name, member_url FROM member
+    	SELECT member_no, email, password, name, member_url FROM member
     	WHERE email = #{email} AND password = #{password}
     </select>
     

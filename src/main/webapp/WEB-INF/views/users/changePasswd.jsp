@@ -43,7 +43,8 @@
 <h1>비밀번호 변경</h1>
 ${check.name}님은 로그인 상태입니다.<br />
 이메일: ${check.email}<br />
-개인URL: ${check.url}<br />
+개인URL: ${check.member_url}<br />
+유저 넘버: ${check.member_no}<br />
 <form id="changePasswordForm" action="changePasswd" method="post" onsubmit="return check()">
 <table>
 <tr>

@@ -2,10 +2,13 @@ package net.my.sub.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Iterator;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,11 +19,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import net.my.user.User;
+
 
 @Controller
 @RequestMapping("sub")
 public class SubController {
 	private static final Logger logger = LoggerFactory.getLogger(SubController.class);
+	
+	
 	
 	//
 	private static final int RESULT_EXCEED_SIZE = -2;
@@ -37,7 +44,18 @@ public class SubController {
 	
 	
 	@RequestMapping(value="/upload")
-	public String sub() throws Exception{
+	public String sub(HttpSession session, HttpServletResponse response) throws Exception{
+		User user = (User) session.getAttribute("check");
+		
+		if(user == null) {
+			response.setContentType("text/html; charset=UTF-8");
+            PrintWriter out = response.getWriter();
+            out.println("<script>alert('로그인 후 이용 가능합니다.'); location.href='../'; </script>");
+            out.flush();
+		}else {
+			String userEmail = user.getEmail();
+			System.out.println("유저 이메일은 무엇이냐! : " + userEmail);
+		}
 		System.out.println("드루와드루와드루와드루와드루와드루와드루와드루와드루와드루와");
 		return "sub/upload";
 		
@@ -45,7 +63,7 @@ public class SubController {
 	
 	@ResponseBody
 	@RequestMapping(value="/fileUpload")
-	public int fileUp(@RequestParam("files")List<MultipartFile> images ,MultipartHttpServletRequest multi) {
+	public int fileUp(@RequestParam("files")List<MultipartFile> images ,MultipartHttpServletRequest multi, HttpSession session, HttpServletResponse response) {
 		long sizeSum = 0;
 		System.out.println("00000000000000");
 		for(MultipartFile image : images) {
@@ -68,6 +86,10 @@ public class SubController {
 		System.out.println(files1);
 		//저장 경로 설정
 		String root = multi.getSession().getServletContext().getRealPath("/");
+		
+		User user = (User) session.getAttribute("check");
+		
+		
 		String path = root + "resources/upload/";
 		System.out.println("1111111111111111");
 		System.out.println("하이하이 : " + root);

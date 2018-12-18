@@ -1,6 +1,7 @@
 package net.my.user;
 
 public class User {
+	 private String member_no;
 	 private String email;
 	 private String password;
 	 private String name;
@@ -8,12 +9,23 @@ public class User {
 	
 	public User() {}
 	 
-	 public User(String email, String password, String name, String member_url) {
+	 public User(String member_no ,String email, String password, String name, String member_url) {
+		 	this.member_no = member_no;
 	        this.email = email;
 	        this.password = password;
 	        this.name = name;
 	        this.member_url = member_url;
 	    }
+	 
+
+	public String getMember_no() {
+		System.out.println("이거슨 이것이다 : "+  member_no);
+		return member_no;
+	}
+
+	public void setMember_no(String member_no) {
+		this.member_no = member_no;
+	}
 
 	public String getEmail() {
 		System.out.println("이거슨 이것이다 : "+  email);

@@ -8,6 +8,7 @@
 <meta charset="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="">
 <meta name="author" content="">
+
 <title>Start Up</title>
 <style type="text/css">
 	.imgs_wrap{
@@ -26,7 +27,9 @@
 	var index = 0;
 	
 	$(document).ready(function() {
+		
 		alert("아 나가자 동해바다로");
+		
 		$("#input_imgs").on("change", handleImgsFilesSelect);
 	});
 	
