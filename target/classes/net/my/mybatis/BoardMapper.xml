@@ -32,9 +32,6 @@
     	INSERT INTO contact (type, name, email, phone, content)
     	VALUES (#{type}, #{name}, #{email}, #{phone}, #{content})
     </insert>
-    
-    
-    
  
     <update id="update" parameterType="Notice">
         UPDATE notice

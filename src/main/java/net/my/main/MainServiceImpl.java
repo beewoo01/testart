@@ -17,6 +17,7 @@ public class MainServiceImpl implements MainService{
 	
 	@Override
 	public List<User> getNewMemberList(Map<String, Object> paramMap) {
+		System.out.println("여기까지는 온다!!1111111111111111111");
 		return mainDao.getNewMemberList(paramMap);
 	}
 	
@@ -35,8 +36,6 @@ public class MainServiceImpl implements MainService{
 		return mainDao.getBoardListNext(board_no);
 	}
 	
-	
-	
 	@Override
 	public List<BoardList> getBoardList_like() {
 		return mainDao.getBoardList_like();
@@ -51,8 +50,6 @@ public class MainServiceImpl implements MainService{
 	public List<BoardList> getBoardList_reply() {
 		return mainDao.getBoardList_reply();
 	}
-	
-	
 	
 	//페이징
 	@Override

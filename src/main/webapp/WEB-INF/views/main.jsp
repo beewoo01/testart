@@ -1,23 +1,113 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page session="false" %>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <html>
-
-<head>
+  <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
 
     <title>ARTPIE</title>
 
-    <link rel="stylesheet" type="text/css" href="resources/css/main_style.css">
-    <link rel="stylesheet" type="text/css" href="resources/css/header_footer_style.css">
+	<link rel="stylesheet" type="text/css" href="resources/css/header_footer_style.css"> 
+    <link rel="stylesheet" type="text/css" href="resources/css/main_style.css"> 
     <link rel="stylesheet" href="http://cdn.jsdelivr.net/gh/xpressengine/xeicon@2.3.1/xeicon.min.css">
 
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.js"></script>
+    <script type="text/javascript">
+    
+    var bool_sw = true;
+    var orderby = "time";
+    
+    $(document).ready(function(){
+    	orderByTime();	
+    });
+    
+    function orderByTime(){
+		$.ajax({
+    		url : "/",
+    		type : "POST",
+    		cache : false,
+    		success : function(response){
+    			
+    			bool_sw = false;
+    			var html = "";
+    			html = getBoard(response);
+    			
+    			$("#boards").html(html);
+    			setTimeout(function(){bool_sw = true;}, 500);
+    		},
+    		error : function(){
+    			alert("실패");
+    			}
+    		});
+	}
+    
+    function getBoard(response){
+    	var html = "";
+		for(var i=0; i<response.length; i++){
+            html += "<li class='gallery' data-bno='"+response[i].board_no+"'><a href='/board?board_no="+response[i].board_no+"' alt='갤러리'>";
+			html += "<div class='gallery_thumnail'><img src='../upload/"+response[i].cover_img+"' alt='썸네일'></div><!-- .gallery_thumnail -->";
+            html += "<div class='gallery_title'><p>["+response[i].board_no+"]"+response[i].title+"</p></div><!-- .gallery_title -->";
+            html += "<div class='gallery_profile'>";
+            html += "<div class='gallery_profile_photo'><img src='../profile/"+response[i].profile_img+"'></div><!-- .gallery_profile_photo -->";
+            html += "<div class='gallery_profile_username'><span>"+response[i].name+"</span></div><!-- .gallery_profile_username -->";
+            html += "</div><!-- .gallery_profile -->";
+            html += "<div class='gallery_footer'>";
+            html += "<ul>";
+            html += "<li><i class='xi-eye-o'></i><span>"+response[i].hits+"</span></li>";
+            html += "<li><i class='xi-heart-o'></i><span>"+response[i].like_count+"</span></li>";
+            html += "<li><i class='xi-forum-o'></i><span>"+response[i].reply_count+"</span></li>";
+            html += "</ul>";
+            html += "</div><!-- .gallery_footer -->";
+            html += "</a></li><!-- .gallery -->";	
+		}
+		return html;
+    }
+    
+
+    //무한 스크롤 인식
+    $(window).scroll(function() {
+    	if(bool_sw && orderby == "time"){
+    		if($(window).scrollTop() >= $(document).height() - $(window).height()){
+        		
+        		bool_sw = false;
+        		var board_no = $(".gallery:last").attr("data-bno") ;
+
+        		$.ajax({
+            		url : "/scroll",
+            		type : "POST",
+            		data : "board_no=" + board_no,
+            		cache : false,
+            		success : function(response){
+            			
+            			var html = "";
+            			html = getBoard(response);
+            			$("#boards").append(html);
+            			//$(".gallery:last").after(html);
+            			setTimeout(function(){bool_sw = true;}, 500);
+    	
+            		}
+        		    /* ,
+            		error : function(){
+            			alert("222실패");
+            			}*/
+            		});
+        	}
+
+    	}
+    });
+    
+
+    
+    
+    </script>
   </head>
 
 
 
-<body>
+  <body>
     <div id="wrap">
 
         <header id="header"><!-- 헤더 -->
@@ -37,49 +127,45 @@
         
                             <ul class="main_navi_right"><!-- 로그인 회원가입 -->
                                 <li>
-                                    <ul class="logout">
+                                    <ul class="logout" style="display:block;">
                                         <li><a href="/ShotPlace/users/login">LOGIN</a></li>
                                         <li><a href="/ShotPlace/users/signUp">JOIN US</a></li>
                                     </ul>
         
-                                    <!-- <ul class="login">
-                                        <li><a href="#"><img src="../img/alarm_gr.png" alt="알림"></a><div class="main_alarm"></div></li>
-                                        <li><a href="#" id="current">프로필</a>
-                                            <ul>
-                                               <li><a href="#">마이페이지</a></li>
-                                               <li><a href="#">회원정보수정</a></li>
-                                               <li><a href="#">서포트 내역</a></li>
-                                               <li><a href="#">로그아웃</a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="header_upload"><a href="#"><span>UPLOAD</span><i class="xi-cloud-upload-o"></i></a></li>
-                                    </ul> -->
         
-        
-                                    <div class="login">
-                                            <ul>
-                                                <li><a href="#"><img src="../img/alarm_gr.png" alt="알람"></a><div class="main_alarm"></div></li>
-                                                <li class="main_profile"><a href="#" class="main_profile_photo"><img src="../img/user_profile.png"></a>
-                                                    <ul>
-                                                        <li><a href="#">마이페이지</a></li>
-                                                        <li><a href="#">회원정보수정</a></li>
-                                                        <li><a href="#">서포트 내역</a></li>
-                                                        <li><a href="#">로그아웃</a></li>
+                                    <ul class="login">
+                                                <li><a href="../html/mypage/alarm.html"><img src="resources/images/alarm_gr.png" alt="알람"></a><div class="main_alarm"></div></li>
+                                                <!--<li class="main_profile"><a href="../html/mypage/profile.html" class="main_profile_photo"><img src="../img/user_profile.png"></a>-->
+                                                <li class="main_profile_photo">
+													<img src="resources/images/img_sample.jpg">
+
+                                                    <ul id="menu">
+                                                        <li>
+                                                            
+                                                            <ul>
+                                                                <li><a href="../html/mypage/profile.html">마이페이지</a></li>
+                                                                <li><a href="../html/mypage/account.html">회원정보수정</a></li>
+                                                                <li><a href="../html/mypage/breakdown.html">서포트 내역</a></li>
+                                                                <li><a href="#">로그아웃</a></li>
+                                                            </ul>
+                                                        </li>
                                                     </ul>
+													<a href="../html/mypage/profile.html" ></a>
                                                 </li>
+                                                    <!--<ul>
+                                                        <li><a href="../html/mypage/profile.html">마이페이지</a></li>
+                                                        <li><a href="../html/mypage/account.html">회원정보수정</a></li>
+                                                        <li><a href="../html/mypage/breakdown.html">서포트 내역</a></li>
+                                                        <li><a href="#">로그아웃</a></li>
+                                                    </ul>-->
+                                                
                                                 <li class="header_upload"><a href="/ShotPlace/sub/upload"><span>UPLOAD</span><i class="xi-cloud-upload-o"></i></a></li>
-                                            </ul>
-                                    </div>
-        
-        
-        
-        
-        
-        
+                                    </ul>
                                 </li>
+                                
                                 <li class="searchbox">
                                     <div class="searchbox_container">
-                                        <span class="icon"><a href="#" alt="검색"><i class="xi-search"></i></a></span>
+                                        <span class="icon"><a href="../html/sub/search.html" alt="검색"><i class="xi-search"></i></a></span>
                                         <input type="search" id="search" placeholder="" />
                                     </div>
                                 </li>
@@ -105,48 +191,133 @@
         </header>
 
 
+        <!-- 스크립트까지가 탑버튼 -->
+        <a id="MOVE_TOP_BTN" href="#"><i class="xi-caret-up-circle xi-3x"></i></a>
+        <script>
+            $(function() {
+                $(window).scroll(function() {
+                    if ($(this).scrollTop() > 500) {
+                        $('#MOVE_TOP_BTN').fadeIn();
+                    } else {
+                        $('#MOVE_TOP_BTN').fadeOut();
+                    }
+                });
+                
+                $("#MOVE_TOP_BTN").click(function() {
+                    $('html, body').animate({
+                        scrollTop : 0
+                    }, 400);
+                    return false;
+                });
+            });
+        </script><!-- 여기까지가 탑버튼 -->
+
+
 
         <section id="section01"><!-- 메인배너/서브네비 -->
             <ul class="sub_navi_list"><!-- 서브네비 -->
-                <li><a href="../html/sub/gallery/all.html">전체작품</a></li>
-                <li><a href="#">편집디자인</a></li>
-                <li><a href="#">일러스트레이션</a></li>
-                <li><a href="#">포토그래피</a></li>
-                <li><a href="#">타이포그래피</a></li>
-                <li><a href="#">산업디자인</a></li>
+                <li><a href="../../../html/sub/gallery/all.html">전체작품</a></li>
+                <li><a href="../html/sub/gallery/1.html">편집디자인</a></li>
+                <li><a href="../html/sub/gallery/2.html">일러스트레이션</a></li>
+                <li><a href="../html/sub/gallery/3.html">포토그래피</a></li>
+                <li><a href="../html/sub/gallery/4.html">타이포그래피</a></li>
+                <li><a href="../html/sub/gallery/5.html">산업디자인</a></li>
+                <li><a href="../html/sub/gallery/6.html">UI/UX</a></li>
 
 
 
 
-            <select name="list_select" class="list_select"><!-- 최신순 정렬 -->
-                <option value="최신순" selected="selected">최신순</option>
-                <option value="추천순">추천순</option>
-                <option value="조회순">조회순</option>
-                <option value="댓글순">댓글순</option>
-            </select>
+                <div class="selectbox"><!-- 최신순 정렬 -->
+                    <dl class="dropdown">
+                      <!-- <dt><a href="#" style="padding-top:4px;"><span>최신순</span></a></dt>-->
+                      <dt><a style="padding-top:4px;"><span>최신순</span></a></dt>
+                      <dd>
+                        <ul class="dropdown2">
+                          <li><a onclick="javascript:order('time')">최신순</a></li>
+                          <li><a onclick="javascript:order('likes')">추천순</a></li>
+                          <li><a onclick="javascript:order('hits')">조회순</a></li>
+                          <li><a onclick="javascript:order('replies')">댓글순</a></li>
+                        </ul>
+                      </dd>
+                    </dl>
+                </div>
 
 
+                <script>/*셀렉트박스 스크립트*/
+                    $(".dropdown img.flag").addClass("flagvisibility");
 
-                <!-- ★★★셀렉트박스X 디자인은 되는데 선택은 안되는거...★★★ -->
-               <!-- <div class="list_select">  --><!-- 서브네비 우측 리스트 -->
-                <!--    <ul>
-                        <li><a href="#" id="current">최신순&nbsp;&nbsp;&nbsp;&nbsp;<span>▼</span></a>
-                            <ul>
-                                <li><a href="#">최신순</a></li>
-                                <li><a href="#">추천순</a></li>
-                                <li><a href="#">조회순</a></li>
-                                <li><a href="#">댓글순</a></li>
-                            </ul>
-                        </li>--> <!-- #current -->
-                    <!-- </ul>
-                </div> --><!-- .list_select 서브네비 우측 리스트 -->
+                    $(".dropdown dt a").click(function() {
+                    $(".dropdown dd ul").toggle();
+                    });
+
+                    $(".dropdown dd ul li a").click(function() {
+                    var text = $(this).html();
+                    $(".dropdown dt a span").html(text);
+                    $(".dropdown dd ul").hide();
+                    $("#result").html("Selected value is: " + getSelectedValue("sample"));
+                    });
+
+                    function getSelectedValue(id) {
+                    return $("#" + id).find("dt a span.value").html();
+                    }
+
+                    $(document).bind('click', function(e) {
+                    var $clicked = $(e.target);
+                    if (!$clicked.parents().hasClass("dropdown"))
+                        $(".dropdown dd ul").hide();
+                    });
+                    
+                    	
+                    function order(value){
+ 
+                    	alert(orderby);
+                    	if(orderby != value){
+                    		
+                        	alert('다름');
+                        	orderby = value;
+                        	alert(orderby);
+                        	
+                        	if(orderby == 'time'){
+                        		$("#boards").empty();
+                        		orderByTime();
+                        		
+                        	} else{
+                        		
+                        		$.ajax({                    	
+                            		url : "/order",            	
+                            		type : "GET",
+                            		data : {"orderby":orderby},
+                            		cache : false,
+                            		success : function(response){
+                            		bool_sw = false;
+                            		var html = "";
+                            		html = getBoard(response);
+                            		$("#boards").empty();
+                            		$("#boards").html(html);
+                            		//bool_sw=false;
+                            		setTimeout(function(){bool_sw = true;}, 500);
+                            		}
+                           		});
+                        		
+                        	}
+                        	             
+                        	
+                    	} else{
+                    		alert('그대로');
+                    	}
+                    	
+       
+                    }
+                   
+
+                </script>
     
 
 
         </ul><!-- .sub_navi_list -->
             <div id="s_banner_wrap"><!-- 메인 슬라이드배너 -->
                 <ul class="bxslider">
-                    <div style="width:100%; height:500px; background:navy"></div>
+                    <div style="width:100%; height:500px; background:navy"><img src="resources/images/img_sample.jpg"></div>
                     <div style="width:100%; height:500px; background:salmon"></div>
                     <div style="width:100%; height:500px; background:rebeccapurple"></div>
                 </ul>
@@ -181,15 +352,15 @@
 
                 <div class="square1">
                     <div class="content1">
-                        <div class="content1_box1">.content1_box1</div>
-                        <div class="content1_box2">.content1_box2</div>
+                        <div class="content1_box1"><img src="resources/images/img_sample.jpg"></div>
+                        <div class="content1_box2"><img src="resources/images/img_sample.jpg"></div>
                     </div>
                 </div><!-- .section02_box1 -->
 
 
                 <div class="square2">
                     <div class="content2">
-                            <div class="content2_box0">.content2_box0</div>
+                            <div class="content2_box0"><img src="resources/images/img_sample.jpg"></div>
                     </div>
                 </div><!-- .section02_box2 -->
 
@@ -199,10 +370,10 @@
                         <div class="content3_box1_1">
                             <h3>NEW CREATORS</h3>
                             
-                            	<c:forEach var="member" items="${members}">
+                            	<c:forEach var="member" items="${newMembers}">
                             		<ul>
                                     <li>
-                                        <div class="profile_img"></div>
+                                        <div class="profile_img"><img src="../profile/${member.profile_img}" alt="프사"></div>
                                     </li><!-- 프로필사진 -->
                                     <li>
                                         <p class="weekly_best_username">${member.name}</p>
@@ -210,57 +381,28 @@
                                     </li><!-- 이름이랑 소개 -->
                                     <li><a href="#" alt="구독"><i class="xi-plus-circle-o xi-2x"></i></a></li><!-- 구독버튼 -->
                                 	</ul>
-                            	
                             	</c:forEach>
-
-
-
-  
-
+                            
                         </div>
-                        
-                        
-                        
                         <div class="content3_box1_2">
                             <h3>HOT CREATORS</h3>
                             
-                            <ul>
-                                <li>
-                                    <div class="profile_img"></div>
-                                </li><!-- 프로필사진 -->
-                                <li>
-                                    <p class="weekly_best_username">닉네임</p>
-                                    <p class="weekly_best_userintro">소개</p>
-                                </li><!-- 이름이랑 소개 -->
-                                <li><a href="#" alt="구독"><i class="xi-plus-circle-o xi-2x"></i></a></li><!-- 구독버튼 -->
-                            </ul>
-
-                            <ul>
-                                <li>
-                                    <div class="profile_img"></div>
-                                </li><!-- 프로필사진 -->
-                                <li>
-                                    <p class="weekly_best_username">닉네임</p>
-                                    <p class="weekly_best_userintro">소개</p>
-                                </li><!-- 이름이랑 소개 -->
-                                <li><a href="#" alt="구독"><i class="xi-plus-circle-o xi-2x"></i></a></li><!-- 구독버튼 -->
-                            </ul>
-
-
-                            <ul>
-                                <li>
-                                    <div class="profile_img"></div>
-                                </li><!-- 프로필사진 -->
-                                <li>
-                                    <p class="weekly_best_username">닉네임</p>
-                                    <p class="weekly_best_userintro">소개</p>
-                                </li><!-- 이름이랑 소개 -->
-                                <li><a href="#" alt="구독"><i class="xi-plus-circle-o xi-2x"></i></a></li><!-- 구독버튼 -->
-                            </ul>  
+                            	<c:forEach var="member" items="${hotMembers}">
+                        		    <ul>
+                             		   <li>
+                              		      <div class="profile_img"><img src="../profile/${member.profile_img}" alt="프사"></div>
+                             		   </li><!-- 프로필사진 -->
+                             		   <li>
+                             		       <p class="weekly_best_username">${member.name}</p>
+                             		       <p class="weekly_best_userintro">${member.introduce}</p>
+                            		    </li><!-- 이름이랑 소개 -->
+                           		     <li><a href="#" alt="구독"><i class="xi-plus-circle-o xi-2x"></i></a></li><!-- 구독버튼 -->
+                        		    </ul>                            		
+                            	</c:forEach>  
 
                         </div>
-                        <div class="content3_box2_1">.content3_box2_1</div>
-                        <div class="content3_box2_2">.content3_box2_1</div>
+                        <div class="content3_box2_1"><img src="resources/images/img_sample.jpg"></div>
+                        <div class="content3_box2_2"><img src="resources/images/img_sample.jpg"></div>
                     </div>
                 </div><!-- .section02_box3 -->
 
@@ -276,247 +418,10 @@
                     <div class="square0">
                         
                         <div class="content0">
-                            <ul class="content0_gallery_box">
+                            <ul class="content0_gallery_box" id="boards">
 
-                                <li class="gallery"><a href="#" alt="갤러리">
-                                    <div class="gallery_thumnail"></div><!-- .gallery_thumnail -->
-                                    <div class="gallery_title"><p>제목이 많이많이많이 길면 여기까지 노출됩니다.</p></div><!-- .gallery_title -->
-                                    <div class="gallery_profile">
-                                        <div class="gallery_profile_photo"></div><!-- .gallery_profile_photo -->
-                                        <div class="gallery_profile_username"><span>닉네임이 많이 길어질 경우는 여기까지 노출됩니다.</span></div><!-- .gallery_profile_username -->
-                                    </div><!-- .gallery_profile -->
-                                    <div class="gallery_footer">
-                                        <ul>
-                                            <li><i class="xi-eye-o"></i><span>50</span></li>
-                                            <li><i class="xi-heart-o"></i><span>40</span></li>
-                                            <li><i class="xi-forum-o"></i><span>30</span></li>
-                                        </ul>
-                                    </div><!-- .gallery_footer -->
-                                </a></li><!-- .gallery -->
-
-                                <li class="gallery"><a href="#" alt="갤러리">
-                                    <div class="gallery_thumnail"></div><!-- .gallery_thumnail -->
-                                    <div class="gallery_title"><p>제목입니다.</p></div><!-- .gallery_title -->
-                                    <div class="gallery_profile">
-                                        <div class="gallery_profile_photo"></div><!-- .gallery_profile_photo -->
-                                        <div class="gallery_profile_username"><span>닉네임</span></div><!-- .gallery_profile_username -->
-                                    </div><!-- .gallery_profile -->
-                                    <div class="gallery_footer">
-                                        <ul>
-                                            <li><i class="xi-eye-o"></i><span>50</span></li>
-                                            <li><i class="xi-heart-o"></i><span>40</span></li>
-                                            <li><i class="xi-forum-o"></i><span>30</span></li>
-                                        </ul>
-                                    </div><!-- .gallery_footer -->
-                                </a></li><!-- .gallery -->
                                 
-                                <li class="gallery"><a href="#" alt="갤러리">
-                                    <div class="gallery_thumnail"></div><!-- .gallery_thumnail -->
-                                    <div class="gallery_title"><p>제목입니다.</p></div><!-- .gallery_title -->
-                                    <div class="gallery_profile">
-                                        <div class="gallery_profile_photo"></div><!-- .gallery_profile_photo -->
-                                        <div class="gallery_profile_username"><span>닉네임</span></div><!-- .gallery_profile_username -->
-                                    </div><!-- .gallery_profile -->
-                                    <div class="gallery_footer">
-                                        <ul>
-                                            <li><i class="xi-eye-o"></i><span>50</span></li>
-                                            <li><i class="xi-heart-o"></i><span>40</span></li>
-                                            <li><i class="xi-forum-o"></i><span>30</span></li>
-                                        </ul>
-                                    </div><!-- .gallery_footer -->
-                                </a></li><!-- .gallery -->
-                                
-                                <li class="gallery"><a href="#" alt="갤러리">
-                                    <div class="gallery_thumnail"></div><!-- .gallery_thumnail -->
-                                    <div class="gallery_title"><p>제목입니다.</p></div><!-- .gallery_title -->
-                                    <div class="gallery_profile">
-                                        <div class="gallery_profile_photo"></div><!-- .gallery_profile_photo -->
-                                        <div class="gallery_profile_username"><span>닉네임</span></div><!-- .gallery_profile_username -->
-                                    </div><!-- .gallery_profile -->
-                                    <div class="gallery_footer">
-                                        <ul>
-                                            <li><i class="xi-eye-o"></i><span>50</span></li>
-                                            <li><i class="xi-heart-o"></i><span>40</span></li>
-                                            <li><i class="xi-forum-o"></i><span>30</span></li>
-                                        </ul>
-                                    </div><!-- .gallery_footer -->
-                                </a></li><!-- .gallery -->
 
-                                <li class="gallery"><a href="#" alt="갤러리">
-                                    <div class="gallery_thumnail"></div><!-- .gallery_thumnail -->
-                                    <div class="gallery_title"><p>제목입니다.</p></div><!-- .gallery_title -->
-                                    <div class="gallery_profile">
-                                        <div class="gallery_profile_photo"></div><!-- .gallery_profile_photo -->
-                                        <div class="gallery_profile_username"><span>닉네임</span></div><!-- .gallery_profile_username -->
-                                    </div><!-- .gallery_profile -->
-                                    <div class="gallery_footer">
-                                        <ul>
-                                            <li><i class="xi-eye-o"></i><span>50</span></li>
-                                            <li><i class="xi-heart-o"></i><span>40</span></li>
-                                            <li><i class="xi-forum-o"></i><span>30</span></li>
-                                        </ul>
-                                    </div><!-- .gallery_footer -->
-                                </a></li><!-- .gallery -->
-
-                                <li class="gallery"><a href="#" alt="갤러리">
-                                    <div class="gallery_thumnail"></div><!-- .gallery_thumnail -->
-                                    <div class="gallery_title"><p>제목입니다.</p></div><!-- .gallery_title -->
-                                    <div class="gallery_profile">
-                                        <div class="gallery_profile_photo"></div><!-- .gallery_profile_photo -->
-                                        <div class="gallery_profile_username"><span>닉네임</span></div><!-- .gallery_profile_username -->
-                                    </div><!-- .gallery_profile -->
-                                    <div class="gallery_footer">
-                                        <ul>
-                                            <li><i class="xi-eye-o"></i><span>50</span></li>
-                                            <li><i class="xi-heart-o"></i><span>40</span></li>
-                                            <li><i class="xi-forum-o"></i><span>30</span></li>
-                                        </ul>
-                                    </div><!-- .gallery_footer -->
-                                </a></li><!-- .gallery -->
-
-                                <li class="gallery"><a href="#" alt="갤러리">
-                                    <div class="gallery_thumnail"></div><!-- .gallery_thumnail -->
-                                    <div class="gallery_title"><p>제목입니다.</p></div><!-- .gallery_title -->
-                                    <div class="gallery_profile">
-                                        <div class="gallery_profile_photo"></div><!-- .gallery_profile_photo -->
-                                        <div class="gallery_profile_username"><span>닉네임</span></div><!-- .gallery_profile_username -->
-                                    </div><!-- .gallery_profile -->
-                                    <div class="gallery_footer">
-                                        <ul>
-                                            <li><i class="xi-eye-o"></i><span>50</span></li>
-                                            <li><i class="xi-heart-o"></i><span>40</span></li>
-                                            <li><i class="xi-forum-o"></i><span>30</span></li>
-                                        </ul>
-                                    </div><!-- .gallery_footer -->
-                                </a></li><!-- .gallery -->
-                                
-                                <li class="gallery"><a href="#" alt="갤러리">
-                                    <div class="gallery_thumnail"></div><!-- .gallery_thumnail -->
-                                    <div class="gallery_title"><p>제목입니다.</p></div><!-- .gallery_title -->
-                                    <div class="gallery_profile">
-                                        <div class="gallery_profile_photo"></div><!-- .gallery_profile_photo -->
-                                        <div class="gallery_profile_username"><span>닉네임</span></div><!-- .gallery_profile_username -->
-                                    </div><!-- .gallery_profile -->
-                                    <div class="gallery_footer">
-                                        <ul>
-                                            <li><i class="xi-eye-o"></i><span>50</span></li>
-                                            <li><i class="xi-heart-o"></i><span>40</span></li>
-                                            <li><i class="xi-forum-o"></i><span>30</span></li>
-                                        </ul>
-                                    </div><!-- .gallery_footer -->
-                                </a></li><!-- .gallery -->                              
-
-                                <li class="gallery"><a href="#" alt="갤러리">
-                                    <div class="gallery_thumnail"></div><!-- .gallery_thumnail -->
-                                    <div class="gallery_title"><p>제목입니다.</p></div><!-- .gallery_title -->
-                                    <div class="gallery_profile">
-                                        <div class="gallery_profile_photo"></div><!-- .gallery_profile_photo -->
-                                        <div class="gallery_profile_username"><span>닉네임</span></div><!-- .gallery_profile_username -->
-                                    </div><!-- .gallery_profile -->
-                                    <div class="gallery_footer">
-                                        <ul>
-                                            <li><i class="xi-eye-o"></i><span>50</span></li>
-                                            <li><i class="xi-heart-o"></i><span>40</span></li>
-                                            <li><i class="xi-forum-o"></i><span>30</span></li>
-                                        </ul>
-                                    </div><!-- .gallery_footer -->
-                                </a></li><!-- .gallery -->                               
-                                
-                                <li class="gallery"><a href="#" alt="갤러리">
-                                    <div class="gallery_thumnail"></div><!-- .gallery_thumnail -->
-                                    <div class="gallery_title"><p>제목입니다.</p></div><!-- .gallery_title -->
-                                    <div class="gallery_profile">
-                                        <div class="gallery_profile_photo"></div><!-- .gallery_profile_photo -->
-                                        <div class="gallery_profile_username"><span>닉네임</span></div><!-- .gallery_profile_username -->
-                                    </div><!-- .gallery_profile -->
-                                    <div class="gallery_footer">
-                                        <ul>
-                                            <li><i class="xi-eye-o"></i><span>50</span></li>
-                                            <li><i class="xi-heart-o"></i><span>40</span></li>
-                                            <li><i class="xi-forum-o"></i><span>30</span></li>
-                                        </ul>
-                                    </div><!-- .gallery_footer -->
-                                </a></li><!-- .gallery -->          
-                                
-                                <li class="gallery"><a href="#" alt="갤러리">
-                                    <div class="gallery_thumnail"></div><!-- .gallery_thumnail -->
-                                    <div class="gallery_title"><p>제목입니다.</p></div><!-- .gallery_title -->
-                                    <div class="gallery_profile">
-                                        <div class="gallery_profile_photo"></div><!-- .gallery_profile_photo -->
-                                        <div class="gallery_profile_username"><span>닉네임</span></div><!-- .gallery_profile_username -->
-                                    </div><!-- .gallery_profile -->
-                                    <div class="gallery_footer">
-                                        <ul>
-                                            <li><i class="xi-eye-o"></i><span>50</span></li>
-                                            <li><i class="xi-heart-o"></i><span>40</span></li>
-                                            <li><i class="xi-forum-o"></i><span>30</span></li>
-                                        </ul>
-                                    </div><!-- .gallery_footer -->
-                                </a></li><!-- .gallery -->          
-
-                                <li class="gallery"><a href="#" alt="갤러리">
-                                    <div class="gallery_thumnail"></div><!-- .gallery_thumnail -->
-                                    <div class="gallery_title"><p>제목입니다.</p></div><!-- .gallery_title -->
-                                    <div class="gallery_profile">
-                                        <div class="gallery_profile_photo"></div><!-- .gallery_profile_photo -->
-                                        <div class="gallery_profile_username"><span>닉네임</span></div><!-- .gallery_profile_username -->
-                                    </div><!-- .gallery_profile -->
-                                    <div class="gallery_footer">
-                                        <ul>
-                                            <li><i class="xi-eye-o"></i><span>50</span></li>
-                                            <li><i class="xi-heart-o"></i><span>40</span></li>
-                                            <li><i class="xi-forum-o"></i><span>30</span></li>
-                                        </ul>
-                                    </div><!-- .gallery_footer -->
-                                </a></li><!-- .gallery -->            
-                                
-                                <li class="gallery"><a href="#" alt="갤러리">
-                                    <div class="gallery_thumnail"></div><!-- .gallery_thumnail -->
-                                    <div class="gallery_title"><p>제목입니다.</p></div><!-- .gallery_title -->
-                                    <div class="gallery_profile">
-                                        <div class="gallery_profile_photo"></div><!-- .gallery_profile_photo -->
-                                        <div class="gallery_profile_username"><span>닉네임</span></div><!-- .gallery_profile_username -->
-                                    </div><!-- .gallery_profile -->
-                                    <div class="gallery_footer">
-                                        <ul>
-                                            <li><i class="xi-eye-o"></i><span>50</span></li>
-                                            <li><i class="xi-heart-o"></i><span>40</span></li>
-                                            <li><i class="xi-forum-o"></i><span>30</span></li>
-                                        </ul>
-                                    </div><!-- .gallery_footer -->
-                                </a></li><!-- .gallery -->     
-
-                                <li class="gallery"><a href="#" alt="갤러리">
-                                    <div class="gallery_thumnail"></div><!-- .gallery_thumnail -->
-                                    <div class="gallery_title"><p>제목입니다.</p></div><!-- .gallery_title -->
-                                    <div class="gallery_profile">
-                                        <div class="gallery_profile_photo"></div><!-- .gallery_profile_photo -->
-                                        <div class="gallery_profile_username"><span>닉네임</span></div><!-- .gallery_profile_username -->
-                                    </div><!-- .gallery_profile -->
-                                    <div class="gallery_footer">
-                                        <ul>
-                                            <li><i class="xi-eye-o"></i><span>50</span></li>
-                                            <li><i class="xi-heart-o"></i><span>40</span></li>
-                                            <li><i class="xi-forum-o"></i><span>30</span></li>
-                                        </ul>
-                                    </div><!-- .gallery_footer -->
-                                </a></li><!-- .gallery -->     
-
-                                <li class="gallery"><a href="#" alt="갤러리">
-                                    <div class="gallery_thumnail"></div><!-- .gallery_thumnail -->
-                                    <div class="gallery_title"><p>제목입니다.</p></div><!-- .gallery_title -->
-                                    <div class="gallery_profile">
-                                        <div class="gallery_profile_photo"></div><!-- .gallery_profile_photo -->
-                                        <div class="gallery_profile_username"><span>닉네임</span></div><!-- .gallery_profile_username -->
-                                    </div><!-- .gallery_profile -->
-                                    <div class="gallery_footer">
-                                        <ul>
-                                            <li><i class="xi-eye-o"></i><span>50</span></li>
-                                            <li><i class="xi-heart-o"></i><span>40</span></li>
-                                            <li><i class="xi-forum-o"></i><span>30</span></li>
-                                        </ul>
-                                    </div><!-- .gallery_footer -->
-                                </a></li><!-- .gallery -->     
                                 
                             </ul>
                         </div>
@@ -532,13 +437,13 @@
             
             <ul>
                 <li><a href="./" alt="ABOUT US">ABOUT US</a></li>
-                <li><a href="./" alt="NOTICE">NOTICE</a></li>
+                <li><a href="/ShotPlace/bbs/list" alt="NOTICE">NOTICE</a></li>
                 <li><a href="./" alt="FAQ">FAQ</a></li>
-                <li><a href="./" alt="CONTACT US">CONTACT US</a></li>
-                <li><a href="./" alt="이용약관">이용약관</a></li>
+                <li><a href="/ShotPlace/bbs/contact" alt="CONTACT US">CONTACT US</a></li>
+                <li><a href="../html/access_terms.html" alt="이용약관">이용약관</a></li>
                 <li><a href="./" alt="개인정보취급방침">개인정보취급방침</a></li>
-                <li><a href="#" alt="인스타그램"><i class="xi-instagram"></i></a></li>
-                <li><a href="#" alt="블로그"><i class="xi-blogger"></i></a></li>
+                <li><a href="./" alt="인스타그램"><i class="xi-instagram"></i></a></li>
+                <li><a href="./" alt="블로그"><i class="xi-blogger"></i></a></li>
             </ul>
 
         </footer>

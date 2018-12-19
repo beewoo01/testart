@@ -22,6 +22,7 @@ public class MainDaoImpl implements MainDao{
 	
 	@Override
 	public List<User> getNewMemberList(Map<String, Object> paramMap) {
+		System.out.println("여기까지는 온다!!2222222222222222222222");
 		return sqlSession.selectList("getNewMemberList", paramMap);
 	}
 	
@@ -56,8 +57,6 @@ public class MainDaoImpl implements MainDao{
 	public List<BoardList> getBoardList_reply() {
 		return sqlSession.selectList("getBoardList_reply");
 	}
-	
-	
 	
 	//페이징
 	@Override

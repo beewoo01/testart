@@ -34,7 +34,7 @@ public class MainController {
 		model.addAttribute("newMembers", mainService.getNewMemberList(paramMap));
 		model.addAttribute("hotMembers", mainService.getHotMemberList(paramMap));
 		
-		return "/view/main";
+		return "/main";
 	}
 	
 	

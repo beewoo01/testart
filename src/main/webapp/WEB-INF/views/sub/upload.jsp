@@ -9,7 +9,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>Start Up</title>
+<title>ARTPIE</title>
 <style type="text/css">
 	.imgs_wrap{
 			width: 600px;
@@ -19,6 +19,13 @@
 		max-width: 200px;
 		}
 </style>
+<link rel="stylesheet" type="text/css" href="../resources/css/main_style.css">
+<link rel="stylesheet" type="text/css" href="../resources/css/sub/upload_style.css"> 
+<link rel="stylesheet" href="http://cdn.jsdelivr.net/gh/xpressengine/xeicon@2.3.1/xeicon.min.css">
+<link href="../resources/css/sub/upload_jquery.multiselect.css" rel="stylesheet" />
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="../resource/js/upload.jquery.multiselect.js"></script>
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js" charset="utf-8"></script>
 <script type="text/javascript">
 	var sel_files = [];
@@ -137,6 +144,132 @@
 </script>
 </head>
 <body>
+	<div id="wrap">
+	<header id="header"><!-- 헤더 -->
+                <nav>     
+
+                        <div class="inwrap">
+                            <div id="logo"><a href="../"><img src="resources/images/logo.png" alt="로고"></a></div><!-- 로고 -->
+        
+        
+                            <ul class="main_navi_list"><!-- 메인네비 -->
+                                <li><a href="../../../artpie/html/sub/gallery/all.html">GALLERY</a></li>
+                                <li><a href="../../../artpie/html/sub/feed.html">FEED</a></li>
+                                <li><a href="../../../artpie/html/sub/support/2.html">SUPPORT</a></li>
+                                <li><a href="#">MARCKET</a></li>
+                                <li><a href="#">MAGAZINE</a></li>
+                            </ul>
+        
+                            <ul class="main_navi_right"><!-- 로그인 회원가입 -->
+                                <li>
+                                    <ul class="logout" style="display:none;">
+                                        <li><a href="../ShotPlace/users/login">LOGIN</a></li>
+                                        <li><a href="../ShotPlace/users/signUp">JOIN US</a></li>
+                                    </ul>
+        
+                                    <!-- <ul class="login">
+                                        <li><a href="#"><img src="../../artpie/img/alarm_gr.png" alt="알림"></a><div class="main_alarm"></div></li>
+                                        <li><a href="#" id="current">프로필</a>
+                                            <ul>
+                                               <li><a href="#">마이페이지</a></li>
+                                               <li><a href="#">회원정보수정</a></li>
+                                               <li><a href="#">서포트 내역</a></li>
+                                               <li><a href="#">로그아웃</a></li>
+                                            </ul>
+                                        </li>
+                                        <li class="header_upload"><a href="#"><span>UPLOAD</span><i class="xi-cloud-upload-o"></i></a></li>
+                                    </ul> -->
+        
+        
+                                    <div class="login">
+                                            <ul>
+                                                <li><a href="#"><img src="resources/images/alarm_gr.png" alt="알람"></a><div class="main_alarm"></div></li>
+                                                <li class="main_profile"><a href="#" class="main_profile_photo"><img src="resource/images/user_profile.png"></a>
+                                                    <ul>
+                                                        <li><a href="#">마이페이지</a></li>
+                                                        <li><a href="#">회원정보수정</a></li>
+                                                        <li><a href="#">서포트 내역</a></li>
+                                                        <li><a href="#">로그아웃</a></li>
+                                                    </ul>
+                                                </li>
+                                                <li class="header_upload"><a href="resources/images/sub/upload.html"><span>UPLOAD</span><i class="xi-cloud-upload-o"></i></a></li>
+                                            </ul>
+                                    </div>
+        
+        
+        
+        
+        
+        
+                                </li>
+                                <li class="searchbox">
+                                    <div class="searchbox_container">
+                                        <span class="icon"><a href="#" alt="검색"><i class="xi-search"></i></a></span>
+                                        <input type="search" id="search" placeholder="" />
+                                    </div>
+                                </li>
+                                <li>
+                                    <button id="sitemap_btn">
+                                            <span></span><span></span><span></span>
+                                    </button>
+                                </li>
+
+                                <script>
+                                    var e = document.getElementById('sitemap_btn');
+                                    e.addEventListener('click', function() {
+                                        if (this.className == 'on') this.classList.remove('on');
+                                        else this.classList.add('on');
+                                    });
+                                </script>
+                            </ul>
+        
+                            
+                        </div><!-- .inwrap -->
+        
+        
+        
+                        <ul class="sub_navi_list"><!-- 서브네비 -->
+                                <li><a href="../../../artpie/html/sub/gallery/all.html">전체작품</a></li>
+                                <li><a href="../../../artpie/html/sub/gallery/1.html">편집디자인</a></li>
+                                <li><a href="../../../artpie/html/sub/gallery/2.html">일러스트레이션</a></li>
+                                <li><a href="../../../artpie/html/sub/gallery/3.html">포토그래피</a></li>
+                                <li><a href="../../../artpie/html/sub/gallery/4.html">타이포그래피</a></li>
+                                <li><a href="../../../artpie/html/sub/gallery/5.html">산업디자인</a></li>
+                                <li><a href="../../../artpie/html/sub/gallery/6.html">UI/UX</a></li>
+        
+        
+        
+        
+                            <select name="list_select" class="list_select"><!-- 최신순 정렬 -->
+                                <option value="최신순" selected="selected">최신순</option>
+                                <option value="추천순">추천순</option>
+                                <option value="조회순">조회순</option>
+                                <option value="댓글순">댓글순</option>
+                            </select>
+        
+        
+        
+                                <!-- ★★★셀렉트박스X 디자인은 되는데 선택은 안되는거...★★★ -->
+                               <!-- <div class="list_select">  --><!-- 서브네비 우측 리스트 -->
+                                <!--    <ul>
+                                        <li><a href="#" id="current">최신순&nbsp;&nbsp;&nbsp;&nbsp;<span>▼</span></a>
+                                            <ul>
+                                                <li><a href="#">최신순</a></li>
+                                                <li><a href="#">추천순</a></li>
+                                                <li><a href="#">조회순</a></li>
+                                                <li><a href="#">댓글순</a></li>
+                                            </ul>
+                                        </li>--> <!-- #current -->
+                                    <!-- </ul>
+                                </div> --><!-- .list_select 서브네비 우측 리스트 -->
+                    
+        
+        
+                        </ul><!-- .sub_navi_list -->
+
+                </nav>
+        </header>
+	</div>
 
 	<div>
 		<h2><b>이미지 미리보기</b></h2>

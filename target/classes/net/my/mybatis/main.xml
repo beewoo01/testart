@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="net.my.maindao.MainDao">
+	
+	<!-- NEW CREATORS 데이터 가져오기 -->
+    <select id="getNewMemberList" resultType="net.my.user.User" parameterType="java.util.HashMap">
+        select
+            member_no,
+            email,
+            password,
+            name,
+            member_url,
+            join_dt,
+            profile_img,
+            introduce
+        from
+            member
+        order by join_dt DESC
+        limit 3
+    </select>
+    
+    <!-- HOT CREATORS 데이터 가져오기 -->
+    <select id="getHotMemberList" resultType="net.my.user.User" parameterType="java.util.HashMap">
+        select
+            member_no,
+            email,
+            password,
+            name,
+            member_url,
+            join_dt,
+            profile_img,
+            introduce
+        from
+            member
+        order by name DESC
+        limit 3
+    </select>
+    
+    <!-- 게시글 리스트 가져오기(최신순:기본) -->
+    <select id="getBoardList" resultType="net.my.main.BoardList" parameterType="java.util.HashMap">
+        <![CDATA[
+        select
+            board_no,
+            profile_img,
+            name,
+            title,
+            cover_img,
+            board.category,
+            hits,
+            like_count,
+            reply_count
+        from
+            board, member
+        where
+        	board.member_no = member.member_no
+        order by board_no DESC
+       	limit 5
+       	]]>
+    </select>
+    
+    
+    <!-- 게시글 리스트 가져오기_무한스크롤(최신순:기본) -->
+    <select id="getBoardListNext" resultType="net.my.main.BoardList" parameterType="java.util.HashMap">
+        <![CDATA[
+        select
+            board_no,
+            profile_img,
+            name,
+            title,
+            cover_img,
+            board.category,
+            hits,
+            like_count,
+            reply_count
+        from
+            board, member
+        where
+        	board.member_no = member.member_no
+        	and board_no < #{board_no}
+        order by board_no DESC
+       	limit 5
+       	]]>
+    </select>
+    
+    <!-- 게시글 리스트 정렬하기(추천순=좋아요수) -->
+    <select id="getBoardList_like" resultType="net.my.main.BoardList">
+        select
+            board_no,
+            profile_img,
+            name,
+            title,
+            cover_img,
+            board.category,
+            hits,
+            like_count,
+            reply_count
+        from
+            board, member
+        where
+        	board.member_no = member.member_no
+        order by like_count DESC, board_no DESC
+    </select>
+    
+    <!-- 게시글 리스트 정렬하기(조회순) -->
+    <select id="getBoardList_hits" resultType="net.my.main.BoardList" parameterType="java.util.HashMap">
+        select
+            board_no,
+            profile_img,
+            name,
+            title,
+            cover_img,
+            board.category,
+            hits,
+            like_count,
+            reply_count
+        from
+            board, member
+        where
+        	board.member_no = member.member_no
+        order by hits DESC, board_no DESC
+    </select>
+    
+    <!-- 게시글 리스트 정렬하기(댓글순) -->
+    <select id="getBoardList_reply" resultType="net.my.main.BoardList">
+        select
+            board_no,
+            profile_img,
+            name,
+            title,
+            cover_img,
+            board.category,
+            hits,
+            like_count,
+            reply_count
+        from
+            board, member
+        where
+        	board.member_no = member.member_no
+        order by reply_count DESC, board_no DESC
+    </select>
+ 
+    
+    
+
+
+
+</mapper>
