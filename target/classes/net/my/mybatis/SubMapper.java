@@ -1,6 +1,9 @@
-package net.my.sub;
+package net.my.mybatis;
 
-public interface SubService {
+import net.my.sub.SubBoard;
+import net.my.sub.SubUpload;
+
+public interface SubMapper {
 	
 	public int insert(SubBoard subboard);
 	

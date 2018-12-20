@@ -33,4 +33,6 @@ public interface BoardDao {
 		
 		//댓글 입력하기
 		int writeReReply(Map<String, Object> paramMap);
+		
+		
 }

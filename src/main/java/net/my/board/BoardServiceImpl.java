@@ -31,7 +31,6 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public ArrayList<Notice> getNoticeList() {
-		
 		return boardMapper.getNoticeList();
 	}
 

@@ -40,27 +40,27 @@ function goList(){
 			<!-- 본문 시작 -->
 			<h1>${boardNm }</h1>
 			<div id="bbs">
-			<h2>글쓰기</h2>
-			<form id="writeForm" action="write" method="post" onsubmit="return check()">
-			<p style="margin: 0;padding: 0;">
-			<input type="hidden" name="boardCd" value="${param.boardCd }" />
-			</p>
-			<table id="write-form">
-			<tr>
-			    <td>제목</td>
-			    <td><input type="text" name="title" size="50" /></td>
-			</tr>
-			<tr>
-			    <td colspan="2">
-			        <textarea name="content" rows="17"></textarea>
-			    </td>
-			</tr>
-			</table>
-			<div style="text-align: center;padding-bottom: 15px;">
-			    <input type="submit" value="전송" />
-			    <input type="button" value="목록" onclick="goList()" />
-			</div>
-			</form>
+				<h2>글쓰기</h2>
+				<form id="writeForm" action="write" method="post" onsubmit="return check()">
+					<p style="margin: 0;padding: 0;">
+						<input type="hidden" name="boardCd" value="${param.boardCd }" />
+					</p>
+					<table id="write-form">
+						<tr>
+						    <td>제목</td>
+						    <td><input type="text" name="title" size="50" /></td>
+						</tr>
+						<tr>
+						    <td colspan="2">
+						        <textarea name="content" rows="17"></textarea>
+						    </td>
+						</tr>
+					</table>
+					<div style="text-align: center;padding-bottom: 15px;">
+					    <input type="submit" value="전송" />
+					    <input type="button" value="목록" onclick="goList()" />
+					</div>
+				</form>
 			</div><!-- bbs 끝 -->
 			<!--  본문 끝 -->
 		</div>

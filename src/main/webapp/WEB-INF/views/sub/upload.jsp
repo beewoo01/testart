@@ -84,8 +84,10 @@
 	
 	function fileSubmit(){
 		var form = $('#uploadForm')[0];
+		var title = $('#upload_title').val();
 		alert("안녕???" + form);
 		var formData = new FormData(form);
+		
 		alert("악악악!! : " + Object.keys(sel_files).length);
 		alert("호호 : " + sel_files.length);
 		
@@ -100,6 +102,8 @@
 			//alert("data22 : " + sel_files[index1]);
 			//alert("data : " + data);
 		}
+		
+		var allData = {"title" : title, "formData" : formData};
 		
 
 		$.ajax({
@@ -127,6 +131,18 @@
                 console.log(error.status);
             }
         });
+		$.ajax({
+			type : 'post',
+			url : 'fileUpload',
+			dataType : 'text',
+			data : ,
+			success : function(){			
+			},
+			error : function(error){
+				alert("이라면 실패다");
+			}
+		});
+		
 	}
 	function goImage(){
 		$("#input_imgs").trigger("click");
@@ -332,7 +348,7 @@
         		
         		<div class="upload_right">
         			<div class="upload_right_title"><!-- 제목 -->
-              			<input type="text" name="upload_title" maxlength="100" value="제목을 입력해주세요." onfocus="this.value=''">
+              			<input type="text" name="upload_title" id="upload_title" maxlength="100" value="제목을 입력해주세요." onfocus="this.value=''">
                     </div><!-- .upload_right_title -->
                     
                     <div class="upload_right_cont"><!-- 내용 -->

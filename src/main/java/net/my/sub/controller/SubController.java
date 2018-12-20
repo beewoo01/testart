@@ -5,20 +5,30 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
+import javax.activation.CommandMap;
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.ModelAndView;
 
+import net.my.sub.SubBoard;
+import net.my.sub.SubService;
 import net.my.user.User;
 
 
@@ -26,9 +36,6 @@ import net.my.user.User;
 @RequestMapping("sub")
 public class SubController {
 	private static final Logger logger = LoggerFactory.getLogger(SubController.class);
-	
-	
-	
 	//
 	private static final int RESULT_EXCEED_SIZE = -2;
     private static final int RESULT_UNACCEPTED_EXTENSION = -1;
@@ -38,6 +45,8 @@ public class SubController {
 	// 업로드된 파일이 저장될 위치 입니다. 
 	private final String PATH = "D:\\SpringUploadRepo\\upload";
 	
+	@Autowired
+	private SubService subservice;
 
 	@Resource(name = "uploadPath")
 	private String uploadPath;
@@ -56,16 +65,36 @@ public class SubController {
 			String userEmail = user.getEmail();
 			System.out.println("유저 이메일은 무엇이냐! : " + userEmail);
 		}
+		//바로 아래 insertBoard 는 테스트용 지워도 됨
+		//insertBoard(session);
+		
 		System.out.println("드루와드루와드루와드루와드루와드루와드루와드루와드루와드루와");
 		return "sub/upload";
 		
 	}
 	
+	public String insertBoard( HttpSession session) {
+		System.out.println("여기는와?1111");
+		User user = (User) session.getAttribute("check");
+		String userNum = user.getMember_no();
+		System.out.println("여기는와?222222");
+		SubBoard subboard = new SubBoard();
+		subboard.setMember_no(userNum);
+		subservice.insert(subboard);
+		
+		return "sub/upload";
+	}
+	
 	@ResponseBody
 	@RequestMapping(value="/fileUpload")
-	public int fileUp(@RequestParam("files")List<MultipartFile> images ,MultipartHttpServletRequest multi, HttpSession session, HttpServletResponse response) {
+	public int fileUp(@RequestParam("files")List<MultipartFile> images, MultipartHttpServletRequest multi, HttpSession session, HttpServletResponse response) {
 		long sizeSum = 0;
 		System.out.println("00000000000000");
+		
+		
+		/*String strA = title;
+		System.out.println("타이틀이 올 것인가? !!!! : " + strA);*/
+		
 		for(MultipartFile image : images) {
 			String originalName = image.getOriginalFilename();
 			

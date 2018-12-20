@@ -23,10 +23,7 @@ public class BbsController {
 	public String list(String boar, Model model) throws Exception{
 		
 		//System.out.println("코딩을 끝내러 왔다 2 : "+ list);
-		
 		model.addAttribute("list", boardService.getNoticeList());
-		
-		
 		return "bbs/list";
 		
 	}
@@ -45,10 +42,7 @@ public class BbsController {
 	@RequestMapping(value="view", method=RequestMethod.GET)
 	public String view(int notice_no, Model model) {
 		boardService.increaseHit(notice_no);
-		
 		Notice thisNotice = boardService.getNotice(notice_no);
-		
-		
 		model.addAttribute("thisNotice", thisNotice);
 		return "bbs/view";
 	}

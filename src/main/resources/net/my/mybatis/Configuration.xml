@@ -10,11 +10,13 @@
         <typeAlias type="net.my.board.Notice" alias="Notice"/>
         <typeAlias type="net.my.board.Notice" alias="Contact"/>
         <typeAlias type="net.my.main.Board" alias="Board"/>
+        <typeAlias type="net.my.sub.SubBoard" alias="SubBoard"/>
     </typeAliases>
  
     <mappers>
         <mapper resource="net/my/mybatis/UserMapper.xml" />
         <mapper resource="net/my/mybatis/BoardMapper.xml" />
+        <mapper resource="net/my/mybatis/SubMapper.xml"/>
         <mapper resource="net/my/mybatis/main.xml"/>
         <mapper resource="net/my/mybatis/board.xml"/>
     </mappers>
