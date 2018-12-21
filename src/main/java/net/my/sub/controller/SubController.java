@@ -21,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -73,9 +74,12 @@ public class SubController {
 		
 	}
 	
-	public String insertBoard( HttpSession session) {
+	@ResponseBody
+	@RequestMapping(value="/isAvailable", method = RequestMethod.POST)
+	public String insertBoard( HttpSession session, String title) {
 		System.out.println("여기는와?1111");
 		User user = (User) session.getAttribute("check");
+		//SubBoard result = subservice.insert(title);
 		String userNum = user.getMember_no();
 		System.out.println("여기는와?222222");
 		SubBoard subboard = new SubBoard();
@@ -87,13 +91,25 @@ public class SubController {
 	
 	@ResponseBody
 	@RequestMapping(value="/fileUpload")
-	public int fileUp(@RequestParam("files")List<MultipartFile> images, MultipartHttpServletRequest multi, HttpSession session, HttpServletResponse response) {
+	public int fileUp(@RequestParam("files")List<MultipartFile> images,
+			@RequestParam("cover")List<MultipartFile> cover, // <- 필요 없을수도 있겠다.
+			@RequestParam Map<String, Object> modelMap , MultipartHttpServletRequest multi, 
+			HttpSession session, HttpServletResponse response) {
+		
+		
 		long sizeSum = 0;
 		System.out.println("00000000000000");
+		//System.out.println("model : " + modelMap.get("title"));
+		//MultipartFile file = multi.getFile("input_cover");
 		
+		//커버 ajax 로 받아오기
+		List<MultipartFile> cover1 = multi.getFiles("cover");
+		String sde = (String) modelMap.get("title");
+		//System.out.println("cover : " + file);
+		System.out.println("이거는 되나?0 : " + images);
+		System.out.println("이거는 되나?111 : " + cover1);
+		System.out.println("model : " + sde);
 		
-		/*String strA = title;
-		System.out.println("타이틀이 올 것인가? !!!! : " + strA);*/
 		
 		for(MultipartFile image : images) {
 			String originalName = image.getOriginalFilename();
@@ -107,18 +123,22 @@ public class SubController {
 				return RESULT_EXCEED_SIZE;
 			}
 		}
-		MultipartFile file = multi.getFile("input_imgs");
-		System.out.println(file);
+		/*MultipartFile file = multi.getFile("input_imgs");
+		System.out.println(file);*/
 		
 		// 추가한거임
 		List<MultipartFile> files1 = multi.getFiles("files");
 		System.out.println(files1);
 		
+		//유저 넘버 받아오기
 		User user = (User) session.getAttribute("check");
+		System.out.println("user 넘버 : " + user);
 		String userNum = user.getMember_no();
+		System.out.println("user 넘버 : " + userNum);
+		
+		
 		//저장 경로 설정
 		String root = multi.getSession().getServletContext().getRealPath("/");		
-		
 		String path = root + "resources/upload/" + userNum + "/";
 		
 		System.out.println("1111111111111111");
@@ -127,6 +147,8 @@ public class SubController {
 		
 		File dir = new File(path);
 		System.out.println("222222222222222");
+		
+		//폴더가 없을 경우 폴더 생성 
 		if(!dir.isDirectory()) {
 			System.out.println("33333333333!");
 			dir.mkdir();
@@ -142,20 +164,18 @@ public class SubController {
 				e.printStackTrace();
 			}
 		}
+		
+		
 		System.out.println("파일 사이즈란다" + files1.size() );
 		for(int i = 0; i< files1.size(); i++) {
-			
 			System.out.println("파라미터fff명" + i);
-	        System.out.println("파일크fff기"+ i);
-	        System.out.println("파일 존fff재"+ i);
-	        System.out.println("오리지날 파일 이fff름"+ i);
 		}
-		if(file != null) {
+		/*if(file != null) {
 			 System.out.println("파라미터명" + file.getName());
 	         System.out.println("파일크기" + file.getSize());
 	         System.out.println("파일 존재" + file.isEmpty());
 	         System.out.println("오리지날 파일 이름" + file.getOriginalFilename());
-		}
+		}*/
 		System.out.println("44444444444444444444");
 		/*Iterator<String> files = multi.getFileNames();
 		System.out.println("하하하하하 : " + multi.getFileNames());
@@ -174,6 +194,20 @@ public class SubController {
 				e.printStackTrace();
 			}
 		}
+		
+		for(int j = 0; j < cover1.size(); j++) {
+			dir = new File(path+cover1.get(j).getOriginalFilename());
+			String fileName = cover1.get(j).getOriginalFilename();
+			newFileName = System.currentTimeMillis() + "." + fileName.substring(fileName.lastIndexOf(".")+1);
+			
+			try {
+				cover1.get(j).transferTo(new File(path + newFileName));
+				System.out.println("저장완료 : " + j + " " + cover1.get(j).getOriginalFilename());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
 		
 		/*while(files.hasNext()) {
 			System.out.println("555555555555555555");

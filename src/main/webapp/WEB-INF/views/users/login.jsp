@@ -24,7 +24,7 @@ function login() {
  		<header id="auth-header"><i class="logo" onclick="parent.location.href='/ShotPlace'"></i>
  		</header>
  		<section id="auth-body">
-	 		<form action="login" method="post" accept-charset="UTF-8" role="form" id="login-form" onsubmit="return login()">
+	 		<form action="login" method="post" accept-charset="UTF-8" role="form" id="loginform" onsubmit="return login()">
 			<div class="biggroup">
 				<div id="form-email" class="form-group"> <!-- 이메일칸 -->
 					<input type="text" name="email" value id="email" class="form-control" maxlength="80" size="50" placeholder="이메일" style="border:none">

@@ -31,9 +31,9 @@
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js" charset="utf-8"></script>
 <script type="text/javascript">
 	var sel_files = [];
-	var test;
-	var previewIndex = 0;
+	var sel_file = [];
 	var index = 0;
+	var index2 = 0;
 	
 	$(document).ready(function() {
 		
@@ -84,13 +84,14 @@
 	
 	function fileSubmit(){
 		var form = $('#uploadForm')[0];
-		var title = $('#upload_title').val();
+		alert("폼의 값은hh?" + form.toString);
+		var forme = $('#uploadCoverForm')[0];
+		alert("폼e의 값은?" + forme.toString);
+		//var title = $('#upload_title').val();
+		var title = document.getElementById("upload_title").value;
+		alert(title);
 		alert("안녕???" + form);
-		var formData = new FormData(form);
-		
-		alert("악악악!! : " + Object.keys(sel_files).length);
-		alert("호호 : " + sel_files.length);
-		
+		var formData = new FormData(form + forme);
 		
 		for (var index1 = 0; index1 < Object.keys(sel_files).length; index1++){
 			//alert("data : " + data);
@@ -102,9 +103,15 @@
 			//alert("data22 : " + sel_files[index1]);
 			//alert("data : " + data);
 		}
+		for (var hi = 0; hi < Object.keys(sel_file).length; hi++){
+			formData.append('cover', sel_file[hi]);	
+		}
 		
-		var allData = {"title" : title, "formData" : formData};
-		
+		alert("안녕 디지몬 : " + sel_file);
+		alert("안녕 디지몬 길이 : " + sel_file.length);
+		formData.append('title', title);
+		alert("formData 사이즈 :" +  formData.size);
+		alert("formData 랭쓰 :" +  formData.length);
 
 		$.ajax({
             type : 'post',
@@ -131,17 +138,6 @@
                 console.log(error.status);
             }
         });
-		$.ajax({
-			type : 'post',
-			url : 'fileUpload',
-			dataType : 'text',
-			data : ,
-			success : function(){			
-			},
-			error : function(error){
-				alert("이라면 실패다");
-			}
-		});
 		
 	}
 	function goImage(){
@@ -184,6 +180,59 @@
 					+"</div>"
 		
 		$(".upload_right_cont_enter").append(textHi);
+	}
+	
+	
+	//여기서 부터는 커버
+	
+	/* <script type="text/javascript"> */
+	
+	function gocover(){
+		$("#input_cover").trigger("click");
+		//여기까지는 감
+	}
+	
+	$(document).ready(function(){
+		alert("000000000000000");
+		$("#input_cover").on("change",handlecoverimgSelect);
+	});
+	
+	function handlecoverimgSelect(e){
+		sel_file = [];
+		$(".cover_after").empty();
+		var file = e.target.files;
+		
+		var fileArr = Array.prototype.slice.call(file);
+		fileArr.forEach(function(f){
+		if(!f.type.match("image.*")){
+			alert("확장자는 이미지 확장자만 가능합니다.");
+			return;
+		}
+		sel_file.push(f);
+		var reader1 = new FileReader();
+		reader1.onload = function(e){
+			var html2 = "<a href=\"javascript:void(0);\" onclick=\"deletecoverImageAction("+index2+")\" id=\"img_id_cover"+index2+"\"><img src=\"" + e.target.result + "\" data-file='"+f.name+"' class='selProductFile' title='Click to remove("+index2+")'></a>";
+			$(".cover_after").append(html2);
+			index2++;
+		}
+		reader1.readAsDataURL(f);
+		});
+		if(sel_file != null){
+			$(".cover_before").hide();
+		}
+	}
+	
+	function deletecoverImageAction(index2){
+		sel_file.splice(index2, 1);
+		sel_file = [];
+		if(sel_file.length == 0){
+			$(".cover_after").empty();
+		}
+	
+		$(".cover_before").show();
+		
+		var img_id_cover = "#img_id_cover" + index2;
+		$(img_id_cover).remove();
 	}
 	
 </script>
@@ -319,20 +368,16 @@
                     </li>
                     
                     <li><!-- 커버업로드 -->
-                        <div class="cover_before"><a href="#"><p><span>커버업로드</span></p></a></div>
-                        <div class="cover_after" style="display:none;"><img src="../resources/images/img_sample.jpg"></div>
+                        <div class="cover_before" onclick="gocover();" ><!-- <a href="#"> --><p><span>커버업로드</span></p><!-- </a> --></div>
+                        <input type="file" id="input_cover" name="input_cover" style="display: none;" enctype="multipart/form-data"/>
+                        <!-- <div class="cover_after" style="display:none;"><img src="../resources/images/img_sample.jpg"></div> -->
+                        <form id="uploadCoverForm" style="display: none;"></form>
+                        <div class="cover_after">
+                    	<!-- 커버 이미지 쌓이는 공간 -->
+                    	
+                    	</div>
                     </li>
-
-                    <script>
-                            $(function (){
-
-                            $(".cover_before").click(function (){
-                            $(".cover_before").hide();
-                            $(".cover_after").show();
-                            });
-
-                            });
-                    </script>
+                    
 
                     <li><!--공개여부-->
                         <div>
@@ -378,13 +423,7 @@
 			<input type="button" value="전송하기" onClick="fileSubmit();" /> 나중에 삭제해도 됨
 		<form id="uploadForm" style="display: none;"></form> 나중에 삭제해도 됨
 	</div> -->
-	<div>
-		<div class="imgs_wrap">
-		<div class="text_wrap">
-		</div>
-		</div>
-		
-	</div>
+	
 		<footer id="footer">
             
                 <ul>
@@ -399,7 +438,6 @@
                 </ul>
     
         </footer>
-	
 	</div>
 </body>
 </html>
