@@ -20,7 +20,7 @@
 		max-width: 200px;
 	} */
 </style>
-<link rel="stylesheet" type="text/css" href="../resources/css/main_style.css">
+<!-- <link rel="stylesheet" type="text/css" href="../resources/css/main_style.css"> -->
 <link rel="stylesheet" type="text/css" href="../resources/css/sub/upload_style.css"> 
 <link rel="stylesheet" type="text/css" href="../resources/css/header_footer_style.css">
 <link rel="stylesheet" href="http://cdn.jsdelivr.net/gh/xpressengine/xeicon@2.3.1/xeicon.min.css">
@@ -72,7 +72,6 @@
 			reader.readAsDataURL(f);
 			alert("전체 길이: " + sel_files.length);
 		});
-		 /* $('input_imgs').val(sel_files); */
 	}
 	
 	
@@ -84,35 +83,59 @@
 	
 	function fileSubmit(){
 		var form = $('#uploadForm')[0];
-		alert("폼의 값은hh?" + form.toString);
-		var forme = $('#uploadCoverForm')[0];
-		alert("폼e의 값은?" + forme.toString);
-		//var title = $('#upload_title').val();
+		
+		//공개여부 부분
+		var foods = document.getElementsByName('ra_info');
+		var food_value;
+		var visib;
+		var what = 0;
+		 for(var i = 0; i<foods.length; i++){
+			alert("i 는 무었인가 : " + i);
+			
+			if(foods[i].checked){
+				food_value = foods[i].value;
+				if(food_value == "공개"){
+					alert("여기는 공개 : " + food_value);
+					visib = false;
+					what ++;
+				}
+				else if(food_value == "비공개"){
+					alert("여기는 비공개!!!: " + food_value);
+					visib = true;
+					what ++;
+					 
+				}
+				alert("여기는 옵니다 공개여부!!");
+			}
+		}
+		 if(what < 1){
+			 
+			 alert("이게 뭐야 이게 선택을 안했어?!!!: " + food_value);
+				return false;
+		 }
+		 //공개여부 여기까지
+		
+		
+		alert("공개여부!! 모냐이건");
+		
 		var title = document.getElementById("upload_title").value;
 		alert(title);
 		alert("안녕???" + form);
-		var formData = new FormData(form + forme);
+		var formData = new FormData(form);
 		
 		for (var index1 = 0; index1 < Object.keys(sel_files).length; index1++){
-			//alert("data : " + data);
-			//alert("호호11 : " + sel_files.length);
-			alert("배열값을 보자 : " + sel_files);
-			//alert("앆!!! : " + formData);
-			//var name = "image_"+i;
+			
 			formData.append('files', sel_files[index1]);
-			//alert("data22 : " + sel_files[index1]);
-			//alert("data : " + data);
+	
 		}
 		for (var hi = 0; hi < Object.keys(sel_file).length; hi++){
 			formData.append('cover', sel_file[hi]);	
 		}
-		
-		alert("안녕 디지몬 : " + sel_file);
-		alert("안녕 디지몬 길이 : " + sel_file.length);
+		alert("Visib: " + visib);
+		formData.append('Visib', visib);
+		alert("여기옴 ");
 		formData.append('title', title);
-		alert("formData 사이즈 :" +  formData.size);
-		alert("formData 랭쓰 :" +  formData.length);
-
+		
 		$.ajax({
             type : 'post',
             enctype : 'multipart/form-data',
@@ -144,7 +167,6 @@
 		$("#input_imgs").trigger("click");
 	}
 	function gotext(){
-		/* var textHi = "<input type='text'/>"+ "<br>" + "<br>"; */
 		var textHi = "<div class='upload_txt_upload'>"
 					+"<ul>"
 					+"<li>"
@@ -185,8 +207,6 @@
 	
 	//여기서 부터는 커버
 	
-	/* <script type="text/javascript"> */
-	
 	function gocover(){
 		$("#input_cover").trigger("click");
 		//여기까지는 감
@@ -223,6 +243,7 @@
 	}
 	
 	function deletecoverImageAction(index2){
+		
 		sel_file.splice(index2, 1);
 		sel_file = [];
 		if(sel_file.length == 0){
@@ -235,6 +256,8 @@
 		$(img_id_cover).remove();
 	}
 	
+	
+
 </script>
 </head>
 <body>
@@ -317,7 +340,7 @@
                         </div><!-- .inwrap -->
                 </nav>
         </header>
-        
+        <form id="uploadForm" >
         <section id="section">
         	<div class="inwrap">
         		<ul class="upload_left">
@@ -371,7 +394,7 @@
                         <div class="cover_before" onclick="gocover();" ><!-- <a href="#"> --><p><span>커버업로드</span></p><!-- </a> --></div>
                         <input type="file" id="input_cover" name="input_cover" style="display: none;" enctype="multipart/form-data"/>
                         <!-- <div class="cover_after" style="display:none;"><img src="../resources/images/img_sample.jpg"></div> -->
-                        <form id="uploadCoverForm" style="display: none;"></form>
+                        <!-- <form id="uploadCoverForm" style="display: none;"></form> -->
                         <div class="cover_after">
                     	<!-- 커버 이미지 쌓이는 공간 -->
                     	
@@ -385,35 +408,46 @@
                             <ul class="upload_private_select">
                                 <li><input type="radio" name="ra_info" value="공개"><span>공개</span></li>
                                 <li><input type="radio" name="ra_info" value="비공개"><span style="padding-right:0;">비공개</span></li>
+                                <!-- 테스트 하는중 -->
                             </ul>
                         </div>
                     </li>
+                    
+                    
         		
         		</ul><!--.upload_left-->
         		
-        		<div class="upload_right">
-        			<div class="upload_right_title"><!-- 제목 -->
-              			<input type="text" name="upload_title" id="upload_title" maxlength="100" value="제목을 입력해주세요." onfocus="this.value=''">
-                    </div><!-- .upload_right_title -->
-                    
-                    <div class="upload_right_cont"><!-- 내용 -->
-                    	<div class="upload_right_cont_enter">
-                    	<!-- 이미지, 글 쌓이는 공간 -->
-                    	
-                    	</div>
-						<div class="upload_right_cont_btn"><!-- 입력전 -->
-							<input type="file" id="input_imgs" name="input_imgs" style="display: none;" multiple />
-							<p class="upload_img_btn" onclick="goImage();"><i class="xi-library-image-o xi-2x"></i></p>
-							<p class="upload_txt_btn" onclick="gotext();"><i class="xi-pen-o xi-2x"></i></p>
-						</div><!-- .upload_right_cont_btn -->                
-                    </div><!-- .upload_right_cont -->
-                    <div class="upload_right_btn" onClick="fileSubmit();"><!-- 업로드 버튼 -->
-                    	업로드
-                    </div><!-- .upload_right_btn -->
-                    <form id="uploadForm" style="display: none;"></form>
-        		</div><!--.upload_right-->
-        	</div>
+        		
+        		
+        		
+        		
+        		
+        		<!-- 여기야 여기!!!!! -->
+	        		<div class="upload_right">
+	        			<div class="upload_right_title"><!-- 제목 -->
+	              			<input type="text" name="upload_title" id="upload_title" maxlength="100" value="제목을 입력해주세요." onfocus="this.value=''">
+	                    </div><!-- .upload_right_title -->
+	                    
+	                    <div class="upload_right_cont"><!-- 내용 -->
+	                    	<div class="upload_right_cont_enter">
+	                    	<!-- 이미지, 글 쌓이는 공간 -->
+	                    	
+	                    	</div>
+							<div class="upload_right_cont_btn"><!-- 입력전 -->
+								<input type="file" id="input_imgs" name="input_imgs" style="display: none;" multiple />
+								<p class="upload_img_btn" onclick="goImage();"><i class="xi-library-image-o xi-2x"></i></p>
+								<p class="upload_txt_btn" onclick="gotext();"><i class="xi-pen-o xi-2x"></i></p>
+							</div><!-- .upload_right_cont_btn -->                
+	                    </div><!-- .upload_right_cont -->
+	                    <div class="upload_right_btn" onClick="fileSubmit();"><!-- 업로드 버튼 -->
+	                    	업로드
+	                    </div><!-- .upload_right_btn -->
+	                    
+	        		</div><!--.upload_right-->
+        		
+        	</div> <!-- inward -->
         </section>
+        </form>
 	<!-- <div>
 		<h2><b>이미지 미리보기</b></h2>
 		<p class="title">다중 이미지 업로드</p>
