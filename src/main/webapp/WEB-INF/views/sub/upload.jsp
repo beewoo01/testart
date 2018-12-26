@@ -43,12 +43,10 @@
 	});
 	
 	function handleImgsFilesSelect(e){
-		alert("들어가자 !!!!");
 		
 		var files = e.target.files;
 		var filesArr = Array.prototype.slice.call(files);
 		
-		 alert("들어가라~ 111");
 		
 		   filesArr.forEach(function(f){
 			if(!f.type.match("image.*")){
@@ -124,15 +122,13 @@
 		var formData = new FormData(form);
 		
 		for (var index1 = 0; index1 < Object.keys(sel_files).length; index1++){
-			
 			formData.append('files', sel_files[index1]);
-	
 		}
 		for (var hi = 0; hi < Object.keys(sel_file).length; hi++){
 			formData.append('cover', sel_file[hi]);	
 		}
 		alert("Visib: " + visib);
-		formData.append('Visib', visib);
+		formData.append('visib', visib);
 		alert("여기옴 ");
 		formData.append('title', title);
 		
@@ -152,8 +148,6 @@
             	}else{
             		alert("파일 업로드하였습니다.");
             	}
-            	
-                
             },
             error : function(error) {
                 alert("파일 업로드에 실패하였습니다.");

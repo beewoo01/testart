@@ -36,15 +36,11 @@ import net.my.user.User;
 @Controller
 @RequestMapping("sub")
 public class SubController {
-	private static final Logger logger = LoggerFactory.getLogger(SubController.class);
-	//
+
 	private static final int RESULT_EXCEED_SIZE = -2;
     private static final int RESULT_UNACCEPTED_EXTENSION = -1;
     private static final int RESULT_SUCCESS = 1;
     private static final long LIMIT_SIZE = 10 * 1024 * 1024;
-	
-	// 업로드된 파일이 저장될 위치 입니다. 
-	private final String PATH = "D:\\SpringUploadRepo\\upload";
 	
 	@Autowired
 	private SubService subservice;
@@ -92,7 +88,6 @@ public class SubController {
 	@ResponseBody
 	@RequestMapping(value="/fileUpload")
 	public int fileUp(@RequestParam("files")List<MultipartFile> images,
-			@RequestParam("cover")List<MultipartFile> cover, // <- 필요 없을수도 있겠다.
 			@RequestParam Map<String, Object> modelMap , MultipartHttpServletRequest multi, 
 			HttpSession session, HttpServletResponse response) {
 		
@@ -103,11 +98,12 @@ public class SubController {
 		//MultipartFile file = multi.getFile("input_cover");
 		
 		//커버 ajax 로 받아오기
-		List<MultipartFile> cover1 = multi.getFiles("cover");
+		List<MultipartFile> cover = multi.getFiles("cover");
 		String sde = (String) modelMap.get("title");
+		String visivl = (String) modelMap.get("visib");
 		//System.out.println("cover : " + file);
-		System.out.println("이거는 되나?0 : " + images);
-		System.out.println("이거는 되나?111 : " + cover1);
+		System.out.println("visivl!!!!!! : " + visivl);
+		System.out.println("이거는 되나?111 : " + cover);
 		System.out.println("model : " + sde);
 		
 		
@@ -177,9 +173,7 @@ public class SubController {
 	         System.out.println("오리지날 파일 이름" + file.getOriginalFilename());
 		}*/
 		System.out.println("44444444444444444444");
-		/*Iterator<String> files = multi.getFileNames();
-		System.out.println("하하하하하 : " + multi.getFileNames());
-		System.out.println("하하하하하123 : " + files.hasNext());*/
+		//Iterator<String> files = multi.getFileNames();
 		for(int i = 0; i < files1.size(); i++) {
 			System.out.println("FOR 에서 PATH 는 어째되나? : " + path);
 			System.out.println(files1.get(i).getOriginalFilename() + "업로드");
@@ -195,38 +189,19 @@ public class SubController {
 			}
 		}
 		
-		for(int j = 0; j < cover1.size(); j++) {
-			dir = new File(path+cover1.get(j).getOriginalFilename());
-			String fileName = cover1.get(j).getOriginalFilename();
+		for(int j = 0; j < cover.size(); j++) {
+			dir = new File(path+cover.get(j).getOriginalFilename());
+			String fileName = cover.get(j).getOriginalFilename();
 			newFileName = System.currentTimeMillis() + "." + fileName.substring(fileName.lastIndexOf(".")+1);
 			
 			try {
-				cover1.get(j).transferTo(new File(path + newFileName));
-				System.out.println("저장완료 : " + j + " " + cover1.get(j).getOriginalFilename());
+				cover.get(j).transferTo(new File(path + newFileName));
+				System.out.println("저장완료 : " + j + " " + cover.get(j).getOriginalFilename());
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
 		
-		
-		/*while(files.hasNext()) {
-			System.out.println("555555555555555555");
-			String uploadFile = files.next();
-			
-			MultipartFile mFile = multi.getFile(uploadFile);
-			String fileName = mFile.getOriginalFilename();
-			System.out.println("실제 파일 이름 : " + fileName);
-			newFileName = System.currentTimeMillis()+ "."
-					+fileName.substring(fileName.lastIndexOf(".")+1);
-			
-			try {
-				mFile.transferTo(new File(path+newFileName));
-				System.out.println("666666666666666666666");
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}*/
-		//return "sub/upload";
 		return RESULT_SUCCESS;
 	}
 	
@@ -254,31 +229,7 @@ public class SubController {
 			return true;
 		
 		}
-		System.out.println("case 아에 안된다!!");
 		return false;
 	}
-	
-	/*@RequestMapping(value="/upload", method = RequestMethod.POST)
-	public String upload(MultipartFile file, Model model) throws Exception{
-		logger.info("originalName: " + file.getOriginalFilename());
-		logger.info("size: " + file.getSize());
-		logger.info("contentType: " + file.getContentType());
-		
-		String savedName = uploadFile(file.getOriginalFilename(), file.getBytes());
-		
-		model.addAttribute("savedName", savedName);
-		
-		return "uploadResult";
-	}
-	
-	private String uploadFile(String originalName, byte[] fileData) throws Exception{
-		
-		UUID uid = UUID.randomUUID();
-		String savedName = uid.toString() + "_" + originalName;
-		File target = new File(uploadPath, savedName);
-		FileCopyUtils.copy(fileData, target);
-		return savedName;
-	}
-	*/
 	
 }
