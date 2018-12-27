@@ -25,15 +25,18 @@
 <link rel="stylesheet" type="text/css" href="../resources/css/header_footer_style.css">
 <link rel="stylesheet" href="http://cdn.jsdelivr.net/gh/xpressengine/xeicon@2.3.1/xeicon.min.css">
 <link href="../resources/css/sub/upload_jquery.multiselect.css" rel="stylesheet" />
+
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js" charset="utf-8"></script>
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="../resources/js/upload.jquery.multiselect.js"></script>
-<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js" charset="utf-8"></script>
 <script type="text/javascript">
 	var sel_files = [];
 	var sel_file = [];
+	var sel_tag = [];
 	var index = 0;
 	var index2 = 0;
+	var tagnum1 = 0;
 	
 	$(document).ready(function() {
 		
@@ -160,7 +163,8 @@
 	function goImage(){
 		$("#input_imgs").trigger("click");
 	}
-	function gotext(){
+	function gotext(){ 
+		//var tagnum =  "<li>태그태그<span class='upload_tag_clear'><i class='xi-close-min'></i></span></li>"
 		var textHi = "<div class='upload_txt_upload'>"
 					+"<ul>"
 					+"<li>"
@@ -248,6 +252,59 @@
 		
 		var img_id_cover = "#img_id_cover" + index2;
 		$(img_id_cover).remove();
+	}
+	
+	//태그부분
+	
+	function tagf(obj){
+		//스페이스 함수
+		var str_space = /\s/;
+		if(str_space.exec(obj.value)){
+			alert("공백");
+			obj.focus();
+			
+			var tagnum =  "<li>태그공백<span class='upload_tag_clear'><i class='xi-close-min'></i></span></li>"
+			//<li>태그태그1<span class="upload_tag_clear"><i class="xi-close-min"></i></span></li>
+			// 태그 쌓이는 부분 putTag
+			
+			$(".putTag").append(tagnum);
+			//return false;
+		}
+		
+	}
+	function tagEnter(){
+		//엔터 함수
+		/* var str_space = /\s/;
+		if(str_space.exec(obj.value)){
+			obj.focus();
+		} */
+		var tag = document.getElementById("upload_tag").value;
+		if (tag == ''){
+			alert("어머나 이러지마세요");
+			return false;
+		}
+		alert(tag);
+		
+		//tagnum1 = 삭제할 때 ID로 쓸거임
+		tagnum1++;
+		
+		sel_tag.push(tag);
+		
+		var tagnum =  "<li id='tagli'>"+ tag + "+" +
+					"<span id='deldeltag'"+tagnum1+" class='upload_tag_clear'>"+
+					"<i class='xi-close-min' onclick='deltag("+tagnum1+")'>"+
+					"</i></span></li>"
+		$(".putTag").append(tagnum);
+	}
+	
+	function deltag(tagnum1){
+		alert("여기임???" + tagnum1);
+		var tagdel = "#deldeltag" + tagnum1;
+		//$('span').remove('#deldeltag'+ tagnum1);
+		//$('i').remove('.tagli');
+		$('i').remove('.xi-close-min');
+		
+		alert("됨");
 	}
 	
 	
@@ -339,12 +396,12 @@
         	<div class="inwrap">
         		<ul class="upload_left">
         			<li> <!--카테고리-->
-                        <select name="basic[]" multiple="multiple" class="2col active">
-                                <option value="편집디자인">편집디자인</option>
-                                <option value="일러스트레이션">일러스트레이션</option>
-                                <option value="포토그래피">포토그래피</option>
-                                <option value="타이포그래피">타이포그래피</option>
-                                <option value="산업디자인">산업디자인</option>
+                        <select id="selectId" onchange="chageLangSelect(this)" name="basic[]" multiple="multiple" class="2col active">
+                                <option disabled value="편집디자인">편집디자인</option>
+                                <option disabled value="일러스트레이션">일러스트레이션</option>
+                                <option disabled value="포토그래피">포토그래피</option>
+                                <option disabled value="타이포그래피">타이포그래피</option>
+                                <option disabled value="산업디자인">산업디자인</option>
                         </select>
                         
                         <script>
@@ -357,6 +414,41 @@
                                 });
                         
                             });
+                            
+                            function chageLangSelect(obj){
+                            	var langSelect = document.getElementById("selectId");
+                            	$("#selectId option").not(":selected").attr("disabled",true);
+                            	alert("기리기리보이: ")
+                            	var val;
+                            	var vae = 0;
+                            		for(var i =0; i < langSelect.length; i++){
+                            			
+                                		if(langSelect.options[i].selected == true){
+                                			val = langSelect.options[i].value;
+                                			vae++;
+                                			alert("기리기리보이: " + vae);
+                                			if(vae >= 3){
+                                				
+                                				// $('#selectId option').attr('selected', false);
+                                				// $('#selectId').children("[value='포토그래피']").remove();
+                                				// $('#selectId option').attr('disabled', true);
+                                				 //docment.test.select.basic[].disabled = true;
+                                				 //$('#selectId option[value!=1]').remove();
+                                				 alert(langSelect[i].type);
+                                				 //$("select option[value*='편집디자인']").prop('disabled',true);
+                                				 alert("오니33333? " + vae);
+                                				
+                                				//$('#selectId').attr('disabled', 'true');
+                                				//alert($("#selectId option:selected").prevAll().size());
+                                				//$(select).empty().data('options');
+                                				//$("#selectId option:eq(0)").remove();
+                                				//alert("여기여기보이: " + vae);
+                                				//$("#selectId option:last").remove();
+                                			}
+                                			
+                                		}
+                                	}
+                            }
                         </script>
                     </li>
                     
@@ -374,14 +466,23 @@
                     
                     <li><!-- 태그 -->
                         <ul>
-                            <li>태그태그1<span class="upload_tag_clear"><i class="xi-close-min"></i></span></li>
-                            <li>태그2<span class="upload_tag_clear"><i class="xi-close-min"></i></span></li>
-                            <li>태그3<span class="upload_tag_clear"><i class="xi-close-min"></i></span></li>
-                            <li>태그태그4<span class="upload_tag_clear"><i class="xi-close-min"></i></span></li>
-                            <li>태그5<span class="upload_tag_clear"><i class="xi-close-min"></i></span></li>
-                            <li>태그태그태그6<span class="upload_tag_clear"><i class="xi-close-min"></i></span></li>
+                        	<div class="putTag">
+                        	<!-- 입력한 tag가 쌓이는 공간 -->
+	                            <!-- <li>태그태그1<span class="upload_tag_clear"><i class="xi-close-min"></i></span></li>
+	                            <li>태그2<span class="upload_tag_clear"><i class="xi-close-min"></i></span></li>
+	                            <li>태그3<span class="upload_tag_clear"><i class="xi-close-min"></i></span></li>
+	                            <li>태그태그4<span class="upload_tag_clear"><i class="xi-close-min"></i></span></li>
+	                            <li>태그5<span class="upload_tag_clear"><i class="xi-close-min"></i></span></li>
+	                            <li>태그태그태그6<span class="upload_tag_clear"><i class="xi-close-min"></i></span></li> -->
+                            </div>
                         </ul>
-                        <input type="text" name="upload_tag" maxlength="100" value="태그입력 (tab, Enter로 구분)" onfocus="this.value=''">
+                        <input type="text" name="upload_tag" maxlength="100" value="태그입력 (tab, Enter로 구분)" onfocus="this.value=''"
+                        	id = "upload_tag"onkeypress="if(event.keyCode==13 || event.keyCode ==32){tagEnter(); return}" onkeydown="if(event.keyCode==9){ tagEnter(this); return}">
+                        	<!-- onkeyup="tagf(this);" 는  key를 눌럿다가 땟을때 발생하는 이벤트
+                        			onkeypress =실제로 글자가 써질때 이벤트이다
+                        			onchange="tagf(this);"
+                        			onkeydown = 키가 밑으로 내려갔을때 발생하는 이벤트 , tab 을 사용하려면 이 이벤트를 써야 할듯.
+                        	-->
                     </li>
                     
                     <li><!-- 커버업로드 -->
