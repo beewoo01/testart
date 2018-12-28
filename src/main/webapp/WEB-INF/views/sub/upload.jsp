@@ -31,16 +31,16 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="../resources/js/upload.jquery.multiselect.js"></script>
 <script type="text/javascript">
-	var sel_files = [];
-	var sel_file = [];
-	var sel_tag = [];
+	var sel_files = []; //이미지에 쓰이는 배열
+	var sel_file = [];  //커버 이미지에 쓰이는 배열
+	var sel_tag = [];   // 태그 배열
 	var index = 0;
 	var index2 = 0;
-	var tagnum1 = 0;
+	var tagnum1 = 0;//태그 삭제할때 추가ID
 	
 	$(document).ready(function() {
 		
-		alert("아 나가자 동해바다로");
+		alert("한시 십팔분");
 		
 		$("#input_imgs").on("change", handleImgsFilesSelect);
 	});
@@ -114,25 +114,37 @@
 			 alert("이게 뭐야 이게 선택을 안했어?!!!: " + food_value);
 				return false;
 		 }
-		 //공개여부 여기까지
+		//공개여부 여기까지
 		
 		
-		alert("공개여부!! 모냐이건");
-		
+		//CCL 가져오기
+		var cclstring = document.getElementById("dropdown2_cclid").value;
+		//dropdown2_ccl
 		var title = document.getElementById("upload_title").value;
+		alert("CCL 값은? : "+ cclstring);
 		alert(title);
 		alert("안녕???" + form);
 		var formData = new FormData(form);
 		
 		for (var index1 = 0; index1 < Object.keys(sel_files).length; index1++){
+			//업로드 이미지 formData에 값 넣기
 			formData.append('files', sel_files[index1]);
 		}
 		for (var hi = 0; hi < Object.keys(sel_file).length; hi++){
+			//커버 이미지 formData에 값 넣기
 			formData.append('cover', sel_file[hi]);	
 		}
-		alert("Visib: " + visib);
+		for (var ti = 0; ti < sel_tag.length; ti++){
+			//태그 전달
+			if(sel_tag[ti] == "#"){
+				// #으로 된 배열값 제거 
+				sel_tag.splice(ti, 1);
+			}else{
+				// formData 에 값 넣기
+				formData.append('tag', sel_tag[ti]);
+			}
+		}
 		formData.append('visib', visib);
-		alert("여기옴 ");
 		formData.append('title', title);
 		
 		$.ajax({
@@ -168,40 +180,60 @@
 		var textHi = "<div class='upload_txt_upload'>"
 					+"<ul>"
 					+"<li>"
-					+"<img src='../resources/images/txt_1.png' alt='굵게'>"
+					+"<i class='xi-bold'>"
+					+"</i>"
 					+"</li>"
 					
 					+"<li>"
-					+"<img src='../resources/images/txt_2.png' alt='기울기'>"
+					+"<i class='xi-italic'>"
+					+"</i>"
 					+"</li>"
 					
 					+"<li>"
-					+"<img src='../resources/images/txt_3.png' alt='밑줄'>"
+					+"<i class='xi-underline'>"
+					+"</i>"
 					+"</li>"
 					
 					+"<li>"
-					+"<img src='../resources/images/txt_4.png' alt='왼쪽정렬'>"
+					+"<i class='xi-align-left'>"
+					+"</i>"
 					+"</li>"
 					
 					+"<li>"
-					+"<img src='../resources/images/txt_5.png' alt='가운데정렬'>"
+					+"<i class='xi-align-center'>"
+					+"</i>"
 					+"</li>"
 					
 					+"<li>"
-					+"<img src='../resources/images/txt_6.png' alt='오른쪽정렬'>"
+					+"<i class='xi-align-right'>"
+					+"</i>"
 					+"</li>"
 					
 					+"<li>"
-					+"<img src='../resources/images/txt_7.png' alt='취소선'>"
+					+"<i class='xi-strikethrough'>"
+					//+"<img src='../resources/images/txt_7.png' alt='취소선'>"
+					+"</i>"
 					+"</li>"
 					
-					+"<ul>"
+					+"</ul>"
 					+"<textarea onkeyup='autoTextarea(this,100);' row='100%' cols='auto' style='resize: none;'></textarea>"
+					+"<div id='upload_txt_clear'><i class='xi-close'>"
+					+"</i>"
+					+"</div>"
 					+"</div>"
 		
 		$(".upload_right_cont_enter").append(textHi);
 	}
 	
+	function autoTextarea(obj,limit){
+		alert("여기와?? 텍스트에어리아");
+		obj.style.height = "1px";
+		if(limit >= obj.scrollHeight){
+			obj.style.height = (20+obj.scrollHeight)+"px";
+		}else{
+			obj.style.height = (20+limit)+"px";
+		}
+	}
 	
 	//여기서 부터는 커버
 	
@@ -211,7 +243,6 @@
 	}
 	
 	$(document).ready(function(){
-		alert("000000000000000");
 		$("#input_cover").on("change",handlecoverimgSelect);
 	});
 	
@@ -256,7 +287,7 @@
 	
 	//태그부분
 	
-	function tagf(obj){
+	/* function tagf(obj){
 		//스페이스 함수
 		var str_space = /\s/;
 		if(str_space.exec(obj.value)){
@@ -271,7 +302,7 @@
 			//return false;
 		}
 		
-	}
+	} */
 	function tagEnter(){
 		//엔터 함수
 		/* var str_space = /\s/;
@@ -283,28 +314,36 @@
 			alert("어머나 이러지마세요");
 			return false;
 		}
-		alert(tag);
 		
-		//tagnum1 = 삭제할 때 ID로 쓸거임
-		tagnum1++;
-		
-		sel_tag.push(tag);
-		
-		var tagnum =  "<li id='tagli'>"+ tag + "+" +
-					"<span id='deldeltag'"+tagnum1+" class='upload_tag_clear'>"+
-					"<i class='xi-close-min' onclick='deltag("+tagnum1+")'>"+
-					"</i></span></li>"
+		var tagnum =  		
+					"<li id='tagli"+tagnum1+"'>"
+					+ "#" + tag
+					+ "<span id='deldeltag"+tagnum1+"'class='upload_tag_clear'>"
+					+ "<i class='xi-close-min' id='tagi"+tagnum1+"' onclick='deltag("+tagnum1+")'>"
+					+ "</i>"
+					+ "</span>"
+					+ "</li>";
+					
 		$(".putTag").append(tagnum);
+		sel_tag.push(tag);
+		alert("추가된 sel_tag : " + sel_tag);
+		alert("추가한 tagnum1 : " + tagnum1);
+		tagnum1++;
 	}
 	
 	function deltag(tagnum1){
-		alert("여기임???" + tagnum1);
-		var tagdel = "#deldeltag" + tagnum1;
-		//$('span').remove('#deldeltag'+ tagnum1);
-		//$('i').remove('.tagli');
-		$('i').remove('.xi-close-min');
+		//태그 배열에 쌓인 목록 삭제
+		alert("받아온 tagnum1 : " + tagnum1);
+		sel_tag.splice(tagnum1, 1,"#"); //삭제시 해당 배열위치에 #으로 대체
+		alert("삭제후 sel_tag : " + sel_tag);
+		//태그 화면에서 삭제
+		var tagdel = "#tagli" + tagnum1;
+		var tagdel2 = "#tagi" + tagnum1;
+		var tagdel3 = "#deldeltag" + tagnum1;
+		$('li').remove(tagdel);
+		$('span').remove(tagdel3);
+		$('i').remove(tagdel2);
 		
-		alert("됨");
 	}
 	
 	
@@ -396,15 +435,16 @@
         	<div class="inwrap">
         		<ul class="upload_left">
         			<li> <!--카테고리-->
-                        <select id="selectId" onchange="chageLangSelect(this)" name="basic[]" multiple="multiple" class="2col active">
-                                <option disabled value="편집디자인">편집디자인</option>
-                                <option disabled value="일러스트레이션">일러스트레이션</option>
-                                <option disabled value="포토그래피">포토그래피</option>
-                                <option disabled value="타이포그래피">타이포그래피</option>
-                                <option disabled value="산업디자인">산업디자인</option>
-                        </select>
-                        
-                        <script>
+	        			
+	                    <select id="selectId" onchange="chageLangSelect(this)" name="basic[]" multiple="multiple" class="2col active">
+	                                <option value="편집디자인">편집디자인</option>
+	                                <option value="일러스트레이션">일러스트레이션</option>
+	                                <option value="포토그래피">포토그래피</option>
+	                                <option value="타이포그래피">타이포그래피</option>
+	                                <option value="산업디자인">산업디자인</option>
+	                    </select>
+	                 </li>
+                        <script>/*카테고리 스크립트*/
                             $(function () {
                                 $('select[multiple].active.2col').multiselect({
                                     columns: 1,
@@ -415,7 +455,7 @@
                         
                             });
                             
-                            function chageLangSelect(obj){
+                             function chageLangSelect(obj){
                             	var langSelect = document.getElementById("selectId");
                             	$("#selectId option").not(":selected").attr("disabled",true);
                             	alert("기리기리보이: ")
@@ -448,23 +488,51 @@
                                 			
                                 		}
                                 	}
-                            }
+                            } 
                         </script>
-                    </li>
                     
-                    <li><!--CCL-->
-                        <select class="upload_ccl_select">
-                            <option value="CCL 표시 안함">CCL 표시 안함</option>
-                            <option value="저작자">저작자</option>
-                            <option value="저작자/비영리">저작자/비영리</option>
-                            <option value="저작자/변경금지">저작자/변경금지</option>
-                            <option value="저작자/동일조건변경허락">저작자/동일조건변경허락</option>
-                            <option value="저작자/비영리/동일조건변경허락">저작자/비영리/동일조건변경허락</option>
-                            <option value="저작자/비영리/변경금지" selected="selected">저작자/비영리/변경금지</option>
-                        </select>
+                    <li class="selectbox_ccl"><!-- CCL -->
+                        <dl class="dropdown_ccl" >
+                          <dt><a href="#" style="padding-top:4px;"><span id="dropdown2_cclid">CCL 표시 안함</span></a></dt>
+                          <dd>
+                            <ul class="dropdown2_ccl" >
+                              <li><a href="#">저작자</a></li>
+                              <li><a href="#">저작자/비영리</a></li>
+                              <li><a href="#">저작자/변경금지</a></li>
+                              <li><a href="#">저작자/동일조건변경허락</a></li>
+                              <li><a href="#">저작자/비영리/동일조건변경허락</a></li>
+                              <li><a href="#">저작자/비영리/변경금지</a></li>
+                            </ul>
+                          </dd>
+                        </dl>
                     </li>
+                        <script>/*CCL 셀렉트박스 스크립트*/
+                            $(".dropdown_ccl img.flag").addClass("flagvisibility");
+        
+                            $(".dropdown_ccl dt a").click(function() {
+                            $(".dropdown_ccl dd ul").toggle();
+                            });
+        
+                            $(".dropdown_ccl dd ul li a").click(function() {
+                            var text = $(this).html();
+                            $(".dropdown_ccl dt a span").html(text);
+                            $(".dropdown_ccl dd ul").hide();
+                            /* $("#result").html("Selected value is: " + getSelectedValue("sample"));*/
+                            });
+        
+                            function getSelectedValue(id) {
+                            return $("#" + id).find("dt a span.value").html();
+                            }
+        
+                            $(document).bind('click', function(e) {
+                            var $clicked = $(e.target);
+                            if (!$clicked.parents().hasClass("dropdown_ccl"))
+                                $(".dropdown_ccl dd ul").hide();
+                            });
+        
+                        </script>
                     
-                    <li><!-- 태그 -->
+                    <li class="upload_left_tag"><!-- 태그 -->
                         <ul>
                         	<div class="putTag">
                         	<!-- 입력한 tag가 쌓이는 공간 -->
@@ -477,7 +545,7 @@
                             </div>
                         </ul>
                         <input type="text" name="upload_tag" maxlength="100" value="태그입력 (tab, Enter로 구분)" onfocus="this.value=''"
-                        	id = "upload_tag"onkeypress="if(event.keyCode==13 || event.keyCode ==32){tagEnter(); return}" onkeydown="if(event.keyCode==9){ tagEnter(this); return}">
+                        	id = "upload_tag"onkeypress="if(event.keyCode==13 || event.keyCode ==32){tagEnter(); return}" onkeydown="if(event.keyCode==9){ tagEnter(this); return}"/>
                         	<!-- onkeyup="tagf(this);" 는  key를 눌럿다가 땟을때 발생하는 이벤트
                         			onkeypress =실제로 글자가 써질때 이벤트이다
                         			onchange="tagf(this);"
@@ -485,7 +553,7 @@
                         	-->
                     </li>
                     
-                    <li><!-- 커버업로드 -->
+                    <li class="upload_left_cover"><!-- 커버업로드 -->
                         <div class="cover_before" onclick="gocover();" ><!-- <a href="#"> --><p><span>커버업로드</span></p><!-- </a> --></div>
                         <input type="file" id="input_cover" name="input_cover" style="display: none;" enctype="multipart/form-data"/>
                         <!-- <div class="cover_after" style="display:none;"><img src="../resources/images/img_sample.jpg"></div> -->
@@ -511,11 +579,6 @@
                     
         		
         		</ul><!--.upload_left-->
-        		
-        		
-        		
-        		
-        		
         		
         		<!-- 여기야 여기!!!!! -->
 	        		<div class="upload_right">
