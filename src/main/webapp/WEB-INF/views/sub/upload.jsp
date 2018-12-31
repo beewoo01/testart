@@ -34,19 +34,22 @@
 	var sel_files = []; //이미지에 쓰이는 배열
 	var sel_file = [];  //커버 이미지에 쓰이는 배열
 	var sel_tag = [];   // 태그 배열
-	var index = 0;
-	var index2 = 0;
+	var sel_txt = []; //글 배열
+	var index = 0;  //이미지에 들어갈 ID
+	var index2 = 0; // 커버 이미지에 들어갈 ID
+	var index3 = 0; // 글 쓰기 ID
 	var tagnum1 = 0;//태그 삭제할때 추가ID
+	var cclstring; //ccl 값이 저장될 변수
+	
 	
 	$(document).ready(function() {
 		
-		alert("한시 십팔분");
 		
 		$("#input_imgs").on("change", handleImgsFilesSelect);
 	});
 	
 	function handleImgsFilesSelect(e){
-		
+		// 이미지 선택시 추가 함수
 		var files = e.target.files;
 		var filesArr = Array.prototype.slice.call(files);
 		
@@ -58,7 +61,6 @@
 			}
 			sel_files.push(f);
 			 
-			alert("111" + sel_files+ ",");
 			
 			var reader = new FileReader();
 			reader.onload = function(e){
@@ -77,12 +79,15 @@
 	
 	
 	function deleteImageAction(index) {
+		//이미지 삭제 함수
 		sel_files.splice(index, 1);
         var img_id = "#img_id_"+index;
         $(img_id).remove();
     }
 	
 	function fileSubmit(){
+		//파일전송!
+		
 		var form = $('#uploadForm')[0];
 		
 		//공개여부 부분
@@ -117,11 +122,24 @@
 		//공개여부 여기까지
 		
 		
+		//글작성
+		for(var i=0; i < index3; i++){
+			//var txta = document.getElementById("txtarea"+[i]).value;
+			var txta = document.getElementById("txtarea"+[i]);
+			alert("if로 가자 : " + txta);
+			if(txta != null && txta.value.trim() != ""){
+				sel_txt.push(txta.value);
+			}
+			alert("sel_txt: "+ sel_txt[i]);
+			
+		}
+		//글작성 여기까지
+		
 		//CCL 가져오기
-		var cclstring = document.getElementById("dropdown2_cclid").value;
+		alert("ccl: " + cclstring);
 		//dropdown2_ccl
 		var title = document.getElementById("upload_title").value;
-		alert("CCL 값은? : "+ cclstring);
+		alert("CCL 값은 무엇이니? : "+ cclstring);
 		alert(title);
 		alert("안녕???" + form);
 		var formData = new FormData(form);
@@ -146,6 +164,7 @@
 		}
 		formData.append('visib', visib);
 		formData.append('title', title);
+		formData.append('ccl',cclstring);
 		
 		$.ajax({
             type : 'post',
@@ -172,12 +191,22 @@
         });
 		
 	}
+	
+	$(document).ready(function() {
+
+		  $('#dropdown2_cclid li').click(function() {
+		    alert($(this).attr('data-val'));
+		    cclstring = $(this).attr('data-val');
+		    alert("ccl: " + cclstring);
+		  });
+		});
+	
 	function goImage(){
 		$("#input_imgs").trigger("click");
 	}
 	function gotext(){ 
-		//var tagnum =  "<li>태그태그<span class='upload_tag_clear'><i class='xi-close-min'></i></span></li>"
-		var textHi = "<div class='upload_txt_upload'>"
+		
+		var textHi = "<div class='upload_txt_upload' id='deletxt"+index3+"'>"
 					+"<ul>"
 					+"<li>"
 					+"<i class='xi-bold'>"
@@ -216,17 +245,27 @@
 					+"</li>"
 					
 					+"</ul>"
-					+"<textarea onkeyup='autoTextarea(this,100);' row='100%' cols='auto' style='resize: none;'></textarea>"
-					+"<div id='upload_txt_clear'><i class='xi-close'>"
+					+"<textarea id='txtarea"+index3+"' onkeyup='autoTextarea(this,100);' row='100%' cols='auto' style='resize: none;'></textarea>"
+					+"<div id='upload_txt_clear' onclick='deltxt("+index3+")'><i class='xi-close'>" //삭제버튼
 					+"</i>"
 					+"</div>"
 					+"</div>"
 		
 		$(".upload_right_cont_enter").append(textHi);
+		index3++;
+		
+	}
+	
+	function deltxt(index3){
+		
+		//sel_files.splice(index, 1);
+        var write_id = "#deletxt"+index3;
+        $(write_id).remove();
+        alert("글 삭제 됨??");
 	}
 	
 	function autoTextarea(obj,limit){
-		alert("여기와?? 텍스트에어리아");
+		//alert("여기와?? 텍스트에어리아");
 		obj.style.height = "1px";
 		if(limit >= obj.scrollHeight){
 			obj.style.height = (20+obj.scrollHeight)+"px";
@@ -285,30 +324,11 @@
 		$(img_id_cover).remove();
 	}
 	
-	//태그부분
 	
-	/* function tagf(obj){
-		//스페이스 함수
-		var str_space = /\s/;
-		if(str_space.exec(obj.value)){
-			alert("공백");
-			obj.focus();
-			
-			var tagnum =  "<li>태그공백<span class='upload_tag_clear'><i class='xi-close-min'></i></span></li>"
-			//<li>태그태그1<span class="upload_tag_clear"><i class="xi-close-min"></i></span></li>
-			// 태그 쌓이는 부분 putTag
-			
-			$(".putTag").append(tagnum);
-			//return false;
-		}
-		
-	} */
+	
+	/* 태그부분 */
 	function tagEnter(){
-		//엔터 함수
-		/* var str_space = /\s/;
-		if(str_space.exec(obj.value)){
-			obj.focus();
-		} */
+		//엔터, 스페이스바, 탭 을 누를시 함수 시작됨
 		var tag = document.getElementById("upload_tag").value;
 		if (tag == ''){
 			alert("어머나 이러지마세요");
@@ -435,7 +455,6 @@
         	<div class="inwrap">
         		<ul class="upload_left">
         			<li> <!--카테고리-->
-	        			
 	                    <select id="selectId" onchange="chageLangSelect(this)" name="basic[]" multiple="multiple" class="2col active">
 	                                <option value="편집디자인">편집디자인</option>
 	                                <option value="일러스트레이션">일러스트레이션</option>
@@ -466,7 +485,7 @@
                                 		if(langSelect.options[i].selected == true){
                                 			val = langSelect.options[i].value;
                                 			vae++;
-                                			alert("기리기리보이: " + vae);
+                                			alert("기리기리보이: " + langSelect);
                                 			if(vae >= 3){
                                 				
                                 				// $('#selectId option').attr('selected', false);
@@ -493,15 +512,15 @@
                     
                     <li class="selectbox_ccl"><!-- CCL -->
                         <dl class="dropdown_ccl" >
-                          <dt><a href="#" style="padding-top:4px;"><span id="dropdown2_cclid">CCL 표시 안함</span></a></dt>
+                          <dt><a href="#" style="padding-top:4px;"><span >CCL 표시 안함</span></a></dt>
                           <dd>
-                            <ul class="dropdown2_ccl" >
-                              <li><a href="#">저작자</a></li>
-                              <li><a href="#">저작자/비영리</a></li>
-                              <li><a href="#">저작자/변경금지</a></li>
-                              <li><a href="#">저작자/동일조건변경허락</a></li>
-                              <li><a href="#">저작자/비영리/동일조건변경허락</a></li>
-                              <li><a href="#">저작자/비영리/변경금지</a></li>
+                            <ul class="dropdown2_ccl" id="dropdown2_cclid">
+                              <li data-val="1"><a href="#">저작자</a></li>
+                              <li data-val="2"><a href="#">저작자/비영리</a></li>
+                              <li data-val="3"><a href="#">저작자/변경금지</a></li>
+                              <li data-val="4"><a href="#">저작자/동일조건변경허락</a></li>
+                              <li data-val="5"><a href="#">저작자/비영리/동일조건변경허락</a></li>
+                              <li data-val="6"><a href="#">저작자/비영리/변경금지</a></li>
                             </ul>
                           </dd>
                         </dl>

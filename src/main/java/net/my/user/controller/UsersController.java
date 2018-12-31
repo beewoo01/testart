@@ -44,9 +44,9 @@ public class UsersController {
 				System.out.println("ㅎ하하하하ㅏ하하하3123213213");
 				// 로그인 성공 시 메인페이지 이동
 				return "redirect:/";
-				//return "users/changePasswd";
 			}else {
 				return "users/login";
+				
 			}
 		}
 		
