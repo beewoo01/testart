@@ -3,6 +3,7 @@ package net.my.sub.controller;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -101,10 +102,16 @@ public class SubController {
 		List<MultipartFile> cover = multi.getFiles("cover");
 		String sde = (String) modelMap.get("title");
 		String visivl = (String) modelMap.get("visib");
+		String ccl=(String) modelMap.get("ccl");
+		List<Map<String,Object>> content = new ArrayList<Map<String,Object>>();
+		for(Map<String, Object>map : content) {
+			System.out.println(map.get("txt")+ " : "+ map.get(""));
+		}
 		//System.out.println("cover : " + file);
 		System.out.println("visivl!!!!!! : " + visivl);
 		System.out.println("이거는 되나?111 : " + cover);
 		System.out.println("model : " + sde);
+		System.out.println("ccl : " + ccl);
 		
 		
 		for(MultipartFile image : images) {
@@ -137,16 +144,13 @@ public class SubController {
 		String root = multi.getSession().getServletContext().getRealPath("/");		
 		String path = root + "resources/upload/" + userNum + "/";
 		
-		System.out.println("1111111111111111");
 		System.out.println("하이하이 : " + root);
 		String newFileName = ""; //업로드 되는 파일명
 		
 		File dir = new File(path);
-		System.out.println("222222222222222");
 		
 		//폴더가 없을 경우 폴더 생성 
 		if(!dir.isDirectory()) {
-			System.out.println("33333333333!");
 			dir.mkdir();
 			try {
 				System.out.println("파일 경로 : " + dir.getCanonicalPath().toString());
@@ -172,7 +176,6 @@ public class SubController {
 	         System.out.println("파일 존재" + file.isEmpty());
 	         System.out.println("오리지날 파일 이름" + file.getOriginalFilename());
 		}*/
-		System.out.println("44444444444444444444");
 		//Iterator<String> files = multi.getFileNames();
 		for(int i = 0; i < files1.size(); i++) {
 			System.out.println("FOR 에서 PATH 는 어째되나? : " + path);

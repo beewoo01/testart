@@ -133,6 +133,11 @@
 			alert("sel_txt: "+ sel_txt[i]);
 			
 		}
+		for(var i=0; i < sel_txt.length; i++){
+			alert("sel_txt "+i+i+i+i+i+i+i+ "번째: " + sel_txt[i]);
+			
+		}
+		
 		//글작성 여기까지
 		
 		//CCL 가져오기
@@ -160,11 +165,16 @@
 			}else{
 				// formData 에 값 넣기
 				formData.append('tag', sel_tag[ti]);
+				// tag 넘겼으니 받아야함
 			}
+		}
+		for (var i=0; i < sel_txt.length; i++){
+			formData.append('txt', sel_txt[i]);	
 		}
 		formData.append('visib', visib);
 		formData.append('title', title);
 		formData.append('ccl',cclstring);
+		// ccl, txt 넘겼으니 받아야함
 		
 		$.ajax({
             type : 'post',
