@@ -5,7 +5,6 @@ public class SubBoard {
 	private int board_no;
 	private String member_no;
 	private String title;
-	private String content;
 	private String write_dt;
 	private String cover_img;
 	private String category;
@@ -39,13 +38,7 @@ public class SubBoard {
 		System.out.println("서브보드 제목 : " + title);
 		this.title = title;
 	}
-	public String getContent() {
-		return content;
-	}
-	public void setContent(String content) {
-		System.out.println("서브보드 내용 : " + content);
-		this.content = content;
-	}
+	
 	public String getWrite_dt() {
 		return write_dt;
 	}

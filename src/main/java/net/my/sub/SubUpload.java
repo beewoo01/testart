@@ -5,6 +5,7 @@ public class SubUpload {
 	private int member_no;
 	private int board_no;
 	private String file;
+	private String content;
 	
 	
 	public int getUpload_no() {
@@ -30,6 +31,13 @@ public class SubUpload {
 	}
 	public void setFile(String file) {
 		this.file = file;
+	}
+	public String getContent() {
+		return content;
+	}
+	public void setContent(String content) {
+		System.out.println("서브보드 내용 : " + content);
+		this.content = content;
 	}
 	
 	

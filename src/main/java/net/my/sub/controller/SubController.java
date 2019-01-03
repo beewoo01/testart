@@ -90,7 +90,7 @@ public class SubController {
 	@RequestMapping(value="/fileUpload")
 	public int fileUp(@RequestParam("files")List<MultipartFile> images,
 			@RequestParam Map<String, Object> modelMap , MultipartHttpServletRequest multi, 
-			HttpSession session, HttpServletResponse response) {
+			HttpSession session, HttpServletResponse response, HttpServletRequest request) {
 		
 		
 		long sizeSum = 0;
@@ -103,9 +103,17 @@ public class SubController {
 		String sde = (String) modelMap.get("title");
 		String visivl = (String) modelMap.get("visib");
 		String ccl=(String) modelMap.get("ccl");
-		List<Map<String,Object>> content = new ArrayList<Map<String,Object>>();
-		for(Map<String, Object>map : content) {
-			System.out.println(map.get("txt")+ " : "+ map.get(""));
+		//List<String> content = new ArrayList<String>();
+		//content = (String) multi.get;
+		/*for(String map : content) {
+			System.out.println("");
+		}*/
+		String[] content = request.getParameterValues("txt");
+		System.out.println("content : "+ content);
+		for(int i =0; i < content.length; i++) {
+			System.out.println("어디까지 나오나 보자 LIST야!: " + i);
+			String aaa = content[i];
+			System.out.println("어디까지 나오나 보자 LIST야!2: " + aaa);
 		}
 		//System.out.println("cover : " + file);
 		System.out.println("visivl!!!!!! : " + visivl);
