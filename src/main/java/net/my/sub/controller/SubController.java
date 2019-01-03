@@ -110,11 +110,14 @@ public class SubController {
 		}*/
 		String[] content = request.getParameterValues("txt");
 		System.out.println("content : "+ content);
-		for(int i =0; i < content.length; i++) {
-			System.out.println("어디까지 나오나 보자 LIST야!: " + i);
-			String aaa = content[i];
-			System.out.println("어디까지 나오나 보자 LIST야!2: " + aaa);
+		if(content != null) {
+			for(int i =0; i < content.length; i++) {
+				System.out.println("어디까지 나오나 보자 LIST야!: " + i);
+				String aaa = content[i];
+				System.out.println("어디까지 나오나 보자 LIST야!2: " + aaa);
+			}
 		}
+		
 		//System.out.println("cover : " + file);
 		System.out.println("visivl!!!!!! : " + visivl);
 		System.out.println("이거는 되나?111 : " + cover);
@@ -154,6 +157,13 @@ public class SubController {
 		
 		System.out.println("하이하이 : " + root);
 		String newFileName = ""; //업로드 되는 파일명
+		
+		//json 파싱
+		JSONParser jsonParser = new JSONParser();
+		//JSONObject jsonObject = (JSONObject) jsonParser.parse();
+		
+		//data2.put("", value)
+		
 		
 		File dir = new File(path);
 		
