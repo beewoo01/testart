@@ -108,6 +108,24 @@ public class SubController {
 		/*for(String map : content) {
 			System.out.println("");
 		}*/
+		//List dof = multi.getMultipartContentType("upload");
+		//Object[] dof2 = (Object[]) multi.getAttribute("upload");
+		List<MultipartFile> dof2 = multi.getFiles("upload");
+		String[]dof = multi.getParameterValues("upload");
+		
+		
+		for(int i=0; i < multi.getFiles("upload").size(); i++) {
+			System.out.println("dof@@@@@@@!!!! : "+ dof2.get(i));
+		}
+		for(int i=0; i < multi.getParameterValues("upload").length; i++) {
+			System.out.println("dof!!!! : "+ dof[i]+ " :: "+ i);
+		}
+		String dd;
+		for(int i=0; i < multi.getParameter("upload").length(); i++) {
+			dd = multi.getParameter("upload");
+			System.out.println("dof########## : " + dd);
+		}
+		
 		String[] content = multi.getParameterValues("txt");
 		System.out.println("content : "+ content);
 		if(content != null) {
@@ -195,16 +213,19 @@ public class SubController {
 	         System.out.println("오리지날 파일 이름" + file.getOriginalFilename());
 		}*/
 		//Iterator<String> files = multi.getFileNames();
-		for(int i = 0; i < files1.size(); i++) {
+		for(int i = 0; i < dof2.size(); i++) { //files1
 			System.out.println("FOR 에서 PATH 는 어째되나? : " + path);
-			System.out.println(files1.get(i).getOriginalFilename() + "업로드");
-			dir = new File(path+files1.get(i).getOriginalFilename());
+			System.out.println(dof2.get(i).getOriginalFilename() + "업로드");
+			dir = new File(path+dof2.get(i).getOriginalFilename());
 			System.out.println("dir 은 무었이냐!!" + dir);
-			String fileName = files1.get(i).getOriginalFilename();
+			String fileName = dof2.get(i).getOriginalFilename();
 			newFileName = System.currentTimeMillis() + "." + fileName.substring(fileName.lastIndexOf(".")+1);
+			System.out.println("파일 이름??? : "+ newFileName);
 			try {
-				files1.get(i).transferTo(new File(path+newFileName));
-				System.out.println("저장완료 : " + i + " " + files1.get(i).getOriginalFilename());
+				dof2.get(i).transferTo(new File(path+newFileName));
+				System.out.println("저장완료 : " + i + " " + dof2.get(i).getOriginalFilename());
+				String fileRoute = path+newFileName;
+				System.out.println("fewfaf : "+ fileRoute);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

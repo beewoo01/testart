@@ -63,9 +63,8 @@
 				alert("확장자는 이미지 확장자만 가능합니다.");
 				return;
 			}
-			
+			rank.push(f);
 			sel_files.push(f);
-			//rank.push(f)
 			alert("f는 뭐니? : "+ f);
 			
 			
@@ -88,8 +87,9 @@
 	
 	function deleteImageAction(index) {
 		//이미지 삭제 함수
-		//sel_tag.splice(tagnum1, 1,"#")
-		sel_files.splice(index, 1);
+		
+		//sel_files.splice(index, 1);
+		rank.splice(index, 1,"#")
         var img_id = "#img_id_"+index;
         $(img_id).remove();
     }
@@ -136,7 +136,7 @@
 		//글작성이랑 이미지 한꺼번에 처리
 		
 		//글작성
-		for(var i=0; i < index3; i++){//index3
+		/* for(var i=0; i < index3; i++){//index3
 			//var txta = document.getElementById("txtarea"+[i]).value;
 			var txta = document.getElementById("txtarea"+[i]);
 			alert("if로 가자 : " + txta);
@@ -152,7 +152,7 @@
 		for(var i=0; i < sel_txt.length; i++){
 			alert("sel_txt "+i+i+i+i+i+i+i+ "번째: " + sel_txt[i]);
 			
-		}
+		} */
 		
 		
 		
@@ -172,6 +172,32 @@
 			//업로드 이미지 formData에 값 넣기
 			formData.append('files', sel_files[index1]);
 		}
+		
+		
+		//추가추가추가추가추가추가추가추가추가추가추가추가추가추가추가추가추가추가
+		for (var i = 0; i < Object.keys(rank).length; i++){
+			alert("i번쨰 타입은? : " + typeof rank[i]);
+			if(rank[i] == "#"){
+				alert("!!: "+rank[i]+" : " +typeof rank[i]);
+				rank.splice(i, 1);
+				alert("!!: "+rank[i]+" : " +typeof rank[i]);
+			}
+			if(typeof rank[i] ==='object'){
+				alert("object 아님!!!");
+			}else{
+				rank.splice(i, 1, rank[i]+i);
+			}
+			
+			//rank[i].append(i);
+			
+			
+			
+			formData.append('upload', rank[i]);
+			alert("What is upload rank!!: "+rank[i]);
+		}
+		//추가추가추가추가추가추가추가추가추가추가추가추가추가추가추가추가추가추가
+		
+		
 		for (var hi = 0; hi < Object.keys(sel_file).length; hi++){
 			//커버 이미지 formData에 값 넣기
 			formData.append('cover', sel_file[hi]);	
@@ -237,7 +263,7 @@
 	}
 	function gotext(){
 		
-		var textHi = "<div class='upload_txt_upload' id='deletxt"+index3+"'>" //index3
+		var textHi = "<div class='upload_txt_upload' id='deletxt"+index+"'>" //index3
 					+"<ul>"
 					+"<li>"
 					+"<i class='xi-bold'>"
@@ -276,43 +302,44 @@
 					+"</li>"
 					
 					+"</ul>"
-					+"<textarea id='txtarea"+index3+"' onchange='savetxt(this,"+index3+")' onkeyup='autoTextarea(this,100);' row='100%' cols='auto' style='resize: none;'></textarea>" //index3
-					+"<div id='upload_txt_clear' onclick='deltxt("+index3+")'><i class='xi-close'>" //삭제버튼  //index3
+					+"<textarea id='txtarea"+index+"' onchange='savetxt(this,"+index+")' onkeyup='autoTextarea(this,100);' row='100%' cols='auto' style='resize: none;'></textarea>" //index3
+					+"<div id='upload_txt_clear' onclick='deltxt("+index+")'><i class='xi-close'>" //삭제버튼  //index3
 					+"</i>"
 					+"</div>"
 					+"</div>"
 		
 		$(".upload_right_cont_enter").append(textHi);
 		rank.push("#");
-		index3++;
+		index++;
 		
 	}
-	function savetxt(obj, index3){
+	function savetxt(obj, index){
 		
 		//글작성
 			//var txta = document.getElementById("txtarea"+[i]).value;
-			var txta = document.getElementById("txtarea"+index3);
-			alert("if로 가자 : " + txta);
+			var txta = document.getElementById("txtarea"+index);
+			//alert("if로 가자 : " + txta);
 			if(txta != null && txta.value.trim() != ""){
 				//sel_txt.push(txta.value);
 				//rank.push(txta.value);
-				rank.splice(index3, 1,txta.value);
+				rank.splice(index, 1,txta.value);
 			}else{
 				alert("글 작성 마저해요");
 				return false;
 			}
-			alert("rank: "+ rank[index3]);
+			alert("rank: "+ rank[index]);
 			alert("rank: "+ rank.length);
 			
 	}
 	
 	
 	
-	function deltxt(index3){//index3
+	function deltxt(index){//index3
 		
 		//sel_files.splice(index, 1);
-        var write_id = "#deletxt"+index3; //index3
-        sel_txt.splice(index, 1,"#")
+        var write_id = "#deletxt"+index; //index3
+        sel_txt.splice(index, 1,"#");
+        rank.splice(index, 1, "#");
         $(write_id).remove();
         alert("글 삭제 됨??");
 	}
