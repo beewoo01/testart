@@ -108,7 +108,7 @@ public class SubController {
 		/*for(String map : content) {
 			System.out.println("");
 		}*/
-		String[] content = request.getParameterValues("txt");
+		String[] content = multi.getParameterValues("txt");
 		System.out.println("content : "+ content);
 		if(content != null) {
 			for(int i =0; i < content.length; i++) {

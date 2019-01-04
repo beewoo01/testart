@@ -89,7 +89,7 @@
 	function deleteImageAction(index) {
 		//이미지 삭제 함수
 		//sel_tag.splice(tagnum1, 1,"#")
-		sel_files.splice(index, 1, "#");
+		sel_files.splice(index, 1);
         var img_id = "#img_id_"+index;
         $(img_id).remove();
     }
@@ -136,12 +136,15 @@
 		//글작성이랑 이미지 한꺼번에 처리
 		
 		//글작성
-		for(var i=0; i < index; i++){//index3
+		for(var i=0; i < index3; i++){//index3
 			//var txta = document.getElementById("txtarea"+[i]).value;
 			var txta = document.getElementById("txtarea"+[i]);
 			alert("if로 가자 : " + txta);
 			if(txta != null && txta.value.trim() != ""){
 				sel_txt.push(txta.value);
+			}else{
+				alert("글 작성 마저해요");
+				return false;
 			}
 			alert("sel_txt: "+ sel_txt[i]);
 			
@@ -185,9 +188,9 @@
 			}
 		}
 		// 작성한 글 배열에 추가
-		/* for (var i=0; i < sel_txt.length; i++){
+		for (var i=0; i < sel_txt.length; i++){
 			formData.append('txt', sel_txt[i]);	
-		} */
+		}
 		
 		formData.append('visib', visib);
 		formData.append('title', title);
@@ -232,9 +235,9 @@
 	function goImage(){
 		$("#input_imgs").trigger("click");
 	}
-	function gotext(){ 
+	function gotext(){
 		
-		var textHi = "<div class='upload_txt_upload' id='deletxt"+index+"'>" //index3
+		var textHi = "<div class='upload_txt_upload' id='deletxt"+index3+"'>" //index3
 					+"<ul>"
 					+"<li>"
 					+"<i class='xi-bold'>"
@@ -273,23 +276,43 @@
 					+"</li>"
 					
 					+"</ul>"
-					+"<textarea id='txtarea"+index+"' onkeyup='autoTextarea(this,100);' row='100%' cols='auto' style='resize: none;'></textarea>" //index3
-					+"<div id='upload_txt_clear' onclick='deltxt("+index+")'><i class='xi-close'>" //삭제버튼  //index3
+					+"<textarea id='txtarea"+index3+"' onchange='savetxt(this,"+index3+")' onkeyup='autoTextarea(this,100);' row='100%' cols='auto' style='resize: none;'></textarea>" //index3
+					+"<div id='upload_txt_clear' onclick='deltxt("+index3+")'><i class='xi-close'>" //삭제버튼  //index3
 					+"</i>"
 					+"</div>"
 					+"</div>"
 		
 		$(".upload_right_cont_enter").append(textHi);
-		
-		index++;
+		rank.push("#");
+		index3++;
 		
 	}
+	function savetxt(obj, index3){
+		
+		//글작성
+			//var txta = document.getElementById("txtarea"+[i]).value;
+			var txta = document.getElementById("txtarea"+index3);
+			alert("if로 가자 : " + txta);
+			if(txta != null && txta.value.trim() != ""){
+				//sel_txt.push(txta.value);
+				//rank.push(txta.value);
+				rank.splice(index3, 1,txta.value);
+			}else{
+				alert("글 작성 마저해요");
+				return false;
+			}
+			alert("rank: "+ rank[index3]);
+			alert("rank: "+ rank.length);
+			
+	}
 	
-	function deltxt(index){//index3
+	
+	
+	function deltxt(index3){//index3
 		
 		//sel_files.splice(index, 1);
-        var write_id = "#deletxt"+index; //index3
-        sel_files.splice(index, 1,"#")
+        var write_id = "#deletxt"+index3; //index3
+        sel_txt.splice(index, 1,"#")
         $(write_id).remove();
         alert("글 삭제 됨??");
 	}
