@@ -213,6 +213,8 @@ public class SubController {
 	         System.out.println("오리지날 파일 이름" + file.getOriginalFilename());
 		}*/
 		//Iterator<String> files = multi.getFileNames();
+		
+		List<String> fileRoute = null;
 		for(int i = 0; i < dof2.size(); i++) { //files1
 			System.out.println("FOR 에서 PATH 는 어째되나? : " + path);
 			System.out.println(dof2.get(i).getOriginalFilename() + "업로드");
@@ -224,7 +226,8 @@ public class SubController {
 			try {
 				dof2.get(i).transferTo(new File(path+newFileName));
 				System.out.println("저장완료 : " + i + " " + dof2.get(i).getOriginalFilename());
-				String fileRoute = path+newFileName;
+				String fileRoute1 = path+newFileName;
+				fileRoute.add(fileRoute1);
 				System.out.println("fewfaf : "+ fileRoute);
 			} catch (Exception e) {
 				e.printStackTrace();
