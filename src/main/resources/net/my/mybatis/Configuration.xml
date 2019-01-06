@@ -10,7 +10,8 @@
         <typeAlias type="net.my.board.Notice" alias="Notice"/>
         <typeAlias type="net.my.board.Notice" alias="Contact"/>
         <typeAlias type="net.my.main.Board" alias="Board"/>
-        <typeAlias type="net.my.sub.SubBoard" alias="SubBoard"/>
+        <typeAlias type="net.my.sub.SubBoard" alias="SubUpload"/>
+        <!-- <typeAlias type="net.my.sub.SubBoard" alias="SubBoard"/> -->
     </typeAliases>
  
     <mappers>

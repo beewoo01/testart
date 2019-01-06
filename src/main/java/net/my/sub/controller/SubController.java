@@ -10,6 +10,7 @@ import java.util.Map;
 
 import javax.activation.CommandMap;
 import javax.annotation.Resource;
+import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -31,6 +32,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import net.my.sub.SubBoard;
 import net.my.sub.SubService;
+import net.my.sub.SubUpload;
 import net.my.user.User;
 
 
@@ -43,7 +45,7 @@ public class SubController {
     private static final int RESULT_SUCCESS = 1;
     private static final long LIMIT_SIZE = 10 * 1024 * 1024;
 	
-	@Autowired
+	@Inject
 	private SubService subservice;
 
 	@Resource(name = "uploadPath")
@@ -81,7 +83,7 @@ public class SubController {
 		System.out.println("여기는와?222222");
 		SubBoard subboard = new SubBoard();
 		subboard.setMember_no(userNum);
-		subservice.insert(subboard);
+		//subservice.insert(subboard);
 		
 		return "sub/upload";
 	}
@@ -111,20 +113,23 @@ public class SubController {
 		//List dof = multi.getMultipartContentType("upload");
 		//Object[] dof2 = (Object[]) multi.getAttribute("upload");
 		List<MultipartFile> dof2 = multi.getFiles("upload");
-		String[]dof = multi.getParameterValues("upload");
+		String[] dof = multi.getParameterValues("upload");
 		
 		
 		for(int i=0; i < multi.getFiles("upload").size(); i++) {
 			System.out.println("dof@@@@@@@!!!! : "+ dof2.get(i));
 		}
-		for(int i=0; i < multi.getParameterValues("upload").length; i++) {
-			System.out.println("dof!!!! : "+ dof[i]+ " :: "+ i);
+		if(dof != null) {
+			for(int i=0; i < multi.getParameterValues("upload").length; i++) {
+				System.out.println("dof!!!! : "+ dof[i]+ " :: "+ i);
+			}
 		}
+		
 		String dd;
-		for(int i=0; i < multi.getParameter("upload").length(); i++) {
+		/*for(int i=0; i < multi.getParameter("upload").length(); i++) {
 			dd = multi.getParameter("upload");
 			System.out.println("dof########## : " + dd);
-		}
+		}*/
 		
 		String[] content = multi.getParameterValues("txt");
 		System.out.println("content : "+ content);
@@ -137,10 +142,10 @@ public class SubController {
 		}
 		
 		//System.out.println("cover : " + file);
-		System.out.println("visivl!!!!!! : " + visivl);
+		/*System.out.println("visivl!!!!!! : " + visivl);
 		System.out.println("이거는 되나?111 : " + cover);
 		System.out.println("model : " + sde);
-		System.out.println("ccl : " + ccl);
+		System.out.println("ccl : " + ccl);*/
 		
 		
 		for(MultipartFile image : images) {
@@ -165,7 +170,7 @@ public class SubController {
 		//유저 넘버 받아오기
 		User user = (User) session.getAttribute("check");
 		System.out.println("user 넘버 : " + user);
-		String userNum = user.getMember_no();
+		int userNum = Integer.parseInt(user.getMember_no());
 		System.out.println("user 넘버 : " + userNum);
 		
 		
@@ -214,24 +219,56 @@ public class SubController {
 		}*/
 		//Iterator<String> files = multi.getFileNames();
 		
-		List<String> fileRoute = null;
-		for(int i = 0; i < dof2.size(); i++) { //files1
-			System.out.println("FOR 에서 PATH 는 어째되나? : " + path);
-			System.out.println(dof2.get(i).getOriginalFilename() + "업로드");
-			dir = new File(path+dof2.get(i).getOriginalFilename());
-			System.out.println("dir 은 무었이냐!!" + dir);
-			String fileName = dof2.get(i).getOriginalFilename();
-			newFileName = System.currentTimeMillis() + "." + fileName.substring(fileName.lastIndexOf(".")+1);
-			System.out.println("파일 이름??? : "+ newFileName);
-			try {
-				dof2.get(i).transferTo(new File(path+newFileName));
-				System.out.println("저장완료 : " + i + " " + dof2.get(i).getOriginalFilename());
-				String fileRoute1 = path+newFileName;
-				fileRoute.add(fileRoute1);
-				System.out.println("fewfaf : "+ fileRoute);
-			} catch (Exception e) {
-				e.printStackTrace();
+		List<String> fileRoute = new ArrayList<String>();
+		List<String> saveroute = new ArrayList<String>();
+		int board_no=0;
+		if(dof.length > 0 || dof2.size() > 0) {
+			
+			System.out.println("여기는? max1: "+"1111111111111111111111111");
+			if(dof.length > 0) {
+				System.out.println("여기는? max1: "+"2222222222222222222222222222222");
+				for(int z = 0; z < dof.length; z++) {
+					System.out.println("여기는? max1: "+"3333333333333333333333333");
+					saveroute.add(dof[z]);
+					System.out.println("여기는? max1: "+"4444444444444444444444444444444");
+				}
 			}
+			
+			if(dof2.size() > 0) {
+				System.out.println("여기는? max1: "+"55555555555555555555555555555555");
+				for(int i = 0; i < dof2.size(); i++) { //files1
+					System.out.println("여기는? max1: "+"6666666666666666666666");
+				board_no++;
+				System.out.println("FOR 에서 PATH 는 어째되나? : " + path);
+				System.out.println(dof2.get(i).getOriginalFilename() + "업로드");
+				dir = new File(path+dof2.get(i).getOriginalFilename());
+				System.out.println("dir 은 무었이냐!!" + dir);
+				String fileName = dof2.get(i).getOriginalFilename();
+				newFileName = System.currentTimeMillis() + "." + fileName.substring(fileName.lastIndexOf(".")+1);
+				System.out.println("파일 이름??? : "+ newFileName);
+				try {
+					dof2.get(i).transferTo(new File(path+newFileName));
+					System.out.println("저장완료 : " + i + " " + dof2.get(i).getOriginalFilename());
+					String fileRoute1 = path+newFileName;
+					saveroute.add(fileRoute1);
+					SubUpload subUpload = new SubUpload(userNum, board_no, fileRoute1);
+					System.out.println("여기 여기!! 데이터베이스 들어가자!!!!!!!!!");
+					
+					//subservice.create(subUpload); subservice 로 가는 문 풀자마자 저장됨
+					System.out.println("여기 여기!! 데이터베이스 들갔????");
+					//fileRoute.add(fileRoute1);
+					//System.out.println("fewfaf : "+ fileRoute);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			}
+			System.out.println("경로LIST에는 머가 쌓였나 보자~~~~~~~~");
+			for(int k=0; k< saveroute.size(); k++) {
+				System.out.println(k+" 번째 :"+saveroute.get(k));
+			}
+		}else {
+			return 0;
 		}
 		
 		for(int j = 0; j < cover.size(); j++) {
