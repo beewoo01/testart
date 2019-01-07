@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import net.my.mybatis.BoardMapper;
-import net.my.mybatis.SubMapper;
 import net.my.subdao.SubDAO;
 @Service
 public class SubServiceImpl implements SubService{

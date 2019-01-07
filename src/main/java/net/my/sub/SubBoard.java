@@ -1,21 +1,47 @@
 package net.my.sub;
 
 public class SubBoard {
-	
+	//
 	private int board_no;
-	private String member_no;
+	private int member_no;
 	private String title;
+	//
 	private String write_dt;
 	private String cover_img;
 	private String category;
 	private String ccl;
+	//
 	private int hits;
+	//
 	private int like_count;
+	//
 	private int reply_count;
-	private boolean hidden_yn;
-	private boolean delete_yn;
+	private String hidden_yn;
+	//
+	private String delete_yn;
 	
 	
+	
+	/**
+	 * @param board_no
+	 * @param member_no
+	 * @param title
+	 * @param cover_img
+	 * @param category
+	 * @param ccl
+	 * @param hidden_yn
+	 */
+	public SubBoard(int member_no, String title, String cover_img, String category, String ccl,
+			String hidden_yn) {
+		super();
+		this.board_no = board_no;
+		this.member_no = member_no;
+		this.title = title;
+		this.cover_img = cover_img;
+		this.category = category;
+		this.ccl = ccl;
+		this.hidden_yn = hidden_yn;
+	}
 	public int getBoard_no() {
 		
 		return board_no;
@@ -24,10 +50,10 @@ public class SubBoard {
 		System.out.println("서브보드 넘버 : " + board_no);
 		this.board_no = board_no;
 	}
-	public String getMember_no() {
+	public int getMember_no() {
 		return member_no;
 	}
-	public void setMember_no(String member_no) {
+	public void setMember_no(int member_no) {
 		System.out.println("서브보드 맴버 넘버 : " + member_no);
 		this.member_no = member_no;
 	}
@@ -88,17 +114,17 @@ public class SubBoard {
 		System.out.println("서브보드 답글 수: " + reply_count);
 		this.reply_count = reply_count;
 	}
-	public boolean isHidden_yn() {
+	public String isHidden_yn() {
 		return hidden_yn;
 	}
-	public void setHidden_yn(boolean hidden_yn) {
+	public void setHidden_yn(String hidden_yn) {
 		System.out.println("서브보드 비공개 여부: " + hidden_yn);
 		this.hidden_yn = hidden_yn;
 	}
-	public boolean isDelete_yn() {
+	public String isDelete_yn() {
 		return delete_yn;
 	}
-	public void setDelete_yn(boolean delete_yn) {
+	public void setDelete_yn(String delete_yn) {
 		System.out.println("서브보드 삭제 여부: " + delete_yn);
 		this.delete_yn = delete_yn;
 	}

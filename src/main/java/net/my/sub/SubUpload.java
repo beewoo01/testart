@@ -44,6 +44,8 @@ public class SubUpload {
 		this.board_no = board_no;
 		this.file = file;
 	}
+	public SubUpload() {
+	}
 
 	
 	
