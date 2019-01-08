@@ -9,4 +9,9 @@
         INSERT INTO upload (member_no, board_no, file)
         VALUES (#{member_no}, #{board_no}, #{file})
     </insert>
+    
+    <insert id="taginsert">
+    	INSERT INTO tag (board_no, tagname)
+    	VALUES (#{board_no}, #{tagname})
+    </insert>
 </mapper>

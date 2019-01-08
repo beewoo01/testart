@@ -42,8 +42,8 @@
 	var index = 0;  //이미지에 들어갈 ID
 	var index2 = 0; // 커버 이미지에 들어갈 ID
 	var index3 = 0; // 글 쓰기 ID
-	var tagnum1 = 0;//태그 삭제할때 추가ID
-	var cclstring; //ccl 값이 저장될 변수
+	var tagnum1 = 0; //태그 삭제할때 추가ID
+	var cclstring = 0; //ccl 값이 저장될 변수 0 ccl표시안함 , 1 저작자, 2 ../비영리, 3 ../변경금지, 등등 
 	
 	
 	$(document).ready(function() {
@@ -56,30 +56,33 @@
 		// 이미지 선택시 추가 함수
 		var files = e.target.files;
 		var filesArr = Array.prototype.slice.call(files);
-		
-		
+		var reader;
 		   filesArr.forEach(function(f){
 			if(!f.type.match("image.*")){
+				alert("???????????");
 				alert("확장자는 이미지 확장자만 가능합니다.");
-				return;
+			}else{
+				rank.push(f);
+				sel_files.push(f);
+				alert("%%%%%%%%%%%%%%%%%%");
+				
+				reader = new FileReader();
+				reader.onload = function(e){
+					
+					var html = "<a href=\"javascript:void(0);\" onclick=\"deleteImageAction("+index+")\" id=\"img_id_"+index+"\"><img src=\"" + e.target.result + "\" data-file='"+f.name+"' class='selProductFile' title='Click to remove("+index+")'></a>"
+								+"<br>";
+								
+	                $(".upload_right_cont_enter").append(html);
+					//alert("파일 번호 : " + index );
+					index++;
+					
+				}
+				reader.readAsDataURL(f);
 			}
-			rank.push(f);
-			sel_files.push(f);
+			
 			alert("f는 뭐니? : "+ f);
 			
 			
-			
-			var reader = new FileReader();
-			reader.onload = function(e){
-				
-				var html = "<a href=\"javascript:void(0);\" onclick=\"deleteImageAction("+index+")\" id=\"img_id_"+index+"\"><img src=\"" + e.target.result + "\" data-file='"+f.name+"' class='selProductFile' title='Click to remove("+index+")'></a>"+
-							"<br>"+"<br>"+"<br>"
-                $(".upload_right_cont_enter").append(html);
-				//alert("파일 번호 : " + index );
-				index++;
-				
-			}
-			reader.readAsDataURL(f);
 			//alert("전체 길이: " + sel_files.length);
 		});
 	}
@@ -111,12 +114,12 @@
 				food_value = foods[i].value;
 				if(food_value == "공개"){
 					alert("여기는 공개 : " + food_value);
-					visib = false;
+					visib = "F";
 					what ++;
 				}
 				else if(food_value == "비공개"){
 					alert("여기는 비공개!!!: " + food_value);
-					visib = true;
+					visib = "T";
 					what ++;
 					 
 				}
@@ -372,23 +375,29 @@
 		sel_file = [];
 		$(".cover_after").empty();
 		var file = e.target.files;
-		
+		var reader1 = new FileReader();
 		var fileArr = Array.prototype.slice.call(file);
 		fileArr.forEach(function(f){
 		if(!f.type.match("image.*")){
 			alert("확장자는 이미지 확장자만 가능합니다.");
-			return;
+			alert("???????????11111111.");
+			alert("sel_file 커버11 : "+ sel_file);
 		}
-		sel_file.push(f);
-		var reader1 = new FileReader();
-		reader1.onload = function(e){
-			var html2 = "<a href=\"javascript:void(0);\" onclick=\"deletecoverImageAction("+index2+")\" id=\"img_id_cover"+index2+"\"><img src=\"" + e.target.result + "\" data-file='"+f.name+"' class='selProductFile' title='Click to remove("+index2+")'></a>";
-			$(".cover_after").append(html2);
-			index2++;
+		
+		else{
+			sel_file.push(f);
+			
+			reader1.onload = function(e){
+				var html2 = "<a href=\"javascript:void(0);\" onclick=\"deletecoverImageAction("+index2+")\" id=\"img_id_cover"+index2+"\"><img src=\"" + e.target.result + "\" data-file='"+f.name+"' class='selProductFile' title='Click to remove("+index2+")'></a>";
+				$(".cover_after").append(html2);
+				index2++;
+			}
+			reader1.readAsDataURL(f);
 		}
-		reader1.readAsDataURL(f);
+		
+		
 		});
-		if(sel_file != null){
+		if(sel_file.length != 0){
 			$(".cover_before").hide();
 		}
 	}
@@ -657,7 +666,7 @@
                     
                     <li class="upload_left_cover"><!-- 커버업로드 -->
                         <div class="cover_before" onclick="gocover();" ><!-- <a href="#"> --><p><span>커버업로드</span></p><!-- </a> --></div>
-                        <input type="file" id="input_cover" name="input_cover" style="display: none;" enctype="multipart/form-data"/>
+                        <input type="file" accept=".gif, .jpg, .png, .GIF, .JPG, .PNG" id="input_cover" name="input_cover" style="display: none;" enctype="multipart/form-data"/>
                         <!-- <div class="cover_after" style="display:none;"><img src="../resources/images/img_sample.jpg"></div> -->
                         <!-- <form id="uploadCoverForm" style="display: none;"></form> -->
                         <div class="cover_after">
@@ -694,7 +703,7 @@
 	                    	
 	                    	</div>
 							<div class="upload_right_cont_btn"><!-- 입력전 -->
-								<input type="file" id="input_imgs" name="input_imgs" style="display: none;" multiple />
+								<input type="file" id="input_imgs" name="input_imgs" accept=".gif, .jpg, .png, .GIF, .JPG, .PNG" style="display: none;" multiple />
 								<p class="upload_img_btn" onclick="goImage();"><i class="xi-library-image-o xi-2x"></i></p>
 								<p class="upload_txt_btn" onclick="gotext();"><i class="xi-pen-o xi-2x"></i></p>
 							</div><!-- .upload_right_cont_btn -->                

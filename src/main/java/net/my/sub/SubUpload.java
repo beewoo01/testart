@@ -6,7 +6,7 @@ public class SubUpload {
 	private int member_no;
 	private int board_no;
 	private String file;
-	private String content;
+	private String tagname;
 	
 
 	public void setUpload_no(int upload_no) {
@@ -22,6 +22,7 @@ public class SubUpload {
 		return board_no;
 	}
 	public void setBoard_no(int board_no) {
+		System.out.println("서브보드 넘버 2222!!!!: " + board_no);
 		this.board_no = board_no;
 	}
 	public String getFile() {
@@ -30,15 +31,12 @@ public class SubUpload {
 	public void setFile(String file) {
 		this.file = file;
 	}
-	public String getContent() {
-		return content;
+	public String getTagname() {
+		return tagname;
 	}
-	public void setContent(String content) {
-		System.out.println("서브보드 내용 : " + content);
-		this.content = content;
+	public void setTagname(String tagname) {
+		this.tagname = tagname;
 	}
-	
-	
 	public SubUpload(int member_no, int board_no, String file) {
 		this.member_no = member_no;
 		this.board_no = board_no;

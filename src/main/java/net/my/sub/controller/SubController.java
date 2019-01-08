@@ -107,17 +107,18 @@ public class SubController {
 		
 		
 		long sizeSum = 0;
-		//System.out.println("model : " + modelMap.get("title"));
-		//MultipartFile file = multi.getFile("input_cover");
+
 		SubUpload subUpload = new SubUpload();
 		//커버 ajax 로 받아오기
 		List<MultipartFile> cover = multi.getFiles("cover");
 		String title = (String) modelMap.get("title");
 		String visivl = (String) modelMap.get("visib");
 		String ccl=(String) modelMap.get("ccl");
-		
-		if(visivl == "false") visivl = "F";
-		else visivl = "T";
+		String[] tag = multi.getParameterValues("tag");
+
+		for(int i = 0; i < tag.length; i++) {
+			System.out.println("tag"+i+": "+ tag[i]);
+		}
 		System.out.println("title : " + title);
 		System.out.println("visivl : " + visivl);
 		System.out.println("ccl : " + ccl);
@@ -135,13 +136,7 @@ public class SubController {
 			}
 		}
 		
-		String dd;
-		/*for(int i=0; i < multi.getParameter("upload").length(); i++) {
-			dd = multi.getParameter("upload");
-			System.out.println("dof########## : " + dd);
-		}*/
-		
-		 String[] content = multi.getParameterValues("txt");
+		String[] content = multi.getParameterValues("txt");
 		System.out.println("content : "+ content);
 		if(content != null) {
 			for(int i =0; i < content.length; i++) {
@@ -249,40 +244,45 @@ public class SubController {
 	         System.out.println("오리지날 파일 이름" + file.getOriginalFilename());
 		}*/
 		//Iterator<String> files = multi.getFileNames();
+		subUpload.setBoard_no(subBoard.getBoard_no());
+		System.out.println("--------------------------------");
 		
+		System.out.println("sub member no : " + subUpload.getMember_no());
+		System.out.println("sub board no : " + subUpload.getBoard_no());
+		System.out.println("sub file : " + subUpload.getFile());
 		List<String> fileRoute = new ArrayList<String>();
-		int board_no=0;
 		System.out.println("dof2사이즈 : " + dof2.size());
 		if( dof2.size() > 0) {
 			
 			System.out.println("여기는? max1: "+"1111111111111111111111111");
 			
-				System.out.println("여기는? max1: "+"55555555555555555555555555555555");
-				for(int i = 0; i < dof2.size(); i++) {
+			System.out.println("여기는? max1: "+"55555555555555555555555555555555");
+			for(int i = 0; i < dof2.size(); i++) {
 					System.out.println("여기는? max1: "+"6666666666666666666666");
 				
-				System.out.println("FOR 에서 PATH 는 어째되나? : " + path);
-				System.out.println(dof2.get(i).getOriginalFilename() + "업로드");
-				dir = new File(path+dof2.get(i).getOriginalFilename());
-				System.out.println("dir 은 무었이냐!!" + dir);
-				String fileName = dof2.get(i).getOriginalFilename();
-				newFileName = System.currentTimeMillis() + "." + fileName.substring(fileName.lastIndexOf(".")+1);
-				System.out.println("파일 이름??? : "+ newFileName);
-				try {
-					dof2.get(i).transferTo(new File(path+newFileName));
-					System.out.println("저장완료 : " + i + " " + dof2.get(i).getOriginalFilename());
-					String fileRoute1 = path+newFileName;
-					
-					
-					fileRoute.add(fileRoute1);
-					
-					System.out.println("fewfaf : "+ fileRoute);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+					System.out.println("FOR 에서 PATH 는 어째되나? : " + path);
+					System.out.println(dof2.get(i).getOriginalFilename() + "업로드");
+					dir = new File(path+dof2.get(i).getOriginalFilename());
+					System.out.println("dir 은 무었이냐!!" + dir);
+					String fileName = dof2.get(i).getOriginalFilename();
+					newFileName = System.currentTimeMillis() + "." + fileName.substring(fileName.lastIndexOf(".")+1);
+					System.out.println("파일 이름??? : "+ newFileName);
+					try {
+						dof2.get(i).transferTo(new File(path+newFileName));
+						System.out.println("저장완료 : " + i + " " + dof2.get(i).getOriginalFilename());
+						String fileRoute1 = path+newFileName;
+						
+						
+						fileRoute.add(fileRoute1);
+						
+						System.out.println("fewfaf : "+ fileRoute);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
 			}
 			
 		}
+		
 		if(dof != null ) {
 				System.out.println("여기는? max1: "+"2222222222222222222222222222222");
 				for(int z = 0; z < dof.length; z++) {
@@ -310,56 +310,50 @@ public class SubController {
 		}
 		
 		//SubUpload subUpload = new SubUpload(userNum, board_no, fileRoute1);
+		
 		for(int i =0; i < fileRoute.size(); i++) {
-			board_no++;
-			subUpload.setBoard_no(board_no);
+			/*int ds = 1;
+			subUpload.setBoard_no(ds);*/
 			subUpload.setFile(fileRoute.get(i));
 			try {
 				subservice.create(subUpload);
+				
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
-		System.out.println("여기 여기!! 데이터베이스 들어가자!!!!!!!!!");
+		for(int j = 0; j < tag.length; j++) {
+			subUpload.setTagname(tag[j]);
+			try {
+				subservice.taginsert(subUpload);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 		//subservice.create(subUpload); subservice 로 가는 문 풀자마자 저장됨
 		
-		System.out.println("여기 여기!! 데이터베이스 들갔????");
+		System.out.println("여기 여기!!");
 		
 		
 		return RESULT_SUCCESS;
 	}
 	
-	//문자열을 헥사 스트링으로 변환하는 메서드
-	public static String stringToHex(String s) {
-		String result = "";
-		for (int i = 0; i < s.length(); i++) {
-		      result += String.format("%02X ", (int) s.charAt(i));
-		    }
-		return result;
-		
-	}
 	
 	private boolean isValidExtension(String originalName) {
 		String originalNameExtension = originalName.substring(originalName.lastIndexOf(".") + 1);
 		switch(originalNameExtension) {
 		
 		case "jpg":
-			System.out.println("jpg1임");
 			return true;
 		case "png":
-			System.out.println("png1임");
 			return true;
 		case "gif":
-			System.out.println("gif1임");
 			return true;
 		case "JPG" :
-			System.out.println("jpg2임");
 			return true;
 		case "PNG" :
-			System.out.println("png2임");
 			return true;
 		case "GIF" :
-			System.out.println("gif2임");
 			return true;
 		
 		}

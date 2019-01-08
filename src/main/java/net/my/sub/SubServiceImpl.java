@@ -18,6 +18,11 @@ public class SubServiceImpl implements SubService{
 	public void create(SubUpload vo) throws Exception {
 		subdao.create(vo);
 	}
+
+	@Override
+	public void taginsert(SubUpload vo) throws Exception {
+		subdao.taginsert(vo);
+	}
 	
 	
 

@@ -21,6 +21,12 @@ public class SubDAOImp implements SubDAO{
 		
 	}
 
+	@Override
+	public void taginsert(SubUpload vo) throws Exception {
+		sqlSession.insert(namespace+".taginsert", vo);
+		
+	}
+
 
 	
 

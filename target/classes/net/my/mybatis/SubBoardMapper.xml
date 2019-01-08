@@ -5,9 +5,11 @@
    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
    
    <mapper namespace="net.my.mybatis.SubBoardMapper">
-   
-   <insert id="insertBoard">
-   		insert into board (member_no, title, cover_img, category, ccl, hidden_yn)
-   		values(#{member_no},#{title},#{cover_img},#{category},#{ccl},#{hidden_yn})
-   </insert>
+	   <insert id="insertBoard" parameterType="net.my.sub.SubBoard">
+	   		insert into board (member_no, title, cover_img, category, ccl, hidden_yn)
+	   		values(#{member_no},#{title},#{cover_img},#{category},#{ccl},#{hidden_yn})
+	   		<selectKey keyProperty="board_no" resultType="int" order="AFTER">
+	        	SELECT LAST_INSERT_ID()
+	        </selectKey>
+	   </insert>
    </mapper>
