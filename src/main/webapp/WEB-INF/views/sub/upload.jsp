@@ -37,6 +37,7 @@
 	var sel_txt = []; //글 배열
 	var rank = []; // 이미지, 글작성 순서 배열
 	var typeq = []; // type 배열
+	var cate = [] ; // 카테고리
 	var ranknum =0; // 이미지, 글 작성 번호
 	var typenum = 0; // 이미지, 글 타입
 	var index = 0;  //이미지에 들어갈 ID
@@ -44,6 +45,7 @@
 	var index3 = 0; // 글 쓰기 ID
 	var tagnum1 = 0; //태그 삭제할때 추가ID
 	var cclstring = 0; //ccl 값이 저장될 변수 0 ccl표시안함 , 1 저작자, 2 ../비영리, 3 ../변경금지, 등등 
+	
 	
 	
 	$(document).ready(function() {
@@ -101,7 +103,6 @@
 		//파일전송!
 		
 		var form = $('#uploadForm')[0];
-		
 		//공개여부 부분
 		var foods = document.getElementsByName('ra_info');
 		var food_value;
@@ -128,13 +129,39 @@
 		}
 		 if(what < 1){
 			 
-			 alert("이게 뭐야 이게 선택을 안했어?!!!: " + food_value);
+			 alert("공개여부를 선택하여 주세요.");
 				return false;
 		 }
 		//공개여부 여기까지
 		
+		var catelength = document.getElementsByName("cate").length;
+		var catenum=0;
+		alert("캌퉤 랭쓰 : "+ catelength);
+			for(var i = 0; i < catelength; i++){
+				if(document.getElementsByName("cate")[i].checked == true){
+					cate.push( document.getElementsByName("cate")[i].value);
+					//var cate2 = document.getElementsByName("cate")[i].value;
+					//cate.concat(cate2);
+					catenum++;
+					for(var j =0; j<cate.length; j++){
+						alert("cate[i] : "+ cate[j]);	
+					}
+					
+				}
+				alert("cate.?.length : "+ cate.length);
+				alert("cate "+ cate);
+				
+			}
+			
+			if(catenum <= 0){
+				alert("카테고리를 선택하여 주세요");
+				return false;
+			}
+			alert("catelength22 : "+ cate.length);
+			alert("cate : "+ cate);
 		
 		
+
 		
 		//글작성이랑 이미지 한꺼번에 처리
 		
@@ -165,11 +192,16 @@
 		alert("ccl: " + cclstring);
 		//dropdown2_ccl
 		var title = document.getElementById("upload_title").value;
-		alert("CCL 값은 무엇이니? : "+ cclstring);
-		alert(title);
+		if(title == ""){
+			alert("제목을 입력해 주세요.");
+			return false;
+		}
+		alert("title : " + title);
 		alert("안녕???" + form);
 		var formData = new FormData(form);
 		alert("formData: "+formData);
+		
+		
 		
 		for (var index1 = 0; index1 < Object.keys(sel_files).length; index1++){
 			//업로드 이미지 formData에 값 넣기
@@ -224,6 +256,8 @@
 			formData.append('txt', sel_txt[i]);	//글작성
 		}
 		
+		alert("cate 는 정상적이나? : "+ cate);
+		formData.append('cate', cate);
 		formData.append('visib', visib);//공개여부
 		formData.append('title', title);//제목
 		formData.append('ccl',cclstring);//ccl
@@ -438,8 +472,6 @@
 					
 		$(".putTag").append(tagnum);
 		sel_tag.push(tag);
-		alert("추가된 sel_tag : " + sel_tag);
-		alert("추가한 tagnum1 : " + tagnum1);
 		tagnum1++;
 	}
 	
@@ -547,60 +579,77 @@
         	<div class="inwrap">
         		<ul class="upload_left">
         			<li> <!--카테고리-->
-	                    <select id="selectId" onchange="chageLangSelect(this)" name="basic[]" multiple="multiple" class="2col active">
-	                                <option value="편집디자인">편집디자인</option>
-	                                <option value="일러스트레이션">일러스트레이션</option>
-	                                <option value="포토그래피">포토그래피</option>
-	                                <option value="타이포그래피">타이포그래피</option>
-	                                <option value="산업디자인">산업디자인</option>
-	                    </select>
-	                 </li>
-                        <script>/*카테고리 스크립트*/
-                            $(function () {
-                                $('select[multiple].active.2col').multiselect({
-                                    columns: 1,
-                                    placeholder: '카테고리 선택 (최대 2개)',
-                                    search: false,
-                                    selectAll: false
-                                });
+                        <dl class="dropdown_category">
+                          <dt><a href="#" style="padding-top:4px;"><option id="person" value="2">카테고리 선택 (최대 2개)</option></a></dt>
+                          <dd>
+                            <ul class="dropdown2_category">
+                              <li><label><input type="checkbox" name="cate" value="0"/>편집디자인</label></li>
+                              <li><label><input type="checkbox" name="cate" value="1"/>일러스트레이션</label></li>
+                              <li><label><input type="checkbox" name="cate" value="2"/>포토그래피</label></li>
+                              <li><label><input type="checkbox" name="cate" value="3"/>타이포그래피</label></li>
+                              <li><label><input type="checkbox" name="cate" value="4"/>산업디자인</label></li>
+                              <li><label><input type="checkbox" name="cate" value="5"/>UI/UX</label></li>
+                            </ul>
+                          </dd>
+                        </dl>
                         
+
+                        <script>
+                            // html 이 다 로딩된 후 실행
+                            $(document).ready(function() {
+                                // 체크박스들이 변경됬을때
+                                $(":checkbox").change(function() {
+                                    var cnt = $("#person").val();
+                                    var check = document.getElementById("cate");
+                                    // 셀렉트박스의 값과 체크박스중 체크된 갯수가 같을때, 다른 체크박스들을 disable 처리
+                                    if( cnt==$(":checkbox:checked").length ) {
+                                        $(":checkbox:not(:checked)").attr("disabled", "disabled");
+                                    }
+                                    // 체크된 갯수가 다르면 활성화 시킴
+                                    else {
+                                        $(":checkbox").removeAttr("disabled");
+                                    }
+                                });
+
                             });
-                            
-                             function chageLangSelect(obj){
-                            	var langSelect = document.getElementById("selectId");
-                            	$("#selectId option").not(":selected").attr("disabled",true);
-                            	alert("기리기리보이: ")
-                            	var val;
-                            	var vae = 0;
-                            		for(var i =0; i < langSelect.length; i++){
-                            			
-                                		if(langSelect.options[i].selected == true){
-                                			val = langSelect.options[i].value;
-                                			vae++;
-                                			alert("기리기리보이: " + langSelect);
-                                			if(vae >= 3){
-                                				
-                                				// $('#selectId option').attr('selected', false);
-                                				// $('#selectId').children("[value='포토그래피']").remove();
-                                				// $('#selectId option').attr('disabled', true);
-                                				 //docment.test.select.basic[].disabled = true;
-                                				 //$('#selectId option[value!=1]').remove();
-                                				 alert(langSelect[i].type);
-                                				 //$("select option[value*='편집디자인']").prop('disabled',true);
-                                				 alert("오니33333? " + vae);
-                                				
-                                				//$('#selectId').attr('disabled', 'true');
-                                				//alert($("#selectId option:selected").prevAll().size());
-                                				//$(select).empty().data('options');
-                                				//$("#selectId option:eq(0)").remove();
-                                				//alert("여기여기보이: " + vae);
-                                				//$("#selectId option:last").remove();
-                                			}
-                                			
-                                		}
-                                	}
-                            } 
                         </script>
+
+                        <script>/*카테고리 셀렉트박스 스크립트*/
+                                $(".dropdown_category img.flag").addClass("flagvisibility");
+
+                                $(".dropdown_category dt a").click(function() {
+                                $(".dropdown_category dd ul").toggle();
+                                });
+
+                                $(".dropdown_category dd ul li a").click(function() {
+                                var text = $(this).html();
+                                $(".dropdown_category dt a span").html(text);
+
+                                /* $("#result").html("Selected value is: " + getSelectedValue("sample"));*/
+                                });
+
+                                function getSelectedValue(id) {
+                                return $("#" + id).find("dt a span.value").html();
+                                }
+
+                                $(document).bind('click', function(e) {
+                                var $clicked = $(e.target);
+                                if (!$clicked.parents().hasClass("dropdown_category"))
+                                    $(".dropdown_category dd ul").hide();
+                                });
+
+
+                                // 체크 되어 있는 값 추출
+                                $("#person").click(function() {
+                                $("input[name=box]:checked").each(function() {
+                                    var test = $(this).val();
+                                    alert("#@#@!#@!#@! : "+ test);
+                                });
+                                });
+
+                        </script>
+
+                    </li>
                     
                     <li class="selectbox_ccl"><!-- CCL -->
                         <dl class="dropdown_ccl" >
@@ -694,7 +743,7 @@
         		<!-- 여기야 여기!!!!! -->
 	        		<div class="upload_right">
 	        			<div class="upload_right_title"><!-- 제목 -->
-	              			<input type="text" name="upload_title" id="upload_title" maxlength="100" value="제목을 입력해주세요." onfocus="this.value=''">
+	              			<input type="text" name="upload_title" id="upload_title" maxlength="100" placeholder="제목을 입력해주세요." onfocus="this.value=''">
 	                    </div><!-- .upload_right_title -->
 	                    
 	                    <div class="upload_right_cont"><!-- 내용 -->

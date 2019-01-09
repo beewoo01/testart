@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -41,9 +42,6 @@ import net.my.user.User;
 @RequestMapping("sub")
 public class SubController {
 
-	private static final int RESULT_EXCEED_SIZE = -2;
-    private static final int RESULT_UNACCEPTED_EXTENSION = -1;
-    private static final int RESULT_SUCCESS = 1;
     private static final long LIMIT_SIZE = 10 * 1024 * 1024;
 	
 	@Inject
@@ -101,7 +99,7 @@ public class SubController {
 	
 	@ResponseBody
 	@RequestMapping(value="/fileUpload")
-	public int fileUp(@RequestParam("files")List<MultipartFile> images,
+	public String fileUp(@RequestParam("upload")List<MultipartFile> images,
 			@RequestParam Map<String, Object> modelMap , MultipartHttpServletRequest multi, 
 			HttpSession session, HttpServletResponse response, HttpServletRequest request) {
 		
@@ -114,11 +112,40 @@ public class SubController {
 		String title = (String) modelMap.get("title");
 		String visivl = (String) modelMap.get("visib");
 		String ccl=(String) modelMap.get("ccl");
-		String[] tag = multi.getParameterValues("tag");
-
-		for(int i = 0; i < tag.length; i++) {
-			System.out.println("tag"+i+": "+ tag[i]);
+		String[] cate1 = multi.getParameterValues("cate");
+		String cate = "";
+		for(int i = 0; i < cate1.length; i++) {
+			System.out.println("cate!@##@! : "+ cate1[i]);
+			System.out.println("진성한 cate는?? : " + Arrays.toString(cate1));
 		}
+		System.out.println("진성한 cate는?? : " + Arrays.toString(cate1));
+		System.out.println("진성한 cate는?? : " + Arrays.toString(cate1));
+		System.out.println("진성한 cate는?? : " + Arrays.toString(cate1));
+		System.out.println("진성한 cate는?? : " + Arrays.toString(cate1));
+		System.out.println("진성한 cate는?? : " + Arrays.toString(cate1));
+		System.out.println("진성한 cate는?? : " + Arrays.toString(cate1));
+		System.out.println("진성한 cate는?? : " + Arrays.toString(cate1));
+		System.out.println("진성한 cate는?? : " + Arrays.toString(cate1));
+		System.out.println("진성한 cate는?? : " + Arrays.toString(cate1));
+		System.out.println("진성한 cate는?? : " + Arrays.toString(cate1));
+		System.out.println("진성한 cate는?? : " + Arrays.toString(cate1));
+		System.out.println("진성한 cate는?? : " + Arrays.toString(cate1));
+		
+		//cate = cate1.length()-1;
+		System.out.println("cate : "+cate);
+		String[] tag = multi.getParameterValues("tag");
+		
+		/*System.out.println("cate : "+cate);
+		System.out.println("cate : "+cate);
+		System.out.println("cate : "+cate);
+		System.out.println("cate : "+cate);
+		System.out.println("cate : "+cate);
+		System.out.println("cate : "+cate);
+		System.out.println("cate : "+cate);
+		System.out.println("cate : "+cate);
+		System.out.println("cate : "+cate);
+		System.out.println("cate : "+cate);*/
+		
 		System.out.println("title : " + title);
 		System.out.println("visivl : " + visivl);
 		System.out.println("ccl : " + ccl);
@@ -136,46 +163,30 @@ public class SubController {
 			}
 		}
 		
-		String[] content = multi.getParameterValues("txt");
-		System.out.println("content : "+ content);
-		if(content != null) {
-			for(int i =0; i < content.length; i++) {
-				System.out.println("어디까지 나오나 보자 LIST야!: " + i);
-				String aaa = content[i];
-				System.out.println("어디까지 나오나 보자 LIST야!2: " + aaa);
-			}
-		}
-		
-		//System.out.println("cover : " + file);
-		/*System.out.println("visivl!!!!!! : " + visivl);
-		System.out.println("이거는 되나?111 : " + cover);
-		System.out.println("model : " + sde);
-		System.out.println("ccl : " + ccl);*/
-		
 		
 		for(MultipartFile image : images) {
 			String originalName = image.getOriginalFilename();
 			
 			if(!isValidExtension(originalName)) {
-				System.out.println("00000000000000 두번째!!");
-				return RESULT_UNACCEPTED_EXTENSION;
+				return "jpg, gif, png, bmp 확장자만 업로드 가능합니다.";
 			}
 			sizeSum += image.getSize();
 			if(sizeSum >= LIMIT_SIZE) {
-				return RESULT_EXCEED_SIZE;
+				return "파일이 10MB를 초과하였습니다.";
 			}
 		}
 		/*MultipartFile file = multi.getFile("input_imgs");
 		System.out.println(file);*/
 		
-		// 추가한거임
-		List<MultipartFile> files1 = multi.getFiles("files");
-		System.out.println(files1);
 		
 		//유저 넘버 받아오기
 		User user = (User) session.getAttribute("check");
 		System.out.println("user 넘버 : " + user);
+		if(user.getMember_no() == null) {
+			return "업로드에 실패하였습니다.";
+		}
 		int userNum = Integer.parseInt(user.getMember_no());
+		
 		subUpload.setMember_no(userNum);
 		System.out.println("user 넘버 : " + userNum);
 		
@@ -185,13 +196,6 @@ public class SubController {
 		String path = root + "resources/upload/" + userNum + "/";
 		
 		String newFileName = ""; //업로드 되는 파일명
-		
-		//json 파싱
-		JSONParser jsonParser = new JSONParser();
-		//JSONObject jsonObject = (JSONObject) jsonParser.parse();
-		
-		//data2.put("", value)
-		
 		
 		File dir = new File(path);
 		
@@ -211,7 +215,7 @@ public class SubController {
 			}
 		}
 		
-		String cuverrute = null;
+		String cuverrute = "default";
 		
 		for(int j = 0; j < cover.size(); j++) {
 			dir = new File(path+cover.get(j).getOriginalFilename());
@@ -226,16 +230,15 @@ public class SubController {
 				e.printStackTrace();
 			}
 		}
-		SubBoard subBoard = new SubBoard(userNum, title, cuverrute, "01", ccl, visivl);
+		if(cover.size() <= 0) {
+			
+		}
+		SubBoard subBoard = new SubBoard(userNum, title, cuverrute, "00", ccl, visivl);
 		try {
 			subBoardService.insert(subBoard);
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
-		/*List<MultipartFile> cover = multi.getFiles("cover");
-		String title = (String) modelMap.get("title");
-		String visivl = (String) modelMap.get("visib");
-		String ccl=(String) modelMap.get("ccl");*/
 		
 		/*if(file != null) {
 			 System.out.println("파라미터명" + file.getName());
@@ -254,19 +257,13 @@ public class SubController {
 		System.out.println("dof2사이즈 : " + dof2.size());
 		if( dof2.size() > 0) {
 			
-			System.out.println("여기는? max1: "+"1111111111111111111111111");
-			
-			System.out.println("여기는? max1: "+"55555555555555555555555555555555");
 			for(int i = 0; i < dof2.size(); i++) {
-					System.out.println("여기는? max1: "+"6666666666666666666666");
 				
-					System.out.println("FOR 에서 PATH 는 어째되나? : " + path);
 					System.out.println(dof2.get(i).getOriginalFilename() + "업로드");
 					dir = new File(path+dof2.get(i).getOriginalFilename());
 					System.out.println("dir 은 무었이냐!!" + dir);
 					String fileName = dof2.get(i).getOriginalFilename();
 					newFileName = System.currentTimeMillis() + "." + fileName.substring(fileName.lastIndexOf(".")+1);
-					System.out.println("파일 이름??? : "+ newFileName);
 					try {
 						dof2.get(i).transferTo(new File(path+newFileName));
 						System.out.println("저장완료 : " + i + " " + dof2.get(i).getOriginalFilename());
@@ -284,7 +281,6 @@ public class SubController {
 		}
 		
 		if(dof != null ) {
-				System.out.println("여기는? max1: "+"2222222222222222222222222222222");
 				for(int z = 0; z < dof.length; z++) {
 					// 글자 마지막 마지막 앞 글자 빼오자
 					System.out.println("1번 : "+ dof[z]);
@@ -294,26 +290,26 @@ public class SubController {
 						System.out.println("result222는  "+ z +": "+result);
 						fileRoute.add(result2, dof[z]);
 					}else {
-						System.out.println("result는  "+ z +": "+result);
-						System.out.println("dof[z] "+ z +": "+dof[z]);
 						fileRoute.add(Integer.parseInt(result), dof[z]);
-						System.out.println("fileroute 배열정리는?: "+ fileRoute);
 						
 					}
 					
 				}
-				System.out.println("fileroute 최종 배열정리는?: "+ fileRoute);
 				
 		}
-		if(dof == null && dof2.size() < 0) {
-			return 0;
+		
+		System.out.println("dof 와 dof2 ?? : "+ dof );
+		System.out.println("dof 와 dof2 ##$$ : "+ dof2.size() );
+		if(dof == null && dof2.size() == 0) {
+			System.out.println("여기옴??!!!! 와야함");
+			return "업로드에 실패하였습니다.";
 		}
+		
 		
 		//SubUpload subUpload = new SubUpload(userNum, board_no, fileRoute1);
 		
 		for(int i =0; i < fileRoute.size(); i++) {
-			/*int ds = 1;
-			subUpload.setBoard_no(ds);*/
+
 			subUpload.setFile(fileRoute.get(i));
 			try {
 				subservice.create(subUpload);
@@ -322,20 +318,23 @@ public class SubController {
 				e.printStackTrace();
 			}
 		}
-		for(int j = 0; j < tag.length; j++) {
-			subUpload.setTagname(tag[j]);
-			try {
-				subservice.taginsert(subUpload);
-			} catch (Exception e) {
-				e.printStackTrace();
+		if(tag != null) {
+			for(int j = 0; j < tag.length; j++) {
+				subUpload.setTagname(tag[j]);
+				try {
+					subservice.taginsert(subUpload);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
 		}
+		
 		//subservice.create(subUpload); subservice 로 가는 문 풀자마자 저장됨
 		
 		System.out.println("여기 여기!!");
 		
 		
-		return RESULT_SUCCESS;
+		return "파일 업로드하였습니다.";
 	}
 	
 	
