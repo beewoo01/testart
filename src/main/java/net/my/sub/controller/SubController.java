@@ -107,44 +107,18 @@ public class SubController {
 		long sizeSum = 0;
 
 		SubUpload subUpload = new SubUpload();
+		
 		//커버 ajax 로 받아오기
 		List<MultipartFile> cover = multi.getFiles("cover");
 		String title = (String) modelMap.get("title");
 		String visivl = (String) modelMap.get("visib");
 		String ccl=(String) modelMap.get("ccl");
-		String[] cate1 = multi.getParameterValues("cate");
-		String cate = "";
-		for(int i = 0; i < cate1.length; i++) {
-			System.out.println("cate!@##@! : "+ cate1[i]);
-			System.out.println("진성한 cate는?? : " + Arrays.toString(cate1));
-		}
-		System.out.println("진성한 cate는?? : " + Arrays.toString(cate1));
-		System.out.println("진성한 cate는?? : " + Arrays.toString(cate1));
-		System.out.println("진성한 cate는?? : " + Arrays.toString(cate1));
-		System.out.println("진성한 cate는?? : " + Arrays.toString(cate1));
-		System.out.println("진성한 cate는?? : " + Arrays.toString(cate1));
-		System.out.println("진성한 cate는?? : " + Arrays.toString(cate1));
-		System.out.println("진성한 cate는?? : " + Arrays.toString(cate1));
-		System.out.println("진성한 cate는?? : " + Arrays.toString(cate1));
-		System.out.println("진성한 cate는?? : " + Arrays.toString(cate1));
-		System.out.println("진성한 cate는?? : " + Arrays.toString(cate1));
-		System.out.println("진성한 cate는?? : " + Arrays.toString(cate1));
-		System.out.println("진성한 cate는?? : " + Arrays.toString(cate1));
+		//String cate = (String) modelMap.get("cate");
+		String cate = (String) request.getParameter("catego");
 		
 		//cate = cate1.length()-1;
 		System.out.println("cate : "+cate);
 		String[] tag = multi.getParameterValues("tag");
-		
-		/*System.out.println("cate : "+cate);
-		System.out.println("cate : "+cate);
-		System.out.println("cate : "+cate);
-		System.out.println("cate : "+cate);
-		System.out.println("cate : "+cate);
-		System.out.println("cate : "+cate);
-		System.out.println("cate : "+cate);
-		System.out.println("cate : "+cate);
-		System.out.println("cate : "+cate);
-		System.out.println("cate : "+cate);*/
 		
 		System.out.println("title : " + title);
 		System.out.println("visivl : " + visivl);
@@ -172,7 +146,7 @@ public class SubController {
 			}
 			sizeSum += image.getSize();
 			if(sizeSum >= LIMIT_SIZE) {
-				return "파일이 10MB를 초과하였습니다.";
+				return "<script>alert('파일이 10MB를 초과하였습니다.'); location.href='이동주소';</script>";
 			}
 		}
 		/*MultipartFile file = multi.getFile("input_imgs");
@@ -233,7 +207,7 @@ public class SubController {
 		if(cover.size() <= 0) {
 			
 		}
-		SubBoard subBoard = new SubBoard(userNum, title, cuverrute, "00", ccl, visivl);
+		SubBoard subBoard = new SubBoard(userNum, title, cuverrute, cate, ccl, visivl);
 		try {
 			subBoardService.insert(subBoard);
 		} catch (Exception e1) {
@@ -304,9 +278,6 @@ public class SubController {
 			System.out.println("여기옴??!!!! 와야함");
 			return "업로드에 실패하였습니다.";
 		}
-		
-		
-		//SubUpload subUpload = new SubUpload(userNum, board_no, fileRoute1);
 		
 		for(int i =0; i < fileRoute.size(); i++) {
 

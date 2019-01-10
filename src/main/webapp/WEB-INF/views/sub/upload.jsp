@@ -37,7 +37,7 @@
 	var sel_txt = []; //글 배열
 	var rank = []; // 이미지, 글작성 순서 배열
 	var typeq = []; // type 배열
-	var cate = [] ; // 카테고리
+	var cate = '' ; // 카테고리
 	var ranknum =0; // 이미지, 글 작성 번호
 	var typenum = 0; // 이미지, 글 타입
 	var index = 0;  //이미지에 들어갈 ID
@@ -61,31 +61,56 @@
 		var reader;
 		   filesArr.forEach(function(f){
 			if(!f.type.match("image.*")){
-				alert("???????????");
 				alert("확장자는 이미지 확장자만 가능합니다.");
 			}else{
-				rank.push(f);
-				sel_files.push(f);
-				alert("%%%%%%%%%%%%%%%%%%");
+				
+				//var preview = document.getElementById('input_imgs');
+				//var width = preview.clientWidth;
+				//var height = preview.clientHeight;
+				//alert("width : "+ width + ", height: "+ height);
+				
+				//sel_files.push(f);
 				
 				reader = new FileReader();
 				reader.onload = function(e){
-					
-					var html = "<a href=\"javascript:void(0);\" onclick=\"deleteImageAction("+index+")\" id=\"img_id_"+index+"\"><img src=\"" + e.target.result + "\" data-file='"+f.name+"' class='selProductFile' title='Click to remove("+index+")'></a>"
-								+"<br>";
-								
-	                $(".upload_right_cont_enter").append(html);
-					//alert("파일 번호 : " + index );
-					index++;
+					alert("빨리오셈");
+					var image = new Image();
+					image.src = reader.result;
+					image.onload = function(){
+						alert("이미지 위드쓰 : "+image.width+ ", 이미지 헤이트 : "+ image.height);
+						if(image.width >= 600 && image.height >= 600){
+							var html = 		"<a href=\"javascript:void(0);\"id=\"img_id_"+index+"\">"
+											+"<img src=\""+ e.target.result + "\" data-file='"+f.name+"'"
+											+"class='selProductFile' title='Click to remove("+index+")'>"
+											+"<div id='upload_img_clear' onclick=\"deleteImageAction("+index+")\">"
+											+"<i class='xi-close'></i>"
+											+"</div><br></a>";
+											
+											
+											
+											
+											/* "<a href=\"javascript:void(0);\"
+											+ "id=\"img_id_"+index+"\">"
+											+"<img src=\"" + e.target.result + "\" data-file='"+f.name+"' "+
+											"class='selProductFile' title='Click to remove("+index+")' >"+
+											"<div id='upload_img_clear' onclick=\"deleteImageAction("+index+")\"></div></a>" */
+											
+											
+										
+			                $(".upload_right_cont_enter").append(html);
+			                
+							index++;
+							rank.push(f);
+						}else{
+							alert("600픽셀 이상 이미지를 넣어주세요");
+						}
+						
+					};
 					
 				}
 				reader.readAsDataURL(f);
+				
 			}
-			
-			alert("f는 뭐니? : "+ f);
-			
-			
-			//alert("전체 길이: " + sel_files.length);
 		});
 	}
 	
@@ -134,34 +159,45 @@
 		 }
 		//공개여부 여기까지
 		
-		var catelength = document.getElementsByName("cate").length;
+		var chk = document.getElementsByName("cate");
+		var catelength = chk.length;
+		var checkRow = '';
+		var checkCnt = 0;
 		var catenum=0;
+		var checkLast ='';
+		var rowid = '';
+		var cnt = 0;
 		alert("캌퉤 랭쓰 : "+ catelength);
 			for(var i = 0; i < catelength; i++){
-				if(document.getElementsByName("cate")[i].checked == true){
-					cate.push( document.getElementsByName("cate")[i].value);
-					//var cate2 = document.getElementsByName("cate")[i].value;
-					//cate.concat(cate2);
-					catenum++;
-					for(var j =0; j<cate.length; j++){
-						alert("cate[i] : "+ cate[j]);	
-					}
-					
+				if(chk[i].checked == true){
+					checkCnt++;
+					checkLast = i;
+			
 				}
-				alert("cate.?.length : "+ cate.length);
-				alert("cate "+ cate);
-				
 			}
 			
-			if(catenum <= 0){
+			for(var i = 0; i < catelength; i++){
+				if(chk[i].checked == true){
+					checkRow = chk[i].value;
+					
+					if(checkCnt == 1){
+						rowid += checkRow+",0"; // 1개만 선택했을경우
+					}else{
+						if(i == checkLast){
+							rowid += checkRow; // 마지막 선택일 경우
+						}else{
+							rowid += checkRow+","; //첫번째 선택	
+						}
+					}
+					cnt++;
+					checkRow = '';
+				}
+			}
+			
+			if(rowid == ''){
 				alert("카테고리를 선택하여 주세요");
 				return false;
 			}
-			alert("catelength22 : "+ cate.length);
-			alert("cate : "+ cate);
-		
-		
-
 		
 		//글작성이랑 이미지 한꺼번에 처리
 		
@@ -192,16 +228,16 @@
 		alert("ccl: " + cclstring);
 		//dropdown2_ccl
 		var title = document.getElementById("upload_title").value;
+		
 		if(title == ""){
 			alert("제목을 입력해 주세요.");
 			return false;
 		}
-		alert("title : " + title);
-		alert("안녕???" + form);
+		
+
 		var formData = new FormData(form);
-		alert("formData: "+formData);
 		
-		
+		formData.append('catego', rowid);
 		
 		for (var index1 = 0; index1 < Object.keys(sel_files).length; index1++){
 			//업로드 이미지 formData에 값 넣기
@@ -256,12 +292,14 @@
 			formData.append('txt', sel_txt[i]);	//글작성
 		}
 		
-		alert("cate 는 정상적이나? : "+ cate);
-		formData.append('cate', cate);
+		
 		formData.append('visib', visib);//공개여부
 		formData.append('title', title);//제목
 		formData.append('ccl',cclstring);//ccl
-		
+		/* document.write("title : " + typeof title + "<br>" +
+						"visib : " + typeof visib + "<br>" + 
+						"ccl : " + typeof cclstring + "<br>" +
+						"txt : " + typeof sel_txt + "<br>" ); */
 		
 		$.ajax({
             type : 'post',
@@ -272,13 +310,13 @@
             processData : false,
             contentType : false,
             success : function(html) {
-            	if(html == -1){
+            	/* if(html == -1){
             		alert('jpg, gif, png, bmp 확장자만 업로드 가능합니다.');
             	}else if(html == -2){
             		alert('파일이 10MB를 초과하였습니다.')
             	}else{
             		alert("파일 업로드하였습니다.");
-            	}
+            	} */
             },
             error : function(error) {
                 alert("파일 업로드에 실패하였습니다.");
@@ -414,8 +452,6 @@
 		fileArr.forEach(function(f){
 		if(!f.type.match("image.*")){
 			alert("확장자는 이미지 확장자만 가능합니다.");
-			alert("???????????11111111.");
-			alert("sel_file 커버11 : "+ sel_file);
 		}
 		
 		else{
@@ -456,23 +492,27 @@
 	function tagEnter(){
 		//엔터, 스페이스바, 탭 을 누를시 함수 시작됨
 		var tag = document.getElementById("upload_tag").value;
-		if (tag == ''){
+		if (tag.trim() == ''){
 			alert("어머나 이러지마세요");
 			return false;
+		}else{
+			var tagnum =  		
+				"<li id='tagli"+tagnum1+"'>"
+				+ "#" + tag
+				+ "<span id='deldeltag"+tagnum1+"'class='upload_tag_clear'>"
+				+ "<i class='xi-close-min' id='tagi"+tagnum1+"' onclick='deltag("+tagnum1+")'>"
+				+ "</i>"
+				+ "</span>"
+				+ "</li>";
+				
+			$(".putTag").append(tagnum);
+			sel_tag.push(tag);
+			tagnum1++;
+			//alert("hihi");
 		}
 		
-		var tagnum =  		
-					"<li id='tagli"+tagnum1+"'>"
-					+ "#" + tag
-					+ "<span id='deldeltag"+tagnum1+"'class='upload_tag_clear'>"
-					+ "<i class='xi-close-min' id='tagi"+tagnum1+"' onclick='deltag("+tagnum1+")'>"
-					+ "</i>"
-					+ "</span>"
-					+ "</li>";
-					
-		$(".putTag").append(tagnum);
-		sel_tag.push(tag);
-		tagnum1++;
+		
+		document.getElementById("upload_tag").value = '';
 	}
 	
 	function deltag(tagnum1){
@@ -583,12 +623,12 @@
                           <dt><a href="#" style="padding-top:4px;"><option id="person" value="2">카테고리 선택 (최대 2개)</option></a></dt>
                           <dd>
                             <ul class="dropdown2_category">
-                              <li><label><input type="checkbox" name="cate" value="0"/>편집디자인</label></li>
-                              <li><label><input type="checkbox" name="cate" value="1"/>일러스트레이션</label></li>
-                              <li><label><input type="checkbox" name="cate" value="2"/>포토그래피</label></li>
-                              <li><label><input type="checkbox" name="cate" value="3"/>타이포그래피</label></li>
-                              <li><label><input type="checkbox" name="cate" value="4"/>산업디자인</label></li>
-                              <li><label><input type="checkbox" name="cate" value="5"/>UI/UX</label></li>
+                              <li><label><input type="checkbox" name="cate" value="1"/>편집디자인</label></li>
+                              <li><label><input type="checkbox" name="cate" value="2"/>일러스트레이션</label></li>
+                              <li><label><input type="checkbox" name="cate" value="3"/>포토그래피</label></li>
+                              <li><label><input type="checkbox" name="cate" value="4"/>타이포그래피</label></li>
+                              <li><label><input type="checkbox" name="cate" value="5"/>산업디자인</label></li>
+                              <li><label><input type="checkbox" name="cate" value="6"/>UI/UX</label></li>
                             </ul>
                           </dd>
                         </dl>

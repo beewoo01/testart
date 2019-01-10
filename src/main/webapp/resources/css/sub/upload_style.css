@@ -52,7 +52,7 @@ body {background-color:#efefef; width:100%;}
     width: 100%;
     height: 46px; 
     -webkit-appearance: none; -moz-appearance: none; appearance: none; /* 기존 화살표 숨기기 */
-    background-image: url('../../images/btn_down.png') ;
+    background-image: url('../../../artpie/img/btn_down.png') ;
     background-repeat: no-repeat; 
     background-position: calc(100% - 1em) 50%; /* 화살표 아이콘 추가 */     
     background-size: 12px; 
@@ -113,7 +113,7 @@ body {background-color:#efefef; width:100%;}
     background-color: transparent;
     outline: none; font-family: inherit; /* 폰트 상속 */ 
     -webkit-appearance: none; -moz-appearance: none; appearance: none; /* 기존 화살표 숨기기 */
-    background: url('../../images/btn_down.png') ;
+    background: url('../../../artpie/img/btn_down.png') ;
     background-repeat: no-repeat; 
     background-position: calc(100% - 1em) 50%; /* 화살표 아이콘 추가 */     
     background-size: 12px; 
@@ -124,10 +124,7 @@ body {background-color:#efefef; width:100%;}
 .upload_left > li:nth-child(3) {} 
 
 .selectbox_ccl {width:100%;float:right; margin-right:1em; box-sizing: border-box; }
-input:focus::-webkit-input-placeholder { color: transparent; } 
-input:focus::-moz-placeholder { color: transparent; } 
-input:focus:-ms-input-placeholder { color: transparent; } 
-input:focus::-ms-input-placeholder { color: transparent; }
+
   .dropdown_ccl {
     width: 100%;
     margin: 0px;
@@ -166,7 +163,7 @@ input:focus::-ms-input-placeholder { color: transparent; }
     width: 100%;
     height: 46px; font-weight: bold;
     -webkit-appearance: none; -moz-appearance: none; appearance: none; /* 기존 화살표 숨기기 */
-    background-image: url('../../images/btn_down.png') ;
+    background-image: url('../../../artpie/img/btn_down.png') ;
     background-repeat: no-repeat; 
     background-position: calc(100% - 1em) 50%; /* 화살표 아이콘 추가 */     
     background-size: 12px; 
@@ -288,9 +285,10 @@ input:focus::-ms-input-placeholder { color: transparent; }
 
     /*이미지업로드 및 텍스트입력 후*/
     .upload_right_cont_enter {}
-    .upload_img_upload { width:100%; margin-bottom:2em; border:1px dotted #999999; position: relative; }
+    .upload_img_upload { width:800px; margin-bottom:2em; border:1px dotted #999999; position: relative; }
     .upload_img_upload:hover {border:1px solid #ffb82c;}
-    .upload_img_upload img {width:auto; max-width: 100%; height: auto;  }
+    .upload_right_cont_enter img {width:auto; max-width: 100%; height: auto; display:block;}
+
 
     /*업로드한 이미지 삭제버튼*/
     #upload_img_clear {cursor: pointer; position: absolute; top:2%; right:2%;}
@@ -303,7 +301,7 @@ input:focus::-ms-input-placeholder { color: transparent; }
     .upload_txt_upload ul {width:90%; text-align: center; }
     .upload_txt_upload ul li {display:inline-block; text-align: center; margin-right:0.5em;cursor: pointer; }
     .upload_txt_upload ul li:last-child {margin-right:0;}
-    .upload_txt_upload textarea { text-align: center; width:100%; margin-bottom:1em; border:none; color:#999999; overflow:auto; }
+    .upload_txt_upload textarea { text-align: center; width:calc(100% - 2em); margin-bottom:1em; border:none; color:#999999; overflow:auto; }
         .upload_txt_upload textarea:focus {outline: 0 none;color:#000; }
 
 
