@@ -64,13 +64,6 @@
 				alert("확장자는 이미지 확장자만 가능합니다.");
 			}else{
 				
-				//var preview = document.getElementById('input_imgs');
-				//var width = preview.clientWidth;
-				//var height = preview.clientHeight;
-				//alert("width : "+ width + ", height: "+ height);
-				
-				//sel_files.push(f);
-				
 				reader = new FileReader();
 				reader.onload = function(e){
 					alert("빨리오셈");
@@ -79,12 +72,21 @@
 					image.onload = function(){
 						alert("이미지 위드쓰 : "+image.width+ ", 이미지 헤이트 : "+ image.height);
 						if(image.width >= 600 && image.height >= 600){
-							var html = 		"<a href=\"javascript:void(0);\"id=\"img_id_"+index+"\">"
+							var html = 		/*  "<a href=\"javascript:void(0);\"id=\"img_id_"+index+"\">"
 											+"<img src=\""+ e.target.result + "\" data-file='"+f.name+"'"
 											+"class='selProductFile' title='Click to remove("+index+")'>"
 											+"<div id='upload_img_clear' onclick=\"deleteImageAction("+index+")\">"
 											+"<i class='xi-close'></i>"
-											+"</div><br></a>";
+											+"</div><br></a>"; 
+											 */
+											
+											
+											"<div class='upload_img_upload' id=\"img_id_"+index+"\">"
+											+"<img src=\""+ e.target.result +"\" data-file='"+f.name+"'>"
+											+"<div id='upload_img_clear' title='Click to remove' onclick=\"deleteImageAction("+index+")\">"
+											+"<i class='xi-close'>"
+											+"</i></div>"
+											+"</div>";
 											
 											
 											

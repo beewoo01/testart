@@ -13,6 +13,18 @@
 		<org.aspectj-version>1.6.10</org.aspectj-version>
 		<org.slf4j-version>1.6.6</org.slf4j-version>
 	</properties>
+	
+	<!-- 추가한것1 -->
+	
+	<parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>1.5.4.RELEASE</version>
+        <relativePath /> <!-- lookup parent from repository -->
+    </parent>
+    
+    <!-- 여기까지 추가1 -->
+
 	<dependencies>
 		<!-- Spring -->
 		<dependency>
@@ -173,8 +185,86 @@
 		 	<artifactId>json-simple</artifactId>
 		 	<version>1.1</version>
 		 </dependency>
-
+		 
+		 
+		 <!-- Spring Security -->
+		<dependency>
+			 <groupId>org.springframework.security</groupId>
+			 <artifactId>spring-security-core</artifactId>
+			 <version>5.0.11.RELEASE</version>
+			 <type>jar</type>
+			 <scope>compile</scope>
+		</dependency>
 		
+		<dependency>
+			 <groupId>org.springframework.security</groupId>
+			 <artifactId>spring-security-web</artifactId>
+			 <version>5.0.11.RELEASE</version>
+			 <type>jar</type>
+			 <scope>compile</scope>
+		</dependency>
+		<dependency>
+			 <groupId>org.springframework.security</groupId>
+			 <artifactId>spring-security-config</artifactId>
+			 <version>5.0.11.RELEASE</version>
+			 <type>jar</type>
+			 <scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-taglibs</artifactId>
+			<version>5.0.11.RELEASE</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+		
+		
+		<!-- 추가한것 2 -->
+		<dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+ 
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
+ 
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+ 
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+ 
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+ 
+        <dependency>
+            <groupId>org.thymeleaf.extras</groupId>
+            <artifactId>thymeleaf-extras-springsecurity4</artifactId>
+        </dependency>
+ 
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        
+        <!-- 여기까지 추가한것 2 -->
+
 		      
 	</dependencies>
     <build>

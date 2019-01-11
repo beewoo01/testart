@@ -1,9 +1,13 @@
 package net.my.mybatis;
 
+import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 import net.my.user.User;
 
+@Mapper
 public interface UserMapper {
 	
 	public int insert(User user);
@@ -15,5 +19,6 @@ public interface UserMapper {
 	public void changePasswd(User user);
 	
 	public void byeMember(User user);
-
+	
+	
 }
